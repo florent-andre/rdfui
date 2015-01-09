@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RDFui demo : filter and dereference</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/angular-rdf-ui.min.css">
+  <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
+  <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+  <link rel="stylesheet" href="css/demo.css">
+  
+</head>
+<body ng-app="demoApp" ng-controller="MainCtrl">
+
+  <div class="container">
+    <h1 class="page-header">RDFui demo : filter and dereference</h1>
+    <a href="index.html"><i class="glyphicon glyphicon-chevron-left"></i> Back to overview page</a>
+
+    <div class="row" ng-controller="globalCtrl">
+    
+        <rdfui-graph graph-uri="http://test.com/graphDereference"
+                     rdfui-metadata
+                     >
+            
+            <!-- TODO :: rename this copy controller into "filterController" or something like that -->
+            <div class="col-md-5" ng-controller="MainCtrl">
+            
+                <rdfui-subjects 
+                    graph-data="graph"
+                    filter="treeFilter" 
+                    template-name="tree">
+	             </rdfui-subjects>
+            </div>
+            
+            <div class="col-md-5">
+                
+                    <rdfui-mainlang></rdfui-mainlang>
+                    <rdfui-langdisplayed></rdfui-langdisplayed>
+                    <!-- TODO : when rdfui-subject element defined, create a rdfui-subject-id element for displaying the id (with a link or not, an absolute or relative,...) -->
+                    <p>{{currentNode['@id']}}</p>
+                    <!-- TODO : idem for the type of the entity -->
+                    <p>{{currentNode['@type']}}</p>
+                    
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="prefLabel"
+                        property-label="perfLabels"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>
+                    
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="altLabel"
+                        property-label="altLabels"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>
+                    
+                    <p>TODO : manage la levée de l'erreur lorsque pas définit dans le graphContext</p>
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="hiddenLabel"
+                        property-label="hidden Labels"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>
+                    
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="http://www.w3.org/2008/05/skos-xl#prefLabel"
+                        property-label="XL preflabel"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        template-name="blank"
+                        >
+                            <h2>{{propertyLabel}}</h2>
+                            <rdfui-objects ng-model="objects"
+                                           objects="objects"
+                                           template-name="blank">
+                                <ol>
+                                    <li ng-repeat="obj in objects">
+                                        <rdfui-object 
+                                                      object="obj"
+                                                      template-name="full"
+                                                      maxdfdlevel="2"
+                                                      >
+                                                    <rdfui-graph graph-uri="{{object}}"
+                                                                 drf-type="local"
+                                                        >
+                                                        <rdfui-subjects graph-data="graph"
+                                                                        template-name="blank"
+													                    >
+													         <!-- TODO : create a "all" template for the subjects contains a forEach and create rdfui-subject -->
+													        <rdfui-subject entity="$subjects[0]">
+													           
+													           <div ng-repeat="prop in $properties">
+	
+		                                                            <rdfui-property ng-model="entity" 
+	                                                                           subject="entity"
+	                                                                           property-name="{{prop}}"
+	                                                                           property-label="{{prop}}"
+	                                                                           langs="graphCtrl.lang.available"
+	                                                                           selectedLang="graphCtrl.lang.main"
+	                                                                           template-name="blank"
+	                                                                           >
+	                                                                   <rdfui-objects ng-model="objects"
+	                                                                                  objects="objects"
+	                                                                                  template-name="blank">
+<!-- 	                                                                       <ol> -->
+<!-- 	                                                                           <li ng-repeat="obj in objects"> -->
+	                                                                               <rdfui-object ng-repeat="obj in objects"
+											                                                      object="obj"
+											                                                      template-name="full"
+											                                                      maxdfdlevel="2"
+											                                                      >
+											                                           <div><b>{{propertyCtrl.propertyLabel}} : </b>
+												                                           <div ng-if="objectsCtrl.hasType.resource">
+												                                             this is a ressource :: TODO : manage the dereferencing or not, have a look to rdfui-resource-view directive
+												                                           </div>
+												                                           <div ng-if="objectsCtrl.hasType.literal">
+	<!-- 											                                             <p>this is a literal</p> -->
+												                                                 <div ng-if="objectsCtrl.hasType.literalType.plain">
+	<!-- 											                                                     <p>this is a plain literal</p> -->
+												                                                     {{object['@value']}} <button class="btn btn-scent" >{{object['@language']}}</button>
+												                                                 </div>
+												                                                 <div ng-if="objectsCtrl.hasType.literalType.typed">
+	<!-- 											                                                     <p>this is a typed literal</p> -->
+												                                                     {{object}}
+	                                                                                             </div>
+												                                           </div>
+											                                           </div>
+											                                       </rdfui-object>
+<!-- 	                                                                           </li> -->
+<!-- 	                                                                       </ol> -->
+	                                                                   
+	                                                                   </rdfui-objects>
+	                                                                   
+	                                                                   
+	                                                               </rdfui-property>												               
+														               
+													           </div>
+													           
+													        </rdfui-subject>
+                                                            
+                                                        </rdfui-subjects>
+                                                    </rdfui-graph>
+                                        </rdfui-object>
+                                    </li>
+                                </ol>
+	                            
+
+                        
+                            </rdfui-objects>
+
+                        </rdfui-property>
+                       
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="scopeNote"
+                        property-label="Scope Note"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>    
+                    
+                    
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="broader"
+                        property-label="broader"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>
+                        
+                     <rdfui-property ng-model="currentNode" 
+                            subject="currentNode"
+                            property-name="narrower"
+                            property-label="narrower"
+                            langs="lang.available"
+                            selectedLang="lang.main"
+                            ></rdfui-property>
+            
+            
+             </div>   
+        </rdfui-graph>
+        
+    </div>
+
+  </div>
+
+  <!-- JavaScript -->
+  <!--[if IE 8]>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.min.js"></script>
+  <![endif]-->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="bower_components/angular-ui-select/dist/select.js"></script>
+  <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="dist/angular-rdf-ui.js"></script>
+  <script src="mockData/graphValues.js"></script>
+  <script src="js/groups.js"></script>
+</body>
+</html>

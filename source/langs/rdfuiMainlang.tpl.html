@@ -1,0 +1,13 @@
+
+<div>
+    <p>Main language selection : </p>
+    <ui-select ng-model="graphCtrl.lang.main" 
+               class="col-md-5" 
+               
+               >
+        <ui-select-match placeholder="Select a lang in the list or search for...">{{graphCtrl.lang.main}}</ui-select-match>
+            <ui-select-choices repeat="lang in graphCtrl.lang.available">
+                <div ng-bind-html="lang | highlight: $select.search"></div>
+        </ui-select-choices>
+    </ui-select>
+</div>

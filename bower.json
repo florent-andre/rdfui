@@ -1,0 +1,44 @@
+{
+  "name": "angular-rdf-ui",
+  "version": "0.1",
+  "homepage": "https://github.com/JimLiu/angular-ui-tree",
+  "authors": [
+    "Florent André <https://github.com/florent-andre>",
+  ],
+  "description": "Rdfui directives for the angular.js",
+  "main": [
+    "dist/angular-rdf-ui.js",
+    "dist/angular-rdf-ui.min.css"
+  ],
+  "keywords": [
+    "angular",
+    "NestedSortable",
+    "sortable",
+    "nested",
+    "drag",
+    "drop",
+    "tree",
+    "node"
+  ],
+  "dependencies": {
+    "angular": ">= 1.2.0",
+    "es5-shim": "2.3.0",
+    "jsonld": "~0.3.4",
+    "angular-ui-select": "~0.8.3",
+    "angular-sanitize": "~1.3.3",
+    "angular-ui-tree" : "2.1.5"
+  },
+  "devDependencies": {
+    "angular": ">= 1.2.0",
+    "bootstrap": "~3.1.0",
+    "jquery": ">=1.10.x",
+    "jasmine-jquery": "~1.0.0",
+    "angular-mocks": "~1.3.3"
+  },
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

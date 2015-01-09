@@ -1,0 +1,11 @@
+<h3> Browse
+   <a href="" class="btn btn-default pull-right" ng-click="collapseAll()">Collapse all</a>
+   <a href="" class="btn btn-default pull-right" ng-click="expandAll()">Expand all</a>
+</h3>
+ 
+<div ui-tree id="tree-root">
+    <ol ui-tree-nodes="" ng-model="graphTree">
+        <li ng-repeat="node in graphTree" ui-tree-node ng-include="'subjects/rdfuiSubjects.tree.node.tpl.html'"></li>
+    </ol>
+</div>
+<div ng-transclude></div>

@@ -1,0 +1,19 @@
+<div ui-tree-handle  class="tree-node tree-node-content">
+	<a class="btn btn-success btn-xs" 
+	   ng-if="node.$_children && node.$_children.length > 0" 
+	   data-nodrag 
+	   ng-click="toggle(this)">
+	    <span class="glyphicon" 
+	          ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}">
+	    </span>
+	</a>
+	<span ng-repeat="v in getLiteralValues(node['@id'])"
+	      data-nodrag
+	      ng-click="setCurrentNode(node['@id'])">{{ v['@value'] || '--undefined--' }}</span>
+	<a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
+	<a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+<ol ui-tree-nodes="" ng-model="node.$_children" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.$_children" ui-tree-node ng-include="'./tpl/nodes_renderer.html'">
+    </li>
+</ol>

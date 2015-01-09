@@ -1,0 +1,32 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.log
+
+# Project dependencies #
+########################
+node_modules
+
+# IDE files #
+.idea
+*.iml
+
+# bower dependencies #
+######################
+demo/bower_components/
+
+# build and distribution related folders #
+#########################
+
+dist/
+demo/dist
+build/
+
+# TODO : improve the building script to put this in a more "standard" folder
+demo/mockData/

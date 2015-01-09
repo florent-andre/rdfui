@@ -1,0 +1,36 @@
+{
+    "bitwise": true,
+    "immed": true,
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonew": true,
+    "trailing": true,
+    "maxlen": 200,
+    "boss": true,
+    "eqnull": true,
+    "expr": true,
+    "globalstrict": true,
+    "laxbreak": true,
+    "loopfunc": true,
+    "sub": false,
+    "undef": true,
+    "curly": true,
+    "browser": true,
+    "curly": true,
+    //"indent": 2, --> a remplacer par ce module : https://github.com/jscs-dev/node-jscs
+    //a remettre par la suite (lorsque le code de "base" supprimé
+    //"undef":true,
+    //"unused":true,
+    "globals": {
+        "jQuery": true,
+        "$": true,
+        "_": true,
+        "angular": true,
+        "module": true,
+        "require": true,
+        "IE": true,
+        "console": true,
+	"jsonld": true
+    }
+}

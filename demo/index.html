@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RDFui demo</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/angular-rdf-ui.min.css">
+  <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
+  <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+  <link rel="stylesheet" href="css/demo.css">
+  
+</head>
+<body ng-app="demoApp">
+
+    
+  
+  <div class="container">
+
+    <div class="jumbotron">
+      <h1>RdfUi component</h1>
+      <p class="lead">Make rdf easy for user.</p>
+      <p><a class="btn btn-lg btn-success" href="https://github.com/JimLiu/angular-ui-tree" role="button">Code on GitHub</a></p>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Examples</h2>
+        <ol>
+<!--           <li><a href="tree.html">Unlimited nesting</a></li> -->
+<!--           <li><a href="tree-horizontal.html">Above with horizontal sorting</a></li> -->
+<!--           <li><a href="trees.html">Connected trees</a></li> -->
+          <li><a href="groups.html">Groups &amp; Categories</a></li>
+<!--           <li><a href="filter.html">Filter</a></li> -->
+        </ol>
+      </div>
+    </div>
+
+    <div class="row">
+<!--         <h1>new row for tests</h1> -->
+        <rdfui-graph graph-uri="http://test.com/oneLangGraph">
+            
+            
+<!--             <h3>{{dir.name}}</h3> -->
+<!--             <p>{{languages}}</p> -->
+<!--             <i>{{dir.graphUri}}</i> -->
+<!--             <p>{{dir.list}}<p> -->
+<!--             <p>{{dir.test.val}}</p> -->
+        
+         
+            <div class="col-md-5">
+                    <h3>Tree view
+                      <a href="" class="btn btn-default pull-right" ng-click="collapseAll()">Collapse all</a>
+                      <a href="" class="btn btn-default pull-right" ng-click="expandAll()">Expand all</a>
+                    </h3>
+                    
+                    <div ui-tree id="tree-root">
+                        <ol ui-tree-nodes="" ng-model="graphTree">
+                            <li ng-repeat="node in graphTree" ui-tree-node ng-include="'./tpl/nodes_renderer.html'"></li>
+                        </ol>
+                    </div>
+            </div>
+            
+            
+            <div class="col-md-5">
+                    <rdfui-mainlang></rdfui-mainlang>
+                    <rdfui-langdisplayed></rdfui-langdisplayed>
+                    
+                    <!-- TODO : when rdfui-subject element defined, create a rdfui-subject-id element for displaying the id (with a link or not, an absolute or relative,...) -->
+                    <p>{{currentNode['@id']}}</p>
+                    
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="prefLabel"
+                        property-label="perfLabels"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>
+                    
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="altLabel"
+                        property-label="altLabels"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>
+                    
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="hiddenLabel"
+                        property-label="hidden Labels"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>
+                    
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="scopeNote"
+                        property-label="Scope Note"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>    
+                    
+                    
+                    <rdfui-property ng-model="currentNode" 
+                        subject="currentNode"
+                        property-name="broader"
+                        property-label="broader"
+                        langs="lang.available"
+                        selectedLang="lang.main"
+                        ></rdfui-property>
+                        
+                     <rdfui-property ng-model="currentNode" 
+				            subject="currentNode"
+				            property-name="narrower"
+				            property-label="narrower"
+				            langs="lang.available"
+				            selectedLang="lang.main"
+				            ></rdfui-property>
+            
+            
+             </div>   
+        </rdfui-graph>
+		
+	</div>
+
+      
+   
+    </div>
+    
+  <!-- JavaScript -->
+  <!--[if IE 8]>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.min.js"></script>
+  <![endif]-->
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="bower_components/angular-ui-select/dist/select.js"></script>
+  <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="dist/angular-rdf-ui.js"></script>
+  <script src="mockData/graphValues.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>

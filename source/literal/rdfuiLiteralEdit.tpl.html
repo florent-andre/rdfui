@@ -1,0 +1,20 @@
+
+<div ng-form name="literalForm">
+	<input type="text" 
+	   ng-model="literal['@value']"
+	   ng-model-onblur
+	   required
+	   >
+	   </input>
+	   
+	   <select ng-model="literal['@language']" 
+	   		   ng-options="l for l in langs" 
+	   		   required="required">
+	   		<option value="">Select a language</option>
+	   </select>
+	   
+	   <span ng-show="literalForm.$invalid">Fill the label and select a lang</span>
+	   
+		<button class="btn btn-scent" >{{literal['@language']}}</button>
+
+</div>

@@ -1,0 +1,38 @@
+
+<h2>{{propertyLabel}}</h2>
+<ul>
+	<li ng-repeat="obj in objects">
+	   
+		<div ng-if="!isResource">
+		<!-- @TODO : retrive property and lang from the parent object -->
+			<rdfui-literal-edit 
+			     property="prefLabel"
+			     ng-model="obj" 
+			     langs="langs" 
+			></rdfui-literal-edit>
+		</div>
+		
+		 
+		<div ng-if="isResource">
+			<rdfui-resource-view uri="{{obj}}"></rdfui-resource-view>
+		</div>
+		 
+	</li>
+</ul>
+    
+<div ng-if="showSelector">
+    <p>Selected: {{person.selected}}</p>
+    <ui-select ng-model="person.selected" class="col-md-5" on-select="selectionDone($item, $model)">
+        <ui-select-match placeholder="Select a concept in the list or search prefLabel...">{{$select.selected.$literals[0]}}</ui-select-match>
+        <ui-select-choices repeat="person in values | propsFilter: {$literals: $select.search}">
+            <div ng-bind-html="person.$literals[0] | highlight: $select.search"></div>
+            <small>
+<!--               //TODO : display additionnal informations with the use of <rdfui-literal></rdfui-literal> -->
+                uri : {{person['@id']}}
+            </small>
+        </ui-select-choices>
+    </ui-select>
+</div>
+
+<input type="button" value="Add new" ng-click="addObject()"></input>
+<div ng-transclude></div>
