@@ -3,7 +3,7 @@
 (function () {
   'use strict';
   // The source file for this constants values is in rdfui/tests/utils/graphValues.js
-  angular.module('rdf.ui.tests.value', [])
+  angular.module('rdf.ui.tests.value')
     .constant('graphOneLang', {
       metadata : {
     	  "@context": {
