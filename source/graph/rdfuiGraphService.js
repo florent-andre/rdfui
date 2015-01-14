@@ -156,6 +156,63 @@
         
         var graphCache = {};
         
+        graphService._postProcess = function(data,parameters,graphUri){
+            dataCache.push(data);
+            graphCache[parameters.scheme+graphUri] = data;
+            
+            //do normalisation of the graph serialization with adding an @graph property if not present
+            if(!data['@graph']){
+                
+                var graphObject = {};
+                Object.keys(data).forEach(function(k){
+                    //we keep this two properties
+                    if(! (k == "@context" || k == "@graph")){
+                      //we move the others
+                        graphObject[k] = data[k];
+                        delete data[k];
+                    }
+                    
+                });
+                
+                //we finally build the @graph property :
+                data['@graph'] = [graphObject];
+            }
+        };
+        
+        //TODO : remove getGraphData and then rename getLazyGraph into getGraphData
+        graphService.getLazyGraph = function(/**String*/graphUri, /*graphQueryParameter*/ parameters, /*boolean*/ lazy){
+            if(!parameters && !lazy){
+                parameters = {
+                        scheme : "", //the default one 
+                        queryFn : function(/*string*/ uri){
+                            return {
+                                method : "GET",
+                                url : rdfuiConfig.server+"skosifier?uri="+uri,
+                            };
+                        }
+                };
+            }
+            
+            var $dfd = $q.defer();
+            graphInit.push($dfd);
+            var uri = graphUri.replace(/ /g,"%20");
+            
+            if(lazy && !parameters){
+                var data = {};
+                //self._postProcess(data,parameters,graphUri);
+                $dfd.resolve(data);
+                return $dfd.promise;
+            }
+            
+            $http(parameters.queryFn(graphUri)).success(function(data){
+                self._postProcess(data,parameters,graphUri);
+                $dfd.resolve(data);
+            });
+            
+            return $dfd.promise;
+            
+        };
+        
         graphService.getGraphData = function(/**String*/graphUri, /*graphQueryParameter*/ parameters){
             
             if(!parameters){
@@ -166,9 +223,6 @@
                         }
                 };
             }
-            
-//            console.info("======= dans la termino factory ========");
-//            console.log($http.defaults.headers);
             
             var $dfd = $q.defer();//$.Deferred();
             
@@ -181,6 +235,7 @@
                 url : parameters.endpointFn(uri), //rdfuiConfig.server+"skosifier?uri="+uri,
                 //headers: {"Accept":"application/json-ld"}
             }).success(function(data){
+                //TODO : use self._postProcess(data);
                 dataCache.push(data);
                 graphCache[parameters.scheme+graphUri] = data;
                 
@@ -201,108 +256,6 @@
                     //we finally build the @graph property :
                     data['@graph'] = [graphObject];
                 }
-                
-                //add the watch on this
-                $rootScope.$watch(
-                        function(){
-                            return getWatchDog(0);
-                        },
-                        function(newValue,oldValue){
-                            
-//                            if(!oldValue) {return ;}
-//                            
-//                            var changes = {added : [], removed : [], modified : []};
-//                            
-//                            var oldGraph = oldValue['@graph'];
-//                            var newGraph = newValue['@graph'];
-//                            
-//                            if(oldGraph.length != newGraph.length ){
-//                                console.warn("TODO : implement this !!!");
-//                                if(newGraph.length > oldGraph.length){
-//                                    console.warn("a new item is added");
-//                                }else{
-//                                    console.warn("an item removed");
-//                                }
-//                            }
-//                            
-//                            //Note :: where we don't do change detection on the order of the items.
-//                            //ordering have to be done outside of this main model, or to be dealed here.
-//                            
-//                            //1) find witch objects in the collection have changed
-//                            newGraph.forEach(function(d,i){
-//                                if(d['@id'] == 'http://www.athenaeurope.org/athenawiki/AthenaThesaurus/AT.1#what'){
-//                                    console.log(d);
-//                                    console.log(oldGraph[i]);
-//                                }
-//                                if(!angular.equals(d,oldGraph[i])){
-//                                    console.log("MMMMMMMMMMMMMMMMMMM");
-//                                    console.log(d);
-//                                    console.log(oldGraph[i]);
-//                                    changes.modified.push([{oldVal : oldGraph[i],
-//                                                            newVal : d,
-//                                                            propChanged : []
-//                                                            }]);
-//                                }
-//                            });
-                            
-                            console.warn("TODO : use the .modify function on graph instead of watching, see code beloww");
-                            
-                            /*
-                            var promises = jsonld.promises();
-                            var pold = promises.normalize(oldValue, {format: 'application/nquads'});
-                            var pnew = promises.normalize(newValue, {format: 'application/nquads'});
-                            
-                            $q.all([pold,pnew]).then(function(values){
-                                //console.log(ov[0]);
-                                var diff = JsDiff.diffLines(values[0], values[1]);
-                                console.log(diff);
-                                
-                                diff = diff.filter(function(d){
-                                    console.log(d);
-                                    return d.added || d.removed;
-                                });
-                                console.log(diff);
-                                
-                                graphService.buildChanges(diff);
-                                
-                            });*/
-                            
-//                            jsonld.expand(newValue, function(err, nv) {
-//                                    jsonld.expand(oldValue,function(err,ov){
-//                                        var diff = JsDiff.diffLines(nv, ov);
-//                                        console.log(diff);
-//                                    });
-//                                });
-//                            
-//                            // normalize a document
-//                            jsonld.normalize(newValue, {format: 'application/nquads'}, function(err, normalized) {
-//                              // normalized is a string that is a canonical representation of the document
-//                              // that can be used for hashing
-//                                console.log(arguments);
-//                            });
-    //
-//                            // serialize a document to N-Quads (RDF)
-//                            jsonld.toRDF(newValue, {format: 'application/nquads'}, function(err, nquads) {
-//                              // nquads is a string of nquads
-//                                console.log(arguments);
-//                            });
-                            //2) find witch properties in the changed objects are differents
-//                            changes.modified.forEach(function(d){
-//                                //TODO : count the number of properties of each object to detect delete from the old one
-//                                /*
-//                                --> en fait, plus rapide :: transformer les 2 object en array de string type "triples"
-//                                et comparer ces deux arrays de string avec des contains.
-//                                comme ca on a de manière immédiate les ajouts / remove
-//                                et pour les modifications :::
-//                                */
-//                                angular.forEach(d.newVal,function(value,key){
-//                                    if(angular.equals(value,d))
-//                                };
-//                            });
-                            console.warn("%%%%%%%%%%%%%%%%%%%%%%%%%%% Faire l'update du graph ici %%%%%%%%%%");
-                            console.log(arguments);
-                        },
-                        true);
                 $dfd.resolve(data);
             });
             

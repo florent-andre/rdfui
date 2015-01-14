@@ -16,10 +16,12 @@
     .directive('rdfuiGraph', ['$compile', function($compile) {
         return {
             restrict: 'E',
-            require: ['?^^rdfuiGraph'], //start searching the optionnal rdfuiGraph controller on the parent DOM node
+            require: ['?^^rdfuiGraph'], //start searching the optional rdfuiGraph controller on the parent DOM node
             scope : {
               graphUri : "@",
-              drfType : "@" //dereference type can be "local" for using the parent graphData or NULL to make a request.
+              drfType : "@", //dereference type can be "local" for using the parent graphData or NULL to make a request.
+              lazyLoading : "@",
+              parameters : "=",
             },
             controller : 'rdfuiGraphCtrl',
             transclude : true,
@@ -42,6 +44,8 @@
                         scope.$parentGraphCtrl = ctrls[0].scope;
                     }
                     
+                    //make the parent scope available throw .$parentScope property
+                    scope.$parentScope = scope.$parent;
                 };
             },
           };

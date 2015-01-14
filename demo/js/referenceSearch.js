@@ -9,7 +9,7 @@
            'ui.select',
            'rdf.ui.tests.value']);
   
-  demoApp.run(function($httpBackend, nafGraph) {
+  demoApp.run(function($httpBackend, nafGraph,lazyOIE,oneTripleOIE) {
 	  
       //queries for the directives template. No mock
       $httpBackend.when('GET', /\/tpl\/*/).passThrough();
@@ -17,6 +17,10 @@
       //queries for the graph's main data
 	  $httpBackend.when('GET', /\/skosifier\?uri=.*/).respond(nafGraph.value);
 	  
+	  
+	  $httpBackend.when('POST', /\graph\/data\/\*\/http:\/\/test\.com\/oie\//).respond(lazyOIE.value);
+	   $httpBackend.when('POST', /\graph\/data\/.*/).respond(lazyOIE.value);
+
 	  //queries for the graph's metadata
 	  //$httpBackend.when('GET', /\/graphs\?scheme=.*/).respond(graphDereference.metadata);
       
@@ -27,9 +31,16 @@
      $scope.test= {};
      $scope.test.value = "%%%%%%%%%%%%%%%%%%% global ctrl test value %%%%%%%%%%%%%";
      
+     $scope.test.filter = null;
+     
      $scope.$on('rdfui.itemSelected',function(event,data){
          console.log("dans le on");
          console.log(arguments);
+         
+         $scope.test.filter = {
+                 "type" : "accept",
+                 "on" : {"property" : "http://dashboard.com/ontology/v0.1#section", "values" : ["http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"]}
+             };
          /**
           * ==> créer un service qui expose la sélection
           puis faire la partie affichage avec filtrage (voir pour la requête coté serveur)
@@ -37,6 +48,8 @@
           puis faire l'affichage du résultat coté détail.
           */
       });
+    
+     
   });
   
   demoApp.controller('FilterCtrl', function($scope) {

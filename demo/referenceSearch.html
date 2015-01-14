@@ -37,6 +37,26 @@
              </div>   
         </rdfui-graph>
         
+        <rdfui-graph graph-uri="http://test.com/oie" lazy-loading="true">
+        	
+        	{
+              "type" : "accept",
+              "on" : {"property" : "http://dashboard.com/ontology/v0.1#section", "values" : ["http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"]}
+          }
+          ====
+          {{$parentScope.test}}
+          =====
+          {{graph}}
+          =====
+        	<rdfui-subjects graph-data="graph" filter="$parentScope.test.filter">
+        		{{$subjects}}
+        		<div ng-repeat="node in $subjects">
+        			<rdfui-subject entity="node">
+        			
+        			</rdfui-subject>
+        		</div>
+        	</rdfui-subjects>
+        </rdfui-graph>
     </div>
 
   </div>

@@ -20,7 +20,7 @@
             scope : {
               graphData : "=",
               templateName : "=",
-              filter : "="
+              filter : "=",
             },
             controller : 'rdfuiSubjectsCtrl',
             transclude : true,

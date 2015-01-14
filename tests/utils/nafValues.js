@@ -1,4 +1,5 @@
 /**
+ * Graph presents in this file : nafGraph, lazyOIE, oneTripleOIE
  */
 (function () {
   'use strict';
@@ -21592,5 +21593,2946 @@
   ]
 }
     }) 
+    
+    
+    //query to get this result : curl --user admin:admin -H "Accept: application/json-ld" -H "Content-type: application/json" --data @simpleFilter.json "http://localhost:8080/graph/data/*/http://dasboard.com/data/oie" > ~/dev/rdfui/tests/utils/lazyOIE.json
+    //TODO : use a more recent version of this extraction
+    .constant('lazyOIE', {
+      metadata : {
+          "@context": {
+                "ConceptScheme": "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+                "creator": {
+                  "@id": "http://purl.org/dc/terms/creator",
+                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                },
+            },
+      },
+      value : {
+        "@context": {
+          "http://dashboard.com/ontology/v0.1#section": {
+            "@type": "@id"
+          }
+        },
+        "@graph": [
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#0005f2b3-b9db-4e22-a490-d9c14cc23b1d",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Demande, déposée auprès du préfet de région, de label attestant de la capacité d'une personne physique ou morale à assurer une ou plusieurs des phases de conseil et d'accompagnement des demandeurs d'emploi et personnes en difficulté d'insertion souhaitant reprendre ou créer une entreprise"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2825-001-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2825"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative aux créateurs et aux repreneurs d'entreprise"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code du travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L5141-5 du Code du travail_x000D_"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Article R5141-34 du Code du travail_x000D_"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "CREER, REPRENDRE"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "28/12/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "29/12/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Petites et moyennes entreprises, commerce, artisanat, professions libérales"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Comptes annuels / audits / droit des sociétés"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Certification des produits ou des processus"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#762d52c3-1d97-43ac-9fce-00452211843d",
+              "http://dashboard.com/ontology/v0.1#60181472-49a2-4d50-97ab-0969de01e4d0",
+              "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0",
+              "http://dashboard.com/ontology/v0.1#15bca1a9-7371-415d-b065-25c1ff9534af",
+              "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378",
+              "http://dashboard.com/ontology/v0.1#957d5613-d01f-40c8-8d5b-8eab97cb295f",
+              "http://dashboard.com/ontology/v0.1#d88347cc-d6cb-4112-90cb-3d2728a1f969",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+              "http://dashboard.com/ontology/v0.1#6f64513f-457c-4580-b360-d4cb902ec16b",
+              "http://dashboard.com/ontology/v0.1#16723b3a-78aa-45d7-a1a5-7b45a4fa7569",
+              "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea",
+              "http://dashboard.com/ontology/v0.1#8cde606e-257f-41b0-bc1d-76ef5d695de3",
+              "http://dashboard.com/ontology/v0.1#a7d625ed-5152-4cf0-96b3-f96156f07ca1",
+              "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+              "http://dashboard.com/ontology/v0.1#d22f61ff-197a-4f9a-aa1f-c7d1d9a7ab61",
+              "http://dashboard.com/ontology/v0.1#4de2089d-3d9d-4f66-a917-1fc059752cb6"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#00074d7b-df83-4351-ba68-de3318dfcddc",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Tenue, par Electricité de France et les entreprises locales de distribution, d'une comptabilité interne qui doit permettre de distinguer la fourniture aux consommateurs finals ayant exercé leur droit de choisir librement leur fournisseur et la fourniture aux consommateurs finals n'ayant pas exercé ce droit, ainsi que les revenus provenant de la propriété des réseaux publics de distribution"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "108-042-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "108"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'électricité et au gaz"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code civil"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L111-84 du code de l'énergie, dans sa rédaction issue de l'ordonnance n° 2011-504 du 9 mai 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "07/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Comptes annuels / audits / droit des sociétés"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Coopération dans le contexte de la vérification des comptes"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#0040f24f-c6d2-4164-9964-38040a858ad9",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Fourniture au salarié, par l'employeur, lors de l'embauche, d'une copie de la déclaration préalable à l'embauche ou de l'accusé de réception"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2847-001-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2847"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à la déclaration préalable à l'embauche"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code du travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L1221-10 du code du travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Article R1221-9 du code du travail, dans sa rédaction issue de l'article 1er du décret n° 2011-681 du 16 juin 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "20/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/08/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Travail, emploi, formation professionnelle"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement de travail / relations de travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Etiquetage informatif à l'attention des tiers"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+              "http://dashboard.com/ontology/v0.1#6f64513f-457c-4580-b360-d4cb902ec16b",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+              "http://dashboard.com/ontology/v0.1#60181472-49a2-4d50-97ab-0969de01e4d0",
+              "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0",
+              "http://dashboard.com/ontology/v0.1#e06a2427-f486-4485-aebf-4fa184381ccb",
+              "http://dashboard.com/ontology/v0.1#762d52c3-1d97-43ac-9fce-00452211843d",
+              "http://dashboard.com/ontology/v0.1#957d5613-d01f-40c8-8d5b-8eab97cb295f",
+              "http://dashboard.com/ontology/v0.1#d88347cc-d6cb-4112-90cb-3d2728a1f969",
+              "http://dashboard.com/ontology/v0.1#15bca1a9-7371-415d-b065-25c1ff9534af",
+              "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378",
+              "http://dashboard.com/ontology/v0.1#8cde606e-257f-41b0-bc1d-76ef5d695de3",
+              "http://dashboard.com/ontology/v0.1#a7d625ed-5152-4cf0-96b3-f96156f07ca1",
+              "http://dashboard.com/ontology/v0.1#d22f61ff-197a-4f9a-aa1f-c7d1d9a7ab61",
+              "http://dashboard.com/ontology/v0.1#4de2089d-3d9d-4f66-a917-1fc059752cb6",
+              "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+              "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea",
+              "http://dashboard.com/ontology/v0.1#16723b3a-78aa-45d7-a1a5-7b45a4fa7569",
+              "http://dashboard.com/ontology/v0.1#12a5d2d3-baae-488e-89f7-3dd145ac73e8"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#00b91f5e-53bb-4459-a44e-a29ed49ca896",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Demande de déclaration d'utilité publique, pour les installations autorisées, aménagées et exploitées directement par les sociétés d'économie mixte ou les collectivités locales ou leurs groupements,"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2844-013-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2844"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'énergie"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'énergie"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L531-6 du code de l'énergie, dans sa rédaction issue de l'ordonnance n° 2011-504 du 9 mai 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "18/07/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Comptes annuels / audits / droit des sociétés"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Autres types d'obligation"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#01b1e4dd-b9f4-468e-8e51-aa807a0a93c2",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Soumission à l'approbation de la Commission de régulation de l'énergie, préalablement à leur mise en Suvre, des règles de présentation des programmes et des propositions d'ajustement, et des critères de choix entre les propositions d'ajustement adressées au gestionnaire du réseau public de transport d'électricité"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "108-094-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "108"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'électricité et au gaz"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code civil"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L321-10 (dernier alinéa) du code de l'énergie, dans sa rédaction issue de l'ordonnance n° 2011-504 du 9 mai 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "05/07/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Comptes annuels / audits / droit des sociétés"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#01b92069-6fdb-4e28-a517-506fa007c62d",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Communication, par les exploitants d_x0019_installations nucléaires de base, des copies de tous documents comptables ou pièces justificatives, à sa demande, à l'autorité administrative concernée"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2472-054-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2472"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative aux installations nucléaires de base et au contrôle, en matière de sûreté nucléaire, du transport de substances radioactives"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Dernier alinéa de l'article L594-4 du code de l'environnement, dans sa rédaction issue de l'article 3 de l'ordonnance n° 2012-6 du 5 janvier 2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "04/04/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "07/01/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Ecologie, développement durable"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'écologie, du développement durable, des transports et du logement"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#01ce1660-923e-40ab-b70e-0452dbc186f7",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Etablissement, tenue à jour et mise à disposition, par tout responsable d'activités nucléaires et toute entreprise mentionnée à l'article L1333-10 du code de l'environnement, de l'autorité administrative et, pour ce qui relève de sa compétence, de l'Agence nationale pour la gestion des déchets radioactifs, des informations nécessaires à l'application et au contrôle du respect des dispositions chapitre II du titre IV du livre V, et du chapitre IV du titre IX du livre V du code de l'environnement ainsi que des informations nécessaires à la mise en Suvre des programmes de recherches et d'études figurant aux articles 3 et 4 de la loi n° 2006-739 du 28 juin 2006 de programme relative à la gestion durable des matières et déchets radioactifs"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2472-035-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2472"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative aux installations nucléaires de base et au contrôle, en matière de sûreté nucléaire, du transport de substances radioactives"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L542-13-1 du code de l'environnement, dans sa rédaction issue de l'article 2 de l'ordonnance n° 2012-6 du 5 janvier 2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "03/04/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "07/01/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Ecologie, développement durable"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'écologie, du développement durable, des transports et du logement"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#01d3b4bb-8d1e-4889-af0b-062b69c0706d",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Envoi par le délégataire au ministre chargé de l'énergie, avant le 31 mars d'une année donnée, d'un rapport d'activité de l'année civile précédente"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2865-009-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2865"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative au biométhane"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Texte non codifié"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Dernier alinéa du III de l'article 4 du décret n° 2011-1596 du 21 novembre 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "22/11/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "23/11/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Ecologie, développement durable"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'écologie, du développement durable, des transports et du logement"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Présentation de rapports"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#01e4b47c-eeba-4df9-b90b-bb8b0f2b13ed",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Déclaration, déposée par chaque exploitant d'installation classée, concernant les émissions de gaz à effet de serre résultant de ses activités aériennes, vérifiée aux frais de l'exploitant par un organisme déclaré auprès de l'autorité administrative et accrédité à cet effet, puis validée par l'inspection des installations classées"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "444-008-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "444"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative aux quotas d'émission de gaz à effet de serre pour les installations classées"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "III de l'article L229-14 du code de l'environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "29/06/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/01/2013"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Ecologie, développement durable"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Écologie, du Développement durable et de l'Energie"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+              "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#01ecc7b6-09d1-4d06-a3a4-f5f110d58068",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Soumission, par la société gestionnaire d'un réseau de transport d'électricité ou de gaz, appartenant, au 3 septembre 2009, à une entreprise verticalement intégrée, à l'approbation de la Commission de régulation de l'énergie, de tous les accords commerciaux et financiers qu'elle conclut avec l'entreprise verticalement intégrée dont elle fait partie ou avec les autres sociétés contrôlées par celle-ci"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "108-012-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "108"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'électricité et au gaz"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code civil"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Articles L111-17 et L111-9 du code de l'énergie, dans leur rédaction issue de l'ordonnance n° 2011-504 du 9 mai 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "30/05/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Comptes annuels / audits / droit des sociétés"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#020f81f8-3b41-4410-9ccd-dadafdb545ef",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Communication, par l_x0019_exploitant d'une installation nucléaire de base, de tous les documents et toutes les informations nécessaires à l'accomplissement de ses missions, à la commission locale d'information"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2472-030-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2472"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative aux installations nucléaires de base et au contrôle, en matière de sûreté nucléaire, du transport de substances radioactives"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "2e alinéa de l'article L125-24 du code de l'environnement, dans sa rédaction issue de l'article 1er de l'ordonnance n° 2012-6 du 5 janvier 2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "03/04/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "07/01/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Ecologie, développement durable"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'écologie, du développement durable, des transports et du logement"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#026c7627-73c2-4139-9776-1affc99ee4b4",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Demande déposée auprès du Pôle emploi par les employeurs de moins de cinquante salariés souhaitant bénéficier de l'aide accordée par l'Etat au titre de l'embauche d'apprentis supplémentaires entre le 24 avril 2009 et le 30 juin 2010"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "1300-004-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "1300"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative au contrat d'apprentissage"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Texte non codifié"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Articles 1er et 6 du décret n° 2009-693 du 15 juin 2009"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "12/11/2009"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "17/06/2009"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Economie, de l'Industrie et de l'Emploi"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement de travail / relations de travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Demande de subside ou de bourse"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#16723b3a-78aa-45d7-a1a5-7b45a4fa7569",
+              "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea",
+              "http://dashboard.com/ontology/v0.1#12a5d2d3-baae-488e-89f7-3dd145ac73e8",
+              "http://dashboard.com/ontology/v0.1#8cde606e-257f-41b0-bc1d-76ef5d695de3",
+              "http://dashboard.com/ontology/v0.1#a7d625ed-5152-4cf0-96b3-f96156f07ca1",
+              "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+              "http://dashboard.com/ontology/v0.1#d22f61ff-197a-4f9a-aa1f-c7d1d9a7ab61",
+              "http://dashboard.com/ontology/v0.1#4de2089d-3d9d-4f66-a917-1fc059752cb6",
+              "http://dashboard.com/ontology/v0.1#762d52c3-1d97-43ac-9fce-00452211843d",
+              "http://dashboard.com/ontology/v0.1#60181472-49a2-4d50-97ab-0969de01e4d0",
+              "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0",
+              "http://dashboard.com/ontology/v0.1#15bca1a9-7371-415d-b065-25c1ff9534af",
+              "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378",
+              "http://dashboard.com/ontology/v0.1#957d5613-d01f-40c8-8d5b-8eab97cb295f",
+              "http://dashboard.com/ontology/v0.1#d88347cc-d6cb-4112-90cb-3d2728a1f969",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+              "http://dashboard.com/ontology/v0.1#6f64513f-457c-4580-b360-d4cb902ec16b"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#02c50f73-1588-4114-a52d-9ca4d2b64a5e",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Communication à l'Institut national de l'environnement industriel et des risques, par les exploitants de réseaux souterrains, aériens _x000D_\nou subaquatiques de transport ou de distribution,  des informations nécessaires à la préservation de leurs réseaux _x000D_\n_x000D_\n_x000D_\n_x000D_"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "1050-007-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "1050"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative aux réseaux et services"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L554-2 du code de l'environnement, dans sa rédaction issue de l'article 219 de la loi n° 2010-788 du 13 juillet 2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "23/07/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "14/07/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Ecologie, développement durable"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Écologie, du Développement durable et de l'Energie"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#02f361dd-84eb-4d4f-badb-71ed73210dae",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Demande d'agrément de la convention de mise à disposition d'un salarié pour une période d'immersion, par l'employeur du salarié sous contrat d'accompagnement dans l'emploi, au plus tard deux mois avant la date prévue pour le début de la période, pour les contrats d'accompagnement dans l'emploi conclus pour le compte de l'Etat, à l'organisme mentionné au a du 1° de l'article L5134-19-1 du code du travail, et pour les contrats d'accompagnement dans l'emploi conclus pour le compte du département, au conseil général ou à l'organisme mentionné à l'article L5134-19-2 du code du travail"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2733-003-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2733"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative au  contrat d'accompagnement dans l'emploi"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code du travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Article D5134-50-5 du code du travail, dans sa rédaction issue de l'article 1er du décret n° 2010-94 du 22 janvier 2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "27/01/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "27/01/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Autres thèmes"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#12a5d2d3-baae-488e-89f7-3dd145ac73e8",
+              "http://dashboard.com/ontology/v0.1#16723b3a-78aa-45d7-a1a5-7b45a4fa7569",
+              "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea",
+              "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+              "http://dashboard.com/ontology/v0.1#4de2089d-3d9d-4f66-a917-1fc059752cb6",
+              "http://dashboard.com/ontology/v0.1#d22f61ff-197a-4f9a-aa1f-c7d1d9a7ab61",
+              "http://dashboard.com/ontology/v0.1#a7d625ed-5152-4cf0-96b3-f96156f07ca1",
+              "http://dashboard.com/ontology/v0.1#8cde606e-257f-41b0-bc1d-76ef5d695de3",
+              "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378",
+              "http://dashboard.com/ontology/v0.1#15bca1a9-7371-415d-b065-25c1ff9534af",
+              "http://dashboard.com/ontology/v0.1#d88347cc-d6cb-4112-90cb-3d2728a1f969",
+              "http://dashboard.com/ontology/v0.1#957d5613-d01f-40c8-8d5b-8eab97cb295f",
+              "http://dashboard.com/ontology/v0.1#762d52c3-1d97-43ac-9fce-00452211843d",
+              "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0",
+              "http://dashboard.com/ontology/v0.1#60181472-49a2-4d50-97ab-0969de01e4d0",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+              "http://dashboard.com/ontology/v0.1#6f64513f-457c-4580-b360-d4cb902ec16b",
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#033714ae-bec8-4033-84fa-07787c491e45",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Soumission à l'approbation de la Commission de régulation de l'énergie, préalablement à leur mise en Suvre, des règles adoptées par les opérateurs pour assurer l'équilibrage journalier des réseaux de transport de gaz naturel"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "108-123-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "108"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'électricité et au gaz"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'énergie"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L431-4 du code de l'énergie, dans sa rédaction issue de l'ordonnance n° 2011-504 du 9 mai 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "12/07/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Comptes annuels / audits / droit des sociétés"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Certification des produits ou des processus"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#04335ac7-58e4-4d94-b364-99a961aab581",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Information portée à la connaissance de la Commission de régulation de l'énergie, concernant les mesures prises pour assurer la confidentialité des informations sensibles, par chaque opérateur exploitant des ouvrages de transport, de distribution ou de stockage de gaz naturel ou des installations de gaz naturel liquéfié"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "108-040-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "108"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'électricité et au gaz"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code civil"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L111-77 du code de l'énergie, dans sa rédaction issue de l'ordonnance n° 2011-504 du 9 mai 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "07/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Comptes annuels / audits / droit des sociétés"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Autres types d'obligation"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#044d6b3b-75c7-4e4f-b92a-679dc7db52c3",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Demande d'informations aux exploitants réseaux avant d'entreprendre des travaux à proximité de certains ouvrages : demande de renseignements(DR) et déclaration d'intention de commencements de travaux (DICT)"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "1334-024-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "1334"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à la prévention en matière d'hygiène, de sécurité, et de conditions de travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Texte non codifié"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Pas de référence applicable"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Décret n° 91-1147 du 14 octobre 1991 "
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "22/12/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/02/2008"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": "Pas de référence applicable;"
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Ecologie, développement durable"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'écologie, du développement durable, des transports et du logement"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": "Pas de référence applicable;"
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": "Texte non codifié"
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": "Hors Chapitre"
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": "Hors Titre"
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": "Hors Livre"
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": "Livre non partitionné"
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": "Pas de commentaire"
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Protection de la santé"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Demande d'autorisation ou de dérogation ponctuelle"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+              "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#045a7241-af81-4b6c-bf1f-879df414cff5",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Soumission par le gestionnaire du réseau public de transport d'électricité à l'approbation par le préfet, du plan de contrôle et de surveillance du champ électromagnétique de toute nouvelle ligne électrique de ce réseau ainsi que de toute ligne existante de tension supérieure à 50 kilovolts subissant une modification substantielle ou remise en service après un arrêt prolongé de plus de deux ans"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "108-187-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "108"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'électricité et au gaz"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Texte non codifié"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "II de l'article 26 du décret n° 2011-1697 du 1er décembre 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "26/01/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/01/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Autres thèmes"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Certification des produits ou des processus"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#04d71608-c890-45e0-a93c-cdb7855e3b5d",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Déclaration au préfet par le transporteur, dans les meilleurs délais, des incidents ou accidents qui sont de nature à porter atteinte à la sécurité et à la santé publiques ou à la protection de l'environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2790-024-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2790"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative aux canalisations de transport de gaz, d'hydrocarbures et de produits chimiques"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "I de l'article R555-44 du code de l'environnement, dans sa rédaction issue de l'article 3 du décret n° 2012-615 du 2 mai 2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "07/05/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "05/05/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Transports, équipement, logement, tourisme, mer"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'écologie, du développement durable, des transports et du logement"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#05414b69-034e-46b3-8018-8c5cfbb5355b",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Conservation des noms et coordonnées des titulaires successifs d'une garantie d'origine de l'électricité produite à partir de sources renouvelables ou par cogénération opérée par l'organisme chargé de la délivrance de ces garanties d'origine"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "108-210-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "108"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'électricité et au gaz"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'énergie"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L314-14 du code de l'énergie"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Article 8-1 du décret n° 2006-1118 du 5 septembre 2006, dans sa rédaction issue de l'article 10 du décret n° 2012-62 du 20 janvier 2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "26/03/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "22/01/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Enregistrement"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#06dd7166-1c85-45ac-8c33-81e2c34e8523",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Envoi, par l'employeur, de la déclaration préalable à l'embauche soit à l'organisme de recouvrement des cotisations du régime général de sécurité sociale dans le ressort territorial duquel est situé l'établissement devant employer le salarié ; soit, s'il s'agit d'un salarié relevant du régime de la protection sociale agricole, à la caisse de mutualité sociale agricole du lieu de travail de ce salarié"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2847-002-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2847"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à la déclaration préalable à l'embauche"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code du travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L1221-10 du code du travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Article R1221-3 du code du travail, dans sa rédaction issue de l'article 1er du décret n° 2011-681 du 16 juin 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "20/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/08/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Travail, emploi, formation professionnelle"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement de travail / relations de travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#12a5d2d3-baae-488e-89f7-3dd145ac73e8",
+              "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea",
+              "http://dashboard.com/ontology/v0.1#16723b3a-78aa-45d7-a1a5-7b45a4fa7569",
+              "http://dashboard.com/ontology/v0.1#d22f61ff-197a-4f9a-aa1f-c7d1d9a7ab61",
+              "http://dashboard.com/ontology/v0.1#4de2089d-3d9d-4f66-a917-1fc059752cb6",
+              "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+              "http://dashboard.com/ontology/v0.1#8cde606e-257f-41b0-bc1d-76ef5d695de3",
+              "http://dashboard.com/ontology/v0.1#a7d625ed-5152-4cf0-96b3-f96156f07ca1",
+              "http://dashboard.com/ontology/v0.1#957d5613-d01f-40c8-8d5b-8eab97cb295f",
+              "http://dashboard.com/ontology/v0.1#d88347cc-d6cb-4112-90cb-3d2728a1f969",
+              "http://dashboard.com/ontology/v0.1#15bca1a9-7371-415d-b065-25c1ff9534af",
+              "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378",
+              "http://dashboard.com/ontology/v0.1#60181472-49a2-4d50-97ab-0969de01e4d0",
+              "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0",
+              "http://dashboard.com/ontology/v0.1#762d52c3-1d97-43ac-9fce-00452211843d",
+              "http://dashboard.com/ontology/v0.1#e06a2427-f486-4485-aebf-4fa184381ccb",
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+              "http://dashboard.com/ontology/v0.1#6f64513f-457c-4580-b360-d4cb902ec16b",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#07658caf-d0e8-4e36-a388-682faad37d1b",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Publication du rapport établi chaque année par tout exploitant d'une installation nucléaire de base"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2472-028-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2472"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative aux installations nucléaires de base et au contrôle, en matière de sûreté nucléaire, du transport de substances radioactives"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "2e alinéa de l'article L125-16 du code de l'environnement, dans sa rédaction issue de l'article 1er de l'ordonnance n° 2012-6 du 5 janvier 2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "03/04/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "07/01/2012"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Ecologie, développement durable"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'écologie, du développement durable, des transports et du logement"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Présentation de rapports"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#0788db69-fccb-42b3-9c92-7c59b849be67",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Demande de l'entreprise, pour la détermination de la cotisation sur la valeur ajoutée des entreprises, que la valeur ajoutée des établissements bénéficiant d'une exonération ou d'un abattement de la base nette d'imposition à la cotisation foncière des entreprises en application des I ou I sexies de l'article 1466 A du Code général des impôts fasse l'objet d'une exonération ou d'un abattement de même taux, dans la limite respectivement pour 2011 de 133 775 ¬ et de 363 549 ¬ de valeur ajoutée par établissement et actualisé chaque année en fonction de la variation de l'indice des prix_x000D_"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "2769-046-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "2769"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à la contribution économique territoriale"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code général des impôts"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "V de l'article 1586 nonies du Code général des impôts, dans sa rédaction issue du 4° du E du II de l'article 108 de la loi n° 2010-1657 du 29 décembre 2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "11/01/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/01/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Budget, fiscalité"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de la Réforme de l'État, de la Décentralisation et de la Fonction publique"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Droit fiscal / TVA"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Demande de subside ou de bourse"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#12a5d2d3-baae-488e-89f7-3dd145ac73e8",
+              "http://dashboard.com/ontology/v0.1#16723b3a-78aa-45d7-a1a5-7b45a4fa7569",
+              "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea",
+              "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+              "http://dashboard.com/ontology/v0.1#4de2089d-3d9d-4f66-a917-1fc059752cb6",
+              "http://dashboard.com/ontology/v0.1#d22f61ff-197a-4f9a-aa1f-c7d1d9a7ab61",
+              "http://dashboard.com/ontology/v0.1#a7d625ed-5152-4cf0-96b3-f96156f07ca1",
+              "http://dashboard.com/ontology/v0.1#8cde606e-257f-41b0-bc1d-76ef5d695de3",
+              "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378",
+              "http://dashboard.com/ontology/v0.1#15bca1a9-7371-415d-b065-25c1ff9534af",
+              "http://dashboard.com/ontology/v0.1#d88347cc-d6cb-4112-90cb-3d2728a1f969",
+              "http://dashboard.com/ontology/v0.1#957d5613-d01f-40c8-8d5b-8eab97cb295f",
+              "http://dashboard.com/ontology/v0.1#762d52c3-1d97-43ac-9fce-00452211843d",
+              "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0",
+              "http://dashboard.com/ontology/v0.1#60181472-49a2-4d50-97ab-0969de01e4d0",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+              "http://dashboard.com/ontology/v0.1#6f64513f-457c-4580-b360-d4cb902ec16b",
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#08d314d2-541c-4b92-b4b8-c2b34660f807",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Transmission annuelle du résultat des mesures de contrôle régulier des champs électromagnétiques induits par les lignes de transport d'électricité,  à l'Agence nationale de sécurité sanitaire de l'alimentation, de l'environnement et du travail par les personnes chargées du transport de l'énergie électrique"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "1974-004-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "1974"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative au marché intérieur de l'électricité"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code des postes et des communications électroniques"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article 17 bis du code des postes et des communications électroniques, dans sa rédaction issue du IV de l'article 183 de la loi n° 2010-788"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "22/07/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "14/07/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Santé, solidarités"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère du Travail, de l'Emploi, de la Formation professionnelle et du Dialogue social"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Présentation de rapports"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+              "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#08ec7351-3853-4f1b-912f-0e9a3c0b179a",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Etablissement, à l'appui de leur déclaration de crédit d'impôt recherche, d'un état décrivant la nature de leurs travaux de recherche en cours, l'état d'avancement de leurs programmes, les moyens matériels et humains, directs ou indirects, qui y sont consacrés et la localisation de ces moyens, par les entreprises industrielles et commerciales ou agricoles qui engagent plus de 100 millions d'euros de dépenses de recherche, pouvant bénéficier d'un crédit d'impôt au titre des dépenses de recherche qu'elles exposent au cours de l'année"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "592-007-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "592"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative au crédit d'impôt pour dépenses de recherche effectuées par les entreprises industrielles et commerciales ou agricoles"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code général des impôts"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "III bis de l'article 244 quater bis du code général des impôts, dans sa rédaction issue du C du III de l'article 41 de la loi n° 2010-1637"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "10/01/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "31/12/2010"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Budget, fiscalité"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de la Réforme de l'État, de la Décentralisation et de la Fonction publique"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Droit fiscal / TVA"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Présentation de rapports"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#12a5d2d3-baae-488e-89f7-3dd145ac73e8",
+              "http://dashboard.com/ontology/v0.1#16723b3a-78aa-45d7-a1a5-7b45a4fa7569",
+              "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea",
+              "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+              "http://dashboard.com/ontology/v0.1#d22f61ff-197a-4f9a-aa1f-c7d1d9a7ab61",
+              "http://dashboard.com/ontology/v0.1#4de2089d-3d9d-4f66-a917-1fc059752cb6",
+              "http://dashboard.com/ontology/v0.1#8cde606e-257f-41b0-bc1d-76ef5d695de3",
+              "http://dashboard.com/ontology/v0.1#a7d625ed-5152-4cf0-96b3-f96156f07ca1",
+              "http://dashboard.com/ontology/v0.1#15bca1a9-7371-415d-b065-25c1ff9534af",
+              "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378",
+              "http://dashboard.com/ontology/v0.1#957d5613-d01f-40c8-8d5b-8eab97cb295f",
+              "http://dashboard.com/ontology/v0.1#d88347cc-d6cb-4112-90cb-3d2728a1f969",
+              "http://dashboard.com/ontology/v0.1#762d52c3-1d97-43ac-9fce-00452211843d",
+              "http://dashboard.com/ontology/v0.1#60181472-49a2-4d50-97ab-0969de01e4d0",
+              "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+              "http://dashboard.com/ontology/v0.1#6f64513f-457c-4580-b360-d4cb902ec16b"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#0a1d2c55-a05f-462f-a9af-e41b4ea350eb",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Information transmise annuellement à l'autorité organisatrice de la distribution, par tout gestionnaire de réseau de distribution de gaz naturel, concernant la conception et la construction des ouvrages ainsi que la maîtrise d'Suvre des travaux relatifs aux réseaux de distribution"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "108-128-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "108"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'électricité et au gaz"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code de l'énergie"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L432-8 (2°) du code de l'énergie, dans sa rédaction issue de l'ordonnance n° 2011-504 du 9 mai 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "13/07/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Comptes annuels / audits / droit des sociétés"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Présentation de rapports"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#0a48a0bd-d376-4851-b188-270470a7c666",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Communication, par l'employeur au médecin du travail et au CHSCT, ou, à défaut, aux délégués du personnel, des résultats des mesurages et des rapports de contrôle technique des valeurs limites d'exposition pour les travailleurs aux agents cancérogènes, mutagènes ou toxiques pour la reproduction"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "1335-030-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "1335"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à la prévention du risque chimique sur le lieu de travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code du travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Articles R4412-79, alinéa 1, et R4412-76 à R4412-78 du code du travail, dans leur rédaction issue de l'article 5 du décret n° 2009-1570 du 15 décembre 2009"
+            },
+            "http://dashboard.com/ontology/v0.1#refCommentaire": {
+              "@language": "fr",
+              "@value": "Les dispositions de l'article R4412-76 du code du travail, dans sa rédaction issue de l'article 5 du décret n° 2009-1570, ne s'appliquent aux valeurs limites d'exposition professionnelle indicatives prévues à l'article R. 4412-150 du code du travail qu'à compter du 1er janvier 2012."
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "17/12/2009"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "18/12/2009"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Travail, emploi, formation professionnelle"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère du Travail, de l'Emploi et de la Santé"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Environnement de travail / relations de travail"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Fourniture d'information aux tiers - hors étiquetage"
+            },
+            "http://dashboard.com/ontology/v0.1#section": [
+              "http://dashboard.com/ontology/v0.1#12a5d2d3-baae-488e-89f7-3dd145ac73e8",
+              "http://dashboard.com/ontology/v0.1#16723b3a-78aa-45d7-a1a5-7b45a4fa7569",
+              "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea",
+              "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+              "http://dashboard.com/ontology/v0.1#4de2089d-3d9d-4f66-a917-1fc059752cb6",
+              "http://dashboard.com/ontology/v0.1#d22f61ff-197a-4f9a-aa1f-c7d1d9a7ab61",
+              "http://dashboard.com/ontology/v0.1#a7d625ed-5152-4cf0-96b3-f96156f07ca1",
+              "http://dashboard.com/ontology/v0.1#8cde606e-257f-41b0-bc1d-76ef5d695de3",
+              "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378",
+              "http://dashboard.com/ontology/v0.1#15bca1a9-7371-415d-b065-25c1ff9534af",
+              "http://dashboard.com/ontology/v0.1#d88347cc-d6cb-4112-90cb-3d2728a1f969",
+              "http://dashboard.com/ontology/v0.1#957d5613-d01f-40c8-8d5b-8eab97cb295f",
+              "http://dashboard.com/ontology/v0.1#762d52c3-1d97-43ac-9fce-00452211843d",
+              "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0",
+              "http://dashboard.com/ontology/v0.1#60181472-49a2-4d50-97ab-0969de01e4d0",
+              "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+              "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+              "http://dashboard.com/ontology/v0.1#6f64513f-457c-4580-b360-d4cb902ec16b",
+              "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+            ]
+          },
+          {
+            "@id": "http://dashboard.com/ontology/v0.1#0a8306b0-1047-40b4-b641-ed93ead65496",
+            "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+            "http://dashboard.com/ontology/v0.1#intitule": {
+              "@language": "fr",
+              "@value": "Accès autorisé par toute société gestionnaire de réseau de distribution d'électricité ou de gaz naturel desservant plus de 100 000 clients, pour le responsable de la conformité, aux réunions et à toutes les informations détenues par le gestionnaire de réseau utiles à l'accomplissement de ses missions"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroOI": {
+              "@language": "fr",
+              "@value": "108-031-E"
+            },
+            "http://dashboard.com/ontology/v0.1#numeroProc": {
+              "@language": "fr",
+              "@value": "108"
+            },
+            "http://dashboard.com/ontology/v0.1#procedure": {
+              "@language": "fr",
+              "@value": "Procédure relative à l'électricité et au gaz"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+              "@language": "fr",
+              "@value": "Code civil"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+              "@language": "fr",
+              "@value": "Article L111-62 (4e alinéa) du code de l'énergie, dans sa rédaction issue de l'ordonnance n° 2011-504 du 9 mai 2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refArticleReg": {
+              "@language": "fr",
+              "@value": "Pas de référence"
+            },
+            "http://dashboard.com/ontology/v0.1#refCycle": {
+              "@language": "fr",
+              "@value": "GERER"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateEntree": {
+              "@language": "fr",
+              "@value": "07/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+              "@language": "fr",
+              "@value": "01/06/2011"
+            },
+            "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+              "@language": "fr",
+              "@value": "Economie, finances, industrie"
+            },
+            "http://dashboard.com/ontology/v0.1#refMinistere": {
+              "@language": "fr",
+              "@value": "Ministère de l'Économie et des Finances"
+            },
+            "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCode": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+              "@language": "fr",
+              "@value": ""
+            },
+            "http://dashboard.com/ontology/v0.1#refTheme": {
+              "@language": "fr",
+              "@value": "Comptes annuels / audits / droit des sociétés"
+            },
+            "http://dashboard.com/ontology/v0.1#refTypeOie": {
+              "@language": "fr",
+              "@value": "Inspection"
+            },
+            "http://dashboard.com/ontology/v0.1#section": "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"
+          },
+        ]
+      }
+     })
+     
+     ////curl --user admin:admin -H "Accept: application/json-ld" -H "Content-type: application/json" --data @idFilter.json "http://localhost:8080/graph/data/*/http://dasboard.com/data/oie" > ~/dev/rdfui/tests/utils/oneTripleOIE.json
+     //TODO : just a maker for detect this graph in the file.
+     .constant('oneTripleOIE', {
+      metadata : {
+          "@context": {
+                "ConceptScheme": "http://www.w3.org/2004/02/skos/core#ConceptScheme",
+                "creator": {
+                  "@id": "http://purl.org/dc/terms/creator",
+                  "@type": "http://www.w3.org/2001/XMLSchema#string"
+                },
+            },
+      },
+      value : {
+        "@context": {
+          "http://dashboard.com/ontology/v0.1#section": {
+            "@type": "@id"
+          }
+        },
+        "@id": "http://dashboard.com/ontology/v0.1#fee5103b-ba62-4e23-a705-fcd54fdb42df",
+        "@type": "http://dashboard.com/ontology/v0.1#Obligation",
+        "http://dashboard.com/ontology/v0.1#intitule": {
+          "@language": "fr",
+          "@value": "Attestation, adressée par l'employeur à la caisse de sécurité sociale de Mayotte, pour un accident survenu en dehors du territoire de Mayotte"
+        },
+        "http://dashboard.com/ontology/v0.1#numeroOI": {
+          "@language": "fr",
+          "@value": "949-015-E"
+        },
+        "http://dashboard.com/ontology/v0.1#numeroProc": {
+          "@language": "fr",
+          "@value": "949"
+        },
+        "http://dashboard.com/ontology/v0.1#procedure": {
+          "@language": "fr",
+          "@value": "Procédure relative aux déclarations en cas d'accident"
+        },
+        "http://dashboard.com/ontology/v0.1#refArticleCodeOie": {
+          "@language": "fr",
+          "@value": "Texte non codifié"
+        },
+        "http://dashboard.com/ontology/v0.1#refArticleLeg": {
+          "@language": "fr",
+          "@value": "Pas de référence"
+        },
+        "http://dashboard.com/ontology/v0.1#refArticleReg": {
+          "@language": "fr",
+          "@value": "Article 61 du décret n° 2009-1576 du 16 décembre 2009"
+        },
+        "http://dashboard.com/ontology/v0.1#refCycle": {
+          "@language": "fr",
+          "@value": "GERER"
+        },
+        "http://dashboard.com/ontology/v0.1#refDateEntree": {
+          "@language": "fr",
+          "@value": "18/12/2009"
+        },
+        "http://dashboard.com/ontology/v0.1#refDateVigueur": {
+          "@language": "fr",
+          "@value": "19/12/2009"
+        },
+        "http://dashboard.com/ontology/v0.1#refDirectiveCommunautaire": {
+          "@language": "fr",
+          "@value": ""
+        },
+        "http://dashboard.com/ontology/v0.1#refDomaineAttribution": {
+          "@language": "fr",
+          "@value": "Travail, emploi, formation professionnelle"
+        },
+        "http://dashboard.com/ontology/v0.1#refMinistere": {
+          "@language": "fr",
+          "@value": "Ministère du Travail, de l'Emploi et de la Santé"
+        },
+        "http://dashboard.com/ontology/v0.1#refReglementCommunautaire": {
+          "@language": "fr",
+          "@value": ""
+        },
+        "http://dashboard.com/ontology/v0.1#refSectionCode": {
+          "@language": "fr",
+          "@value": ""
+        },
+        "http://dashboard.com/ontology/v0.1#refSectionCodeChapitre": {
+          "@language": "fr",
+          "@value": ""
+        },
+        "http://dashboard.com/ontology/v0.1#refSectionCodeTitre": {
+          "@language": "fr",
+          "@value": ""
+        },
+        "http://dashboard.com/ontology/v0.1#refSectionLivre": {
+          "@language": "fr",
+          "@value": ""
+        },
+        "http://dashboard.com/ontology/v0.1#refSectionPartieLivre": {
+          "@language": "fr",
+          "@value": ""
+        },
+        "http://dashboard.com/ontology/v0.1#refTextModifOie": {
+          "@language": "fr",
+          "@value": ""
+        },
+        "http://dashboard.com/ontology/v0.1#refTheme": {
+          "@language": "fr",
+          "@value": "Environnement de travail / relations de travail"
+        },
+        "http://dashboard.com/ontology/v0.1#refTypeOie": {
+          "@language": "fr",
+          "@value": "Fourniture d'information aux tiers - hors étiquetage"
+        },
+        "http://dashboard.com/ontology/v0.1#section": [
+          "http://dashboard.com/ontology/v0.1#d22f61ff-197a-4f9a-aa1f-c7d1d9a7ab61",
+          "http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2",
+          "http://dashboard.com/ontology/v0.1#121810f6-8991-478f-a43d-a6f3611b9bd0",
+          "http://dashboard.com/ontology/v0.1#762d52c3-1d97-43ac-9fce-00452211843d",
+          "http://dashboard.com/ontology/v0.1#05d4ca49-9833-4b67-b93e-3e40c9f0c0b0",
+          "http://dashboard.com/ontology/v0.1#1788dc65-9d39-4583-9e80-29641f2aacdc",
+          "http://dashboard.com/ontology/v0.1#1200a70a-718d-4d30-9196-ddd3df5d9378",
+          "http://dashboard.com/ontology/v0.1#12a5d2d3-baae-488e-89f7-3dd145ac73e8",
+          "http://dashboard.com/ontology/v0.1#16723b3a-78aa-45d7-a1a5-7b45a4fa7569",
+          "http://dashboard.com/ontology/v0.1#15bca1a9-7371-415d-b065-25c1ff9534af",
+          "http://dashboard.com/ontology/v0.1#8cde606e-257f-41b0-bc1d-76ef5d695de3",
+          "http://dashboard.com/ontology/v0.1#2daf4918-b0dc-4aa4-9690-d164b3a67bea",
+          "http://dashboard.com/ontology/v0.1#4de2089d-3d9d-4f66-a917-1fc059752cb6",
+          "http://dashboard.com/ontology/v0.1#60181472-49a2-4d50-97ab-0969de01e4d0",
+          "http://dashboard.com/ontology/v0.1#a7d625ed-5152-4cf0-96b3-f96156f07ca1",
+          "http://dashboard.com/ontology/v0.1#aa5b3f84-71fd-486d-b10b-2d9d8a1fe1e8",
+          "http://dashboard.com/ontology/v0.1#d88347cc-d6cb-4112-90cb-3d2728a1f969",
+          "http://dashboard.com/ontology/v0.1#957d5613-d01f-40c8-8d5b-8eab97cb295f",
+          "http://dashboard.com/ontology/v0.1#6f64513f-457c-4580-b360-d4cb902ec16b"
+        ]
+      }
+      })
     
 })();
