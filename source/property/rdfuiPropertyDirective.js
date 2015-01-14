@@ -15,7 +15,8 @@
     function($compile, graphService, propertyFilter, langFilter) {
     return {
         restrict: 'E',
-        require: ['ngModel','?^rdfuiGraph'],
+        //TODO : remove the ngmodel here.
+        require: ['?ngModel','?^rdfuiGraph'],
         scope : {
             langs : "=", //les langues doivent être générés au niveau du rui-subject
             selectedLang : "=",
@@ -74,19 +75,19 @@
                         
                     });
                     
-                    scope.graphCtrl.getLinkableConcepts().then(function(d){
-                        scope.values = d;
-                        scope.values.forEach(function(val,i){
-                            var p = propertyFilter(val,"prefLabel");
-                            if(p){
-                                val.$literals = langFilter(p,scope.graphCtrl.mainLang);
-                            }else{
-                                //warning :: objects with no literal in the main langage 
-                                console.warn(val);
-                            }
-                        });
-                        
-                    });
+//                    scope.graphCtrl.getLinkableConcepts().then(function(d){
+//                        scope.values = d;
+//                        scope.values.forEach(function(val,i){
+//                            var p = propertyFilter(val,"prefLabel");
+//                            if(p){
+//                                val.$literals = langFilter(p,scope.graphCtrl.mainLang);
+//                            }else{
+//                                //warning :: objects with no literal in the main langage 
+//                                console.warn(val);
+//                            }
+//                        });
+//                        
+//                    });
                 }
                 
             };

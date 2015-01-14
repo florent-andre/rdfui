@@ -17,7 +17,7 @@
         return {
             restrict: 'E',
             //require: ['?^rdfuiGraph','^rdfuiProperty'],
-            require: ['ngModel','?^rdfuiGraph','?^rdfuiProperty'],
+            require: ['?ngModel','?^rdfuiGraph','?^rdfuiProperty'],
             scope : {
                 //TODO : clean properties here, only graphUri is required
               //  langs : "=", //les langues doivent être générés au niveau du rui-subject
@@ -52,7 +52,7 @@
                     if(ctrls.length == 3){
                         scope.ngModelObjects = ctrls[0];
                         scope.graphCtrl = ctrls[1].scope;
-                        scope.propertyCtrl = ctrls[2].scope;
+                        scope.propertyCtrl = ctrls[2] ? ctrls[2].scope : null;
                         
                         scope.graphCtrl.initiated.then(function(){
                             

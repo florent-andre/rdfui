@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>RDFui demo : filter and dereference</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/angular-rdf-ui.min.css">
+  <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
+  <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+  <link rel="stylesheet" href="css/demo.css">
+  
+</head>
+<body ng-app="demoApp">
+
+  <div class="container">
+    <h1 class="page-header">RDFui demo : filter and dereference</h1>
+    <a href="index.html"><i class="glyphicon glyphicon-chevron-left"></i> Back to overview page</a>
+
+    <div class="row" ng-controller="GlobalCtrl">
+    
+        <rdfui-graph graph-uri="http://test.com/graphDereference">
+            <div class="col-md-5" ng-controller="FilterCtrl">
+                <rdfui-subjects graph-data="graph" filter="nafN1Filter">
+	                <div ng-controller="SelectorCtrl">
+	               	   <ui-select ng-model="select.selected" class="col-md-12" on-select="selectionDone($item, $model)">
+								<ui-select-match placeholder="Select a concept in the list or search prefLabel...">({{$select.selected.$sousClasse}}) {{$select.selected.$intitule}}</ui-select-match>
+									<ui-select-choices repeat="select in $subjects | propsFilter : {$intitule : $select.search, $sousClasse : $select.search}">
+					            <div ng-bind-html="select.$intitule | highlight: $select.search"></div>
+					            <div ng-bind-html="select.$sousClasse | highlight: $select.search"></div>
+					        </ui-select-choices>
+					    </ui-select>
+	                </div>
+                </rdfui-subjects>
+             </div>   
+        </rdfui-graph>
+        
+    </div>
+
+  </div>
+
+  <!-- JavaScript -->
+  <!--[if IE 8]>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.min.js"></script>
+  <![endif]-->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+  <script src="bower_components/angular-ui-select/dist/select.js"></script>
+  <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="dist/angular-rdf-ui.js"></script>
+  <script src="mockData/graphValues.js"></script>
+  <script src="mockData/nafValues.js"></script>
+  <script src="js/referenceSearch.js"></script>
+</body>
+</html>

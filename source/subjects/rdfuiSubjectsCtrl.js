@@ -11,6 +11,7 @@
         $scope.$watch('graphData',function(nv,ov){
             
             if(nv){ //remark don't add this condition : && (nv !== ov) because if present the watch is not done when subjects is on dereferencing.
+                if(!$scope.filter){ console.warn("There is no filter defined. Default filter will be applied (all pass)")}
                 var filterFn = filtersService.compile($scope.filter);
                 $scope.$subjects = graphService.doFilter(nv,filterFn);
                 
