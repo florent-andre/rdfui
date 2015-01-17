@@ -1,3 +1,8 @@
+
+# TODO : improve the building script to put this in a more "standard" folder
+demo/mockData/
+tmp/
+
 # OS generated files #
 ######################
 .DS_Store
@@ -28,5 +33,12 @@ dist/
 demo/dist
 build/
 
-# TODO : improve the building script to put this in a more "standard" folder
-demo/mockData/
+
+# Java and Eclipse #
+####################
+.classpath
+.project
+.settings
+target
+*~
+.metadata
