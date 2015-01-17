@@ -41,6 +41,12 @@
                     
                     if(ctrls[0]){
                         scope.graphCtrl = ctrls[0].scope;
+                        //Expose the user controler before the use of graph directive
+                        scope.$parentScope = scope.graphCtrl.$parentScope;
+                        scope.toto = scope.graphCtrl;
+                        console.log("*******************");
+                        console.log(scope.$parentScope);
+                        console.log(scope.graphCtrl.$parentScope == null);
                     }
                     
                 };

@@ -32,23 +32,26 @@
      $scope.test.value = "%%%%%%%%%%%%%%%%%%% global ctrl test value %%%%%%%%%%%%%";
      
      $scope.test.filter = null;
+     $scope.selected = { oie : null};
      
      $scope.$on('rdfui.itemSelected',function(event,data){
-         console.log("dans le on");
-         console.log(arguments);
-         
+//         console.log("dans le on");
+//         console.log(arguments);
+//         console.log("******************");
+//         console.log(data['http://dashboard.com/ontology/v0.1#section']);
          $scope.test.filter = {
                  "type" : "accept",
-                 "on" : {"property" : "http://dashboard.com/ontology/v0.1#section", "values" : ["http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"]}
+                 "on" : {"property" : "http://dashboard.com/ontology/v0.1#section", "values" : [data['http://dashboard.com/ontology/v0.1#section']]}
              };
-         /**
-          * ==> créer un service qui expose la sélection
-          puis faire la partie affichage avec filtrage (voir pour la requête coté serveur)
-          
-          puis faire l'affichage du résultat coté détail.
-          */
       });
     
+     $scope.oieParameters = null;
+     
+     $scope.onOIEClick = function(entity){
+         console.warn("!!!!!! Ca clique !!!!");
+         $scope.selected.oie = entity;
+         return false;
+     }
      
   });
   

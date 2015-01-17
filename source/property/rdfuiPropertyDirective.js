@@ -23,6 +23,7 @@
             subject : "=",
             propertyLabel : "@",
             templateName : "=",
+            propertyName : "@",
         },
         transclude : true,
         templateUrl : function(elem,attrs){
@@ -54,12 +55,14 @@
                     
                     //TODO : use scope binding instead of attr ? Not sure
                     attr.$observe('propertyName',function(value){
-                        scope.propertyName = value;
+                        console.warn("this is deprecated. object type is now guessed in objects elements");
+                        //scope.propertyName = value;
                         scope.graphCtrl.initiated.then(function(){
                             scope.isResource = graphService.isResource(scope.propertyName,scope.graphCtrl.graph);
                         });
                         
                     });
+                    
                     
                     //TODO : remove that to use directly ng-model
                     scope.$watch('subject',function(nv,ov){

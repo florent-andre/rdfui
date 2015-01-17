@@ -20,7 +20,20 @@
         var filtersService = {};
         
         function entityPropertyInArray(entity,property,array){
-            return (array.indexOf(entity[property]) != -1);
+            var values = entity[property];
+            //if the for this property is not an array
+            if(!Array.isArray(values)){
+                return (array.indexOf(entity[property]) != -1);
+            }
+            
+            //if it's an array
+            //TODO : use the array.find function when available
+            var res = false;
+            values.forEach(function(d,i){
+               if(array.indexOf(d) != -1 ) {res = true;}
+            });
+            
+            return res;
         }
         
         filtersService.acceptAll = function(){
@@ -31,12 +44,14 @@
             return function(){return false;};
         };
         
+        //@deprecated
         filtersService.rejectType = function(/** array of type */ types){
             return function(/**Entity as jsonLD */ entity){
                 return !entityPropertyInArray(entity,'@type',types);
             };
         };
         
+        //@deprecated
         filtersService.acceptType = function(/** array of type */ types){
             return function(/**Entity as jsonLD */ entity){
                 return entityPropertyInArray(entity,'@type',types);

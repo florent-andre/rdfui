@@ -33,6 +33,11 @@
                 var contents = tElement.contents().remove();
                 var compiledContents;
                 return function(scope, elm, attr, ctrls) {
+                    
+                    //this need to be placed before the compile for immediate availability for the children nodes
+                    //make the parent scope available throw .$parentScope property
+                    scope.$parentScope = scope.$parent;
+                    
                     if(!compiledContents) {
                         compiledContents = $compile(contents, transclude);
                     }
@@ -42,10 +47,10 @@
                     
                     if(ctrls[0]){
                         scope.$parentGraphCtrl = ctrls[0].scope;
+                      
                     }
                     
-                    //make the parent scope available throw .$parentScope property
-                    scope.$parentScope = scope.$parent;
+                    
                 };
             },
           };

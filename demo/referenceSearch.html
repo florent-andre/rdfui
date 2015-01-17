@@ -15,11 +15,11 @@
 </head>
 <body ng-app="demoApp">
 
-  <div class="container">
+  <div class="container" ng-controller="GlobalCtrl">
     <h1 class="page-header">RDFui demo : filter and dereference</h1>
     <a href="index.html"><i class="glyphicon glyphicon-chevron-left"></i> Back to overview page</a>
 
-    <div class="row" ng-controller="GlobalCtrl">
+    <div class="row">
     
         <rdfui-graph graph-uri="http://test.com/graphDereference">
             <div class="col-md-5" ng-controller="FilterCtrl">
@@ -36,27 +36,36 @@
                 </rdfui-subjects>
              </div>   
         </rdfui-graph>
-        
-        <rdfui-graph graph-uri="http://test.com/oie" lazy-loading="true">
-        	
-        	{
-              "type" : "accept",
-              "on" : {"property" : "http://dashboard.com/ontology/v0.1#section", "values" : ["http://dashboard.com/ontology/v0.1#c99a0837-cfc7-4fb6-989e-d4c2157e0ae2"]}
-          }
-          ====
-          {{$parentScope.test}}
-          =====
-          {{graph}}
-          =====
+     </div>
+     <div class="row">
+        <rdfui-graph graph-uri="http://test.com/oie" lazy-loading="true" parameters="oieParameters">
         	<rdfui-subjects graph-data="graph" filter="$parentScope.test.filter">
-        		{{$subjects}}
         		<div ng-repeat="node in $subjects">
-        			<rdfui-subject entity="node">
         			
+        			<rdfui-subject entity="node">
+        				<a href="{{entity['@id']}}" ng-click="$parentScope.onOIEClick(entity); $event.preventDefault();">
+        				({{entity['http://dashboard.com/ontology/v0.1#refCycle']['@value']}}) {{entity['http://dashboard.com/ontology/v0.1#procedure']['@value']}}
+        				</a>
         			</rdfui-subject>
         		</div>
         	</rdfui-subjects>
         </rdfui-graph>
+    </div>
+    
+    <div class="row">
+    	mettre le détail ici 
+<!--     	{{selected.oie}} -->
+    	<rdfui-graph lazy-loading="true">
+    	
+    		<rdfui-subjects>
+<!--     		{{$parentScope.selected.oie}} -->
+    			<rdfui-subject entity="$parentScope.selected.oie">
+<!--     			{{$parentScope.selected.oie}} -->
+    			{{entity}}
+    				A THEN PUT HERE THE DEFAULT TPL !!
+    			</rdfui-subject>
+    		</rdfui-subjects>
+    	</rdfui-graph>
     </div>
 
   </div>

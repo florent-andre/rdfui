@@ -18,27 +18,14 @@
             restrict: 'E',
             require: ['?^rdfuiGraph'],
             scope : {
-                //TODO : clean properties here, only graphUri is required
-              //  langs : "=", //les langues doivent être générés au niveau du rui-subject
-              //selectedLang : "=",
-              //subject : "=",
-              //propertyLabel : "@",
-              //graphUri : "@"
-//              graphData : "=",
-//              templateName : "=",
-              //filter : "="
               entity : "=",
               uri : "@" //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled.
             },
-            //scope:true,
-            //priority: 1, // needed for angular 1.2.x
-//            priority : 0,
             controller : 'rdfuiSubjectCtrl',
-            //transclude : 'element',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "blank";
-                return 'subjects/rdfuiSubjects.'+tName+'.tpl.html';
+                var tName = attrs.templateName ? attrs.templateName : "default";
+                return 'subject/rdfuiSubject.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {
                 var contents = tElement.contents().remove();
@@ -53,6 +40,12 @@
                     
                     if(ctrls[0]){
                         scope.graphCtrl = ctrls[0].scope;
+                        //Expose the user controler before the use of graph directive
+                        scope.$parentScope = scope.graphCtrl.$parentScope;
+                        
+                        console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss");
+                        console.log(scope.$parentScope);
+                        console.log(scope.graphCtrl.$parentScope == null);
                     }
                     
                 };

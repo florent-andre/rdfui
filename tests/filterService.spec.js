@@ -51,25 +51,25 @@ describe('filterService', function () {
           };
     
     beforeEach(module('rdf.ui'));
-    beforeEach(module('rdf.ui.tests.value'));
-
-    beforeEach(inject(function ($rootScope, _$compile_, $injector, graphOneLang, graphDereference, _filtersService_, _graphService_) {
+//    beforeEach(module('rdf.ui.tests.value'));
+//
+    beforeEach(inject(function ($rootScope, _$compile_, $injector, _filtersService_, _graphService_) {
         scope = $rootScope;
-        $compile = _$compile_;
+//        $compile = _$compile_;
         filtersService = _filtersService_;
-        graphService = _graphService_;
-        
-        $httpBackend  = $injector.get('$httpBackend');
-        
-        $httpBackend.when('GET', /\/skosifier\?uri=.*\.graphOneLang/).respond(graphOneLang.value);
-        $httpBackend.when('GET', /\/skosifier\?uri=.*\.graphDereference/).respond(graphDereference.value);
+//        graphService = _graphService_;
+//        
+//        $httpBackend  = $injector.get('$httpBackend');
+//        
+//        $httpBackend.when('GET', /\/skosifier\?uri=.*\.graphOneLang/).respond(graphOneLang.value);
+//        $httpBackend.when('GET', /\/skosifier\?uri=.*\.graphDereference/).respond(graphDereference.value);
         
     }));
-    
-    afterEach(function() {
-        $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
-      });
+//    
+//    afterEach(function() {
+//        $httpBackend.verifyNoOutstandingExpectation();
+//        $httpBackend.verifyNoOutstandingRequest();
+//      });
     
     it('should print the jasmine version',function(){
         if (jasmine.version) { //the case for version 2.0.0
@@ -146,13 +146,46 @@ describe('filterService', function () {
           
     });
     
-    xit('should work on array of references',function(){
-        //for example on this array
-//        "exactMatch": [
-//                       "http://vocab.getty.edu/aat/300007899",
-//                       "http://fr.dbpedia.org/resource/Tunnel",
-//                       "http://data.bnf.fr/ark:/12148/cb119754118"
-//                     ],
-    });    
+    it('should work on array of references',function(){
+        
+        //for example, on this property of the testEntity
+//        "http://www.w3.org/2008/05/skos-xl#prefLabel": [
+//                                                        "http://data.culture.fr/thesaurus/resource/ark:/67717/4b78db04-0a5c-4a39-98c8-4f09667875f8",
+//                                                        "http://data.culture.fr/thesaurus/resource/ark:/67717/22050164-9e86-46da-8989-375a0b6da6b1"
+//                                                      ],
+        
+        var filterOK = {
+                "type" : "accept",
+                "on" : {"property" : "http://www.w3.org/2008/05/skos-xl#prefLabel", 
+                        "values" : ["http://data.culture.fr/thesaurus/resource/ark:/67717/22050164-9e86-46da-8989-375a0b6da6b1"]
+                        }
+            };
+        
+        var f = filtersService.compile(filterOK);
+        expect(f(entityConcept)).toBe(true);
+        
+        var filterNOK = {
+                "type" : "accept",
+                "on" : {"property" : "http://www.w3.org/2008/05/skos-xl#prefLabel", 
+                        "values" : ["http://test.value"]
+                        }
+            };
+        
+        var f = filtersService.compile(filterNOK);
+        expect(f(entityConcept)).toBe(false);
+        
+    });
+    
+    xit('should be able to define "or" or "and" operator between values for a property',function(){
+       
+        //for the preflabel property, be able to filter : 
+        // *if one of the value in the filter is present
+        // *if all the values in the filter are present
+        // *if only this values are present
+        // *if at least this values are present
+        
+        // ==> suggestion for this : create a "strategy" property in the filter for defining this differents strategies.
+        
+    });
 
 });

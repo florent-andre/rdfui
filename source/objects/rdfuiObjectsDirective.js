@@ -35,7 +35,7 @@
             controller : 'rdfuiObjectsCtrl',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "blank";
+                var tName = attrs.templateName ? attrs.templateName : "default";
                 return 'objects/rdfuiObjects.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {
