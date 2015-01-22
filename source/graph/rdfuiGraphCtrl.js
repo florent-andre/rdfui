@@ -57,7 +57,7 @@
               console.log("??? ca continue ??");
               //option for "normal fetching" and local graph extraction
               if(!$scope.drfType){
-                  graphService.getGraphData($scope.graphUri).then(function(data){
+                  graphService.getLazyGraph($scope.graphUri, $scope.parameters, false).then(function(data){
                       
                       $scope.graph = data;
                       //TODO : ?? remove the graphTree building here as it's now done in a specific controller, right ??

@@ -214,7 +214,7 @@
         };
         
         graphService.getGraphData = function(/**String*/graphUri, /*graphQueryParameter*/ parameters){
-            
+            console.warn("@Deprecated :: use graphService.getLazyGraph instead");
             if(!parameters){
                 parameters = {
                         scheme : "", //the default one 
