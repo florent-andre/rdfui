@@ -25,13 +25,13 @@
          */
         /*graphService.getCurrentTerminos = function(force){
             var $dfd = $.Deferred();
-            console.log("=======> caull search termino");
+            console.log('=======> caull search termino');
             if(currentTermino && !force){
                 $dfd.resolve(currentTermino);
                 return $dfd.promise();
             }
             
-            $.when(self.searchTerminos("*")).then(function(results){
+            $.when(self.searchTerminos('*')).then(function(results){
                 currentTermino = results;
                 $dfd.resolve(currentTermino);
             });
@@ -47,9 +47,9 @@
          * @returns
          */
         /*graphService.getCurrentTermino = function(uri){
-            console.warn("@DEPRECATED : not still use this function as really low. Implement a faster one on use graphService.getMetadata(graphUrl)")
+            console.warn('@DEPRECATED : not still use this function as really low. Implement a faster one on use graphService.getMetadata(graphUrl)')
             var $dfd = $.Deferred();
-            var encUri = uri.replace(/ /g,"%20"); 
+            var encUri = uri.replace(/ /g,'%20'); 
             $.when(self.getCurrentTerminos()).then(function(result){
                 
                 result.some(function(d){
@@ -73,13 +73,13 @@
             var $dfd = $q.defer();//$.Deferred();
             
             $http({
-                url : lh.server+"skosifier/metadata?for="+graphUri,
-                method : "GET",
-                headers : {"Accept":"application/json"},
-                //dataType : "json",
+                url : lh.server+'skosifier/metadata?for='+graphUri,
+                method : 'GET',
+                headers : {'Accept':'application/json'},
+                //dataType : 'json',
                 })
                 .success(function(data){
-                    console.log("$$$$$$$$$$$$$$");
+                    console.log('$$$$$$$$$$$$$$');
                     console.log(data);
                     
                     organisationFactory.getById(data.creator).then(function(_org){
@@ -89,7 +89,7 @@
                             data : data,
                             gUrl : graphUri,
                             langs : data.language,
-                            editUrl : "./edit/index.html?uri="+graphUri, //TODO : see to remove this information as this is not generic.
+                            editUrl : './edit/index.html?uri='+graphUri, //TODO : see to remove this information as this is not generic.
                             org : _org[0],
                         });
                     });
@@ -101,37 +101,37 @@
         
         /*graphService.createNew = function(jmapping, stringFile,fileFormat) {
             
-//            $("#imageLoader").html("<img src='./import/images/ajax-loader1.gif'>");
-//            $("#submit").css("display","none");
-//            console.log("jmapping : ");
+//            $('#imageLoader').html('<img src='./import/images/ajax-loader1.gif'>');
+//            $('#submit').css('display','none');
+//            console.log('jmapping : ');
 //            console.log(jmapping);
             var form = new FormData();
             
-            stringFile = (!stringFile) ? "" : stringFile;
-            var fileType = "text/plain";
+            stringFile = (!stringFile) ? '' : stringFile;
+            var fileType = 'text/plain';
             if(fileFormat && fileFormat.fileType) fileType = fileFormat.fileType;
             
-            console.warn("TODO : be sure to fix the correct file type (text/xml for skos)" + fileType);
-            console.warn("TODO : put this as a parameter of the function");
+            console.warn('TODO : be sure to fix the correct file type (text/xml for skos)' + fileType);
+            console.warn('TODO : put this as a parameter of the function');
             var blob = new Blob([stringFile],{type : fileType});
-            form.append("file",blob);
-            form.append("conf",JSON.stringify(jmapping));
+            form.append('file',blob);
+            form.append('conf',JSON.stringify(jmapping));
             
             console.log(form);
             
-            console.warn("!!!!!!!!! fix the auth");
-            console.warn("******* fix the autor pass :: get the code and not the name");
+            console.warn('!!!!!!!!! fix the auth');
+            console.warn('******* fix the autor pass :: get the code and not the name');
             //TODO : remove this asap
-            var bytes = CryptoJS.enc.Utf8.parse("admin" + ":" + "admin");
-            //var bytes = CryptoJS.enc.Utf8.parse("tto" + ":" + "toto");
-            var pw = "Basic " + CryptoJS.enc.Base64.stringify(bytes);
+            var bytes = CryptoJS.enc.Utf8.parse('admin' + ':' + 'admin');
+            //var bytes = CryptoJS.enc.Utf8.parse('tto' + ':' + 'toto');
+            var pw = 'Basic ' + CryptoJS.enc.Base64.stringify(bytes);
             
             //TODO : faire un return qd debug ok
 //            return 
             
             return $http({
-                method : "POST",
-                url : lh.server + "skosifier",
+                method : 'POST',
+                url : lh.server + 'skosifier',
                 data: form,
                 //angular workaround in order to send : headers: {'Content-Type': 'multipart/form-data'},
                 //source : http://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
@@ -166,7 +166,7 @@
                 var graphObject = {};
                 Object.keys(data).forEach(function(k){
                     //we keep this two properties
-                    if(! (k == "@context" || k == "@graph")){
+                    if(! (k == '@context' || k == '@graph')){
                       //we move the others
                         graphObject[k] = data[k];
                         delete data[k];
@@ -183,11 +183,11 @@
         graphService.getLazyGraph = function(/**String*/graphUri, /*graphQueryParameter*/ parameters, /*boolean*/ lazy){
             if(!parameters && !lazy){
                 parameters = {
-                        scheme : "", //the default one 
+                        scheme : '', //the default one 
                         queryFn : function(/*string*/ uri){
                             return {
-                                method : "GET",
-                                url : rdfuiConfig.server+"skosifier?uri="+uri,
+                                method : 'GET',
+                                url : rdfuiConfig.server+'skosifier?uri='+uri,
                             };
                         }
                 };
@@ -195,7 +195,7 @@
             
             var $dfd = $q.defer();
             graphInit.push($dfd);
-            var uri = graphUri.replace(/ /g,"%20");
+            var uri = graphUri.replace(/ /g,'%20');
             
             if(lazy && !parameters){
                 var data = {};
@@ -214,12 +214,12 @@
         };
         
         graphService.getGraphData = function(/**String*/graphUri, /*graphQueryParameter*/ parameters){
-            console.warn("@Deprecated :: use graphService.getLazyGraph instead");
+            console.warn('@Deprecated :: use graphService.getLazyGraph instead');
             if(!parameters){
                 parameters = {
-                        scheme : "", //the default one 
+                        scheme : '', //the default one 
                         endpointFn : function(/*string*/ uri){
-                            return rdfuiConfig.server+"skosifier?uri="+uri;
+                            return rdfuiConfig.server+'skosifier?uri='+uri;
                         }
                 };
             }
@@ -228,12 +228,12 @@
             
             graphInit.push($dfd);
             
-            var uri = graphUri.replace(/ /g,"%20");
+            var uri = graphUri.replace(/ /g,'%20');
             
             $http({
-                method : "GET",
-                url : parameters.endpointFn(uri), //rdfuiConfig.server+"skosifier?uri="+uri,
-                //headers: {"Accept":"application/json-ld"}
+                method : 'GET',
+                url : parameters.endpointFn(uri), //rdfuiConfig.server+'skosifier?uri='+uri,
+                //headers: {'Accept':'application/json-ld'}
             }).success(function(data){
                 //TODO : use self._postProcess(data);
                 dataCache.push(data);
@@ -245,7 +245,7 @@
                     var graphObject = {};
                     Object.keys(data).forEach(function(k){
                         //we keep this two properties
-                        if(! (k == "@context" || k == "@graph")){
+                        if(! (k == '@context' || k == '@graph')){
                           //we move the others
                             graphObject[k] = data[k];
                             delete data[k];
@@ -264,7 +264,7 @@
         
         //@deprecated
         graphService.isReference = function(/*String*/ propertyName, /*String or jsonLD*/ graph){
-            console.warn("@deprecated :: use .isResource instead");
+            console.warn('@deprecated :: use .isResource instead');
             return self.isResource(propertyName,graph);
         };
         
@@ -272,10 +272,10 @@
             if(!graph['@graph']) {graph = graphCache[graph];}
             
             if(graph['@context'][propertyName]){
-                return graph['@context'][propertyName]["@type"] ?
-                        graph['@context'][propertyName]["@type"] == "@id" ? true : false : false;
+                return graph['@context'][propertyName]['@type'] ?
+                        graph['@context'][propertyName]['@type'] == '@id' ? true : false : false;
             }else{
-                throw new RangeError("The property " + propertyName + " is not defined in this graph context");
+                throw new RangeError('The property ' + propertyName + ' is not defined in this graph context');
             }
         };
         
@@ -286,7 +286,7 @@
             try{
                 hasType.resource = self.isResource(propertyName,graph);
             }catch(e){
-//                console.trace( e.message +" , so we guess it's a literal");
+//                console.trace( e.message +' , so we guess it's a literal');
                 hasType.resource = false;
             }
             hasType.literal = !hasType.resource;
@@ -296,7 +296,7 @@
                 hasType.literalType = {};
                 //we take the first object
                 var obj = objects[0];
-                hasType.literalType.plain = obj["@language"] ? true : false;
+                hasType.literalType.plain = obj['@language'] ? true : false;
                 hasType.literalType.typed = !hasType.literalType.plain;
             }
             return hasType;
@@ -328,7 +328,7 @@
             
             if(!filter) {filter = filtersService.acceptAll();}
             //TODO : for now only deal with broader as default, use json-ld description to find out witch one is with @id.
-            if(!parentProperty) {parentProperty = "broader";}
+            if(!parentProperty) {parentProperty = 'broader';}
             
             var data = graph['@graph'];
                 return data.reduce(function(previous,current,index,array){
@@ -363,7 +363,7 @@
                                 }
                             }else{
                                 //TODO : find a better way to manage that.
-                                console.error("Ce broader n'existe pas dans le graph, problème de consistance");
+                                console.error('Ce broader n\'existe pas dans le graph, problème de consistance');
                             }
                         });
                         
@@ -376,7 +376,7 @@
         
         graphService.getLabelFromUri = function(/**jsonLD*/ graph, /**String*/ nodeUri, /**string*/lang){
             //TODO : make this value as a variable
-            var property = "prefLabel";
+            var property = 'prefLabel';
             var node = graphService.findNode(graph,nodeUri);
             if(node){
                 
@@ -396,7 +396,7 @@
                 return [];
                 
             }else{
-                console.warn("TODO : define return code");
+                console.warn('TODO : define return code');
             }
         };
         
@@ -413,13 +413,13 @@
         //TODO : mettre ces éléments d'history dans un graph service
         graphService.buildChanges = function(s,p,o){
             
-            var graphUrl = "http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre";
+            var graphUrl = 'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
             
             if(s == null){
-                console.warn("TODO : retrive the current graph url");
-                graphUrl = "http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre";
+                console.warn('TODO : retrive the current graph url');
+                graphUrl = 'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
             }
-            var historyGraphUrl = "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a";
+            var historyGraphUrl = 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a';
             
             var oldo = o[0];
             var newo = o[1];
@@ -427,18 +427,18 @@
             
             
             var historyRoot = {
-                    "@id": historyGraphUrl,
-                    "@type": [
-                      "history"
+                    '@id': historyGraphUrl,
+                    '@type': [
+                      'history'
                     ],
-                    "change": [
+                    'change': [
                       {
-                        "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438"
+                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438'
                       }
                     ],
-                    "historyOf": [
+                    'historyOf': [
                       {
-                        "@id": graphUrl
+                        '@id': graphUrl
                       }
                     ]
                   };
@@ -446,106 +446,106 @@
             var doc = [
               historyRoot,
               {
-                "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621",
-                "@type": [
-                  "http://www.culture-terminology.org/ontologies/history#subject"
+                '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621',
+                '@type': [
+                  'http://www.culture-terminology.org/ontologies/history#subject'
                 ],
-                "http://www.culture-terminology.org/ontologies/history#element": [
+                'http://www.culture-terminology.org/ontologies/history#element': [
                   {
-                    "@id": "http://www.athenaeurope.org/athenawiki/AthenaThesaurus/Michael_Subjects#Slavery"
+                    '@id': 'http://www.athenaeurope.org/athenawiki/AthenaThesaurus/Michael_Subjects#Slavery'
                   }
                 ],
-                "http://www.culture-terminology.org/ontologies/history#property": [
+                'http://www.culture-terminology.org/ontologies/history#property': [
                   {
-                    "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d"
+                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d'
                   }
                 ]
               },
               {
-                "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438",
-                "@type": ["change"],
-                "http://www.culture-terminology.org/ontologies/history#date": [
+                '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438',
+                '@type': ['change'],
+                'http://www.culture-terminology.org/ontologies/history#date': [
                     {
-                        "@value": 1413927724650.0
+                        '@value': 1413927724650.0
                       }
                     ],
-                    "http://www.culture-terminology.org/ontologies/history#from": [
+                    'http://www.culture-terminology.org/ontologies/history#from': [
                       {
-                        "@id": "http://define.GRAPH.VERSION"
+                        '@id': 'http://define.GRAPH.VERSION'
                       }
                     ],
-                    "http://www.culture-terminology.org/ontologies/history#subject": [
+                    'http://www.culture-terminology.org/ontologies/history#subject': [
                       {
-                        "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621"
+                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621'
                       }
                     ],
-                    "http://www.culture-terminology.org/ontologies/history#user": [
+                    'http://www.culture-terminology.org/ontologies/history#user': [
                       {
-                        "@value": "default user"
+                        '@value': 'default user'
                       }
                     ]
                     },
                     {
-                    "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656",
-                    "@type": [
-                      "object"
+                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656',
+                    '@type': [
+                      'object'
                     ],
-                    "element": [
+                    'element': [
                     {
-                        "@language": oldo['@language'],
-                        "@value": oldo['@value']
+                        '@language': oldo['@language'],
+                        '@value': oldo['@value']
                       }
                     ],
-                    "newValue": [
+                    'newValue': [
                       {
-                        "@language": newo['@language'],
-                        "@value": newo['@value']
+                        '@language': newo['@language'],
+                        '@value': newo['@value']
                       }
                     ]
                     },
                     {
-                    "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d",
-                    "@type": ["property"],
-                    "element": [
-                      { "@id": "http://www.w3.org/2004/02/skos/core#prefLabel"}
+                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d',
+                    '@type': ['property'],
+                    'element': [
+                      { '@id': 'http://www.w3.org/2004/02/skos/core#prefLabel'}
                     ],
-                    "object": [
+                    'object': [
                       {
-                        "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656"
+                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656'
                       }
                       ]
                     }
                     ];
             
             var context = {
-                        "history": "http://www.culture-terminology.org/ontologies/history#history",
+                        'history': 'http://www.culture-terminology.org/ontologies/history#history',
                         
-                        "change": {
-                            "@id": "http://www.culture-terminology.org/ontologies/history#change",
-                            "@type": "@id"
+                        'change': {
+                            '@id': 'http://www.culture-terminology.org/ontologies/history#change',
+                            '@type': '@id'
                           },
                           
-                        "historyOf" : "http://www.culture-terminology.org/ontologies/history#historyOf",
-                        "element" : "http://www.culture-terminology.org/ontologies/history#element",
-                        "newValue" : "http://www.culture-terminology.org/ontologies/history#newValue",
+                        'historyOf' : 'http://www.culture-terminology.org/ontologies/history#historyOf',
+                        'element' : 'http://www.culture-terminology.org/ontologies/history#element',
+                        'newValue' : 'http://www.culture-terminology.org/ontologies/history#newValue',
                         
-                        "property" : "http://www.culture-terminology.org/ontologies/history#property",
-                        "object" : "http://www.culture-terminology.org/ontologies/history#object",
+                        'property' : 'http://www.culture-terminology.org/ontologies/history#property',
+                        'object' : 'http://www.culture-terminology.org/ontologies/history#object',
             };
                 
             var jsonLd = {
-                    "@context" : context,
-                    "@graph" : doc
+                    '@context' : context,
+                    '@graph' : doc
             };
             
             console.log(jsonLd);
             
             $http({
-                url : rdfuiConfig.server+"skosifier/changesV2",
-                method : "POST",
-                headers : {"content-type":"application/ld+json"},
+                url : rdfuiConfig.server+'skosifier/changesV2',
+                method : 'POST',
+                headers : {'content-type':'application/ld+json'},
                 data : jsonLd
-                //dataType : "json",
+                //dataType : 'json',
                 });
 
         };

@@ -18,13 +18,13 @@
             restrict: 'E',
             require: ['?^rdfuiGraph'],
             scope : {
-              entity : "=",
-              uri : "@" //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled.
+              entity : '=',
+              uri : '@' //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled.
             },
             controller : 'rdfuiSubjectCtrl',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "default";
+                var tName = attrs.templateName ? attrs.templateName : 'default';
                 return 'subject/rdfuiSubject.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {
@@ -43,7 +43,7 @@
                         //Expose the user controler before the use of graph directive
                         scope.$parentScope = scope.graphCtrl.$parentScope;
                         
-                        console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss");
+                        console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss');
                         console.log(scope.$parentScope);
                         console.log(scope.graphCtrl.$parentScope == null);
                     }

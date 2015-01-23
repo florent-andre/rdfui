@@ -19,13 +19,13 @@
             restrict: 'A',
             require: ['?^rdfuiGraph'], //start searching the optionnal rdfuiGraph controller on the parent DOM node
 //            scope : {
-////              graphUri : "@",
-////              drfType : "@" //dereference type can be "local" for using the parent graphData or NULL to make a request.
+////              graphUri : '@',
+////              drfType : '@' //dereference type can be 'local' for using the parent graphData or NULL to make a request.
 //            },
 //            controller : 'rdfuiGraphCtrl',
 //            transclude : true,
 //            templateUrl : function(elem,attrs){
-//                var tName = attrs.templateName ? attrs.templateName : "default";
+//                var tName = attrs.templateName ? attrs.templateName : 'default';
 //                return 'graph/rdfuiGraph.'+tName+'.tpl.html';
 //            },
             compile: function(tElement, tAttr, transclude) {
@@ -42,20 +42,20 @@
                     if(ctrls[0]){
                         scope.$graphCtrl = ctrls[0].scope;
                         
-                        console.warn("£££££££££££££££££££££££££££££");
+                        console.warn('£££££££££££££££££££££££££££££');
                         console.log(scope);
                         //1° TODO : a call to the graphService with an object definition of the retrive config
-                        //{ scheme : "urn:x-metadata", endpoint : "function(uri){ ... }"}
-                        var scheme = "urn:x-metadata:";
+                        //{ scheme : 'urn:x-metadata', endpoint : 'function(uri){ ... }'}
+                        var scheme = 'urn:x-metadata:';
                         var parameters = {
                                 scheme : scheme, //the default one 
                                 endpointFn : function(/*string*/ uri){
-                                    return rdfuiConfig.server+"graphs?scheme="+scheme+"&uri="+uri;
+                                    return rdfuiConfig.server+'graphs?scheme='+scheme+'&uri='+uri;
                                 }
                         };
                         
                         graphService.getGraphData(scope.$graphCtrl.graphUri,parameters).then(function(data){
-                            console.log("COOOLLLLL");
+                            console.log('COOOLLLLL');
                             console.log(data);
                             //graph language definition from metadatas
                             scope.$graphCtrl.lang.available = langService.getLanguagesFromMetadata(data);
@@ -67,7 +67,7 @@
                             
                             //if no language list defined in the metadata
                             if(!scope.$graphCtrl.lang.available){
-                                console.warn("there is no languages defined in the metadata of this graph !");
+                                console.warn('there is no languages defined in the metadata of this graph !');
                             }
                             
                         });

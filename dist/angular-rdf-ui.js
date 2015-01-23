@@ -368,7 +368,7 @@
             if(!filterDef) {return null;}
             filterDef.fn = function(/**entity as jsonLD*/ entity){
                 var res = entityPropertyInArray(entity,filterDef.on.property,filterDef.on.values);
-                return filterDef.type == "accept" ? res : !res;
+                return filterDef.type == 'accept' ? res : !res;
             };
             
             return filterDef.fn;
@@ -394,15 +394,15 @@
         $scope.initialisation = $q.defer();
         $scope.initiated = $scope.initialisation.promise;
         
-        $scope.name = "graphCtrl";
+        $scope.name = 'graphCtrl';
         
         $scope.graph = null;
         
         $scope.currentNode = null;
         
         $scope.lang = {};
-        $scope.lang.main = "fr";
-        $scope.lang.available = ["en","fr","es"];
+        $scope.lang.main = 'fr';
+        $scope.lang.available = ['en','fr','es'];
         $scope.lang.displayed = $scope.lang.available;
         
         //@deprecated use $scope.lang.* instead of this ones.
@@ -425,10 +425,10 @@
             $scope.initialisation = $q.defer();
             //options for lazy loading
               if($scope.lazyLoading){
-                  console.log("#######");
+                  console.log('#######');
                   console.log($scope.parameters);
                   graphService.getLazyGraph($scope.graphUri, $scope.parameters, true).then(function(data){
-                      console.log("lazy graph data");
+                      console.log('lazy graph data');
                       $scope.graph = data;
                       //TODO : ?? remove the graphTree building here as it's now done in a specific controller, right ??
                       //$scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
@@ -437,8 +437,8 @@
                   });
                   return;
               }
-              console.log("??? ca continue ??");
-              //option for "normal fetching" and local graph extraction
+              console.log('??? ca continue ??');
+              //option for 'normal fetching' and local graph extraction
               if(!$scope.drfType){
                   graphService.getLazyGraph($scope.graphUri, $scope.parameters, false).then(function(data){
                       
@@ -452,8 +452,8 @@
                   
                   //TODO : clean this... maybe define a drf service that return a standard object for all dereferences types
                   $scope.graph = {};
-                  $scope.graph["@context"] = angular.copy($scope.$parentGraphCtrl.graph["@context"]);
-                  $scope.graph["@graph"] = [graphService.findNode($scope.$parentGraphCtrl.graph,$scope.graphUri)];
+                  $scope.graph['@context'] = angular.copy($scope.$parentGraphCtrl.graph['@context']);
+                  $scope.graph['@graph'] = [graphService.findNode($scope.$parentGraphCtrl.graph,$scope.graphUri)];
                   $scope.initialisation.resolve();
               }
           };
@@ -481,12 +481,12 @@
         };
         
         $scope.remove = function(node){
-            console.log("TODO : implement this");
+            console.log('TODO : implement this');
             console.warn(node);
         };
         
         $scope.newSubItem = function(node){
-            console.log("TODO : implement this");
+            console.log('TODO : implement this');
             console.warn(node);
         };
         
@@ -517,15 +517,15 @@
             restrict: 'E',
             require: ['?^^rdfuiGraph'], //start searching the optional rdfuiGraph controller on the parent DOM node
             scope : {
-              graphUri : "@",
-              drfType : "@", //dereference type can be "local" for using the parent graphData or NULL to make a request.
-              lazyLoading : "@",
-              parameters : "=",
+              graphUri : '@',
+              drfType : '@', //dereference type can be 'local' for using the parent graphData or NULL to make a request.
+              lazyLoading : '@',
+              parameters : '=',
             },
             controller : 'rdfuiGraphCtrl',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "default";
+                var tName = attrs.templateName ? attrs.templateName : 'default';
                 return 'graph/rdfuiGraph.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {
@@ -583,13 +583,13 @@
          */
         /*graphService.getCurrentTerminos = function(force){
             var $dfd = $.Deferred();
-            console.log("=======> caull search termino");
+            console.log('=======> caull search termino');
             if(currentTermino && !force){
                 $dfd.resolve(currentTermino);
                 return $dfd.promise();
             }
             
-            $.when(self.searchTerminos("*")).then(function(results){
+            $.when(self.searchTerminos('*')).then(function(results){
                 currentTermino = results;
                 $dfd.resolve(currentTermino);
             });
@@ -605,9 +605,9 @@
          * @returns
          */
         /*graphService.getCurrentTermino = function(uri){
-            console.warn("@DEPRECATED : not still use this function as really low. Implement a faster one on use graphService.getMetadata(graphUrl)")
+            console.warn('@DEPRECATED : not still use this function as really low. Implement a faster one on use graphService.getMetadata(graphUrl)')
             var $dfd = $.Deferred();
-            var encUri = uri.replace(/ /g,"%20"); 
+            var encUri = uri.replace(/ /g,'%20'); 
             $.when(self.getCurrentTerminos()).then(function(result){
                 
                 result.some(function(d){
@@ -631,13 +631,13 @@
             var $dfd = $q.defer();//$.Deferred();
             
             $http({
-                url : lh.server+"skosifier/metadata?for="+graphUri,
-                method : "GET",
-                headers : {"Accept":"application/json"},
-                //dataType : "json",
+                url : lh.server+'skosifier/metadata?for='+graphUri,
+                method : 'GET',
+                headers : {'Accept':'application/json'},
+                //dataType : 'json',
                 })
                 .success(function(data){
-                    console.log("$$$$$$$$$$$$$$");
+                    console.log('$$$$$$$$$$$$$$');
                     console.log(data);
                     
                     organisationFactory.getById(data.creator).then(function(_org){
@@ -647,7 +647,7 @@
                             data : data,
                             gUrl : graphUri,
                             langs : data.language,
-                            editUrl : "./edit/index.html?uri="+graphUri, //TODO : see to remove this information as this is not generic.
+                            editUrl : './edit/index.html?uri='+graphUri, //TODO : see to remove this information as this is not generic.
                             org : _org[0],
                         });
                     });
@@ -659,37 +659,37 @@
         
         /*graphService.createNew = function(jmapping, stringFile,fileFormat) {
             
-//            $("#imageLoader").html("<img src='./import/images/ajax-loader1.gif'>");
-//            $("#submit").css("display","none");
-//            console.log("jmapping : ");
+//            $('#imageLoader').html('<img src='./import/images/ajax-loader1.gif'>');
+//            $('#submit').css('display','none');
+//            console.log('jmapping : ');
 //            console.log(jmapping);
             var form = new FormData();
             
-            stringFile = (!stringFile) ? "" : stringFile;
-            var fileType = "text/plain";
+            stringFile = (!stringFile) ? '' : stringFile;
+            var fileType = 'text/plain';
             if(fileFormat && fileFormat.fileType) fileType = fileFormat.fileType;
             
-            console.warn("TODO : be sure to fix the correct file type (text/xml for skos)" + fileType);
-            console.warn("TODO : put this as a parameter of the function");
+            console.warn('TODO : be sure to fix the correct file type (text/xml for skos)' + fileType);
+            console.warn('TODO : put this as a parameter of the function');
             var blob = new Blob([stringFile],{type : fileType});
-            form.append("file",blob);
-            form.append("conf",JSON.stringify(jmapping));
+            form.append('file',blob);
+            form.append('conf',JSON.stringify(jmapping));
             
             console.log(form);
             
-            console.warn("!!!!!!!!! fix the auth");
-            console.warn("******* fix the autor pass :: get the code and not the name");
+            console.warn('!!!!!!!!! fix the auth');
+            console.warn('******* fix the autor pass :: get the code and not the name');
             //TODO : remove this asap
-            var bytes = CryptoJS.enc.Utf8.parse("admin" + ":" + "admin");
-            //var bytes = CryptoJS.enc.Utf8.parse("tto" + ":" + "toto");
-            var pw = "Basic " + CryptoJS.enc.Base64.stringify(bytes);
+            var bytes = CryptoJS.enc.Utf8.parse('admin' + ':' + 'admin');
+            //var bytes = CryptoJS.enc.Utf8.parse('tto' + ':' + 'toto');
+            var pw = 'Basic ' + CryptoJS.enc.Base64.stringify(bytes);
             
             //TODO : faire un return qd debug ok
 //            return 
             
             return $http({
-                method : "POST",
-                url : lh.server + "skosifier",
+                method : 'POST',
+                url : lh.server + 'skosifier',
                 data: form,
                 //angular workaround in order to send : headers: {'Content-Type': 'multipart/form-data'},
                 //source : http://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
@@ -724,7 +724,7 @@
                 var graphObject = {};
                 Object.keys(data).forEach(function(k){
                     //we keep this two properties
-                    if(! (k == "@context" || k == "@graph")){
+                    if(! (k == '@context' || k == '@graph')){
                       //we move the others
                         graphObject[k] = data[k];
                         delete data[k];
@@ -741,11 +741,11 @@
         graphService.getLazyGraph = function(/**String*/graphUri, /*graphQueryParameter*/ parameters, /*boolean*/ lazy){
             if(!parameters && !lazy){
                 parameters = {
-                        scheme : "", //the default one 
+                        scheme : '', //the default one 
                         queryFn : function(/*string*/ uri){
                             return {
-                                method : "GET",
-                                url : rdfuiConfig.server+"skosifier?uri="+uri,
+                                method : 'GET',
+                                url : rdfuiConfig.server+'skosifier?uri='+uri,
                             };
                         }
                 };
@@ -753,7 +753,7 @@
             
             var $dfd = $q.defer();
             graphInit.push($dfd);
-            var uri = graphUri.replace(/ /g,"%20");
+            var uri = graphUri.replace(/ /g,'%20');
             
             if(lazy && !parameters){
                 var data = {};
@@ -772,12 +772,12 @@
         };
         
         graphService.getGraphData = function(/**String*/graphUri, /*graphQueryParameter*/ parameters){
-            console.warn("@Deprecated :: use graphService.getLazyGraph instead");
+            console.warn('@Deprecated :: use graphService.getLazyGraph instead');
             if(!parameters){
                 parameters = {
-                        scheme : "", //the default one 
+                        scheme : '', //the default one 
                         endpointFn : function(/*string*/ uri){
-                            return rdfuiConfig.server+"skosifier?uri="+uri;
+                            return rdfuiConfig.server+'skosifier?uri='+uri;
                         }
                 };
             }
@@ -786,12 +786,12 @@
             
             graphInit.push($dfd);
             
-            var uri = graphUri.replace(/ /g,"%20");
+            var uri = graphUri.replace(/ /g,'%20');
             
             $http({
-                method : "GET",
-                url : parameters.endpointFn(uri), //rdfuiConfig.server+"skosifier?uri="+uri,
-                //headers: {"Accept":"application/json-ld"}
+                method : 'GET',
+                url : parameters.endpointFn(uri), //rdfuiConfig.server+'skosifier?uri='+uri,
+                //headers: {'Accept':'application/json-ld'}
             }).success(function(data){
                 //TODO : use self._postProcess(data);
                 dataCache.push(data);
@@ -803,7 +803,7 @@
                     var graphObject = {};
                     Object.keys(data).forEach(function(k){
                         //we keep this two properties
-                        if(! (k == "@context" || k == "@graph")){
+                        if(! (k == '@context' || k == '@graph')){
                           //we move the others
                             graphObject[k] = data[k];
                             delete data[k];
@@ -822,7 +822,7 @@
         
         //@deprecated
         graphService.isReference = function(/*String*/ propertyName, /*String or jsonLD*/ graph){
-            console.warn("@deprecated :: use .isResource instead");
+            console.warn('@deprecated :: use .isResource instead');
             return self.isResource(propertyName,graph);
         };
         
@@ -830,10 +830,10 @@
             if(!graph['@graph']) {graph = graphCache[graph];}
             
             if(graph['@context'][propertyName]){
-                return graph['@context'][propertyName]["@type"] ?
-                        graph['@context'][propertyName]["@type"] == "@id" ? true : false : false;
+                return graph['@context'][propertyName]['@type'] ?
+                        graph['@context'][propertyName]['@type'] == '@id' ? true : false : false;
             }else{
-                throw new RangeError("The property " + propertyName + " is not defined in this graph context");
+                throw new RangeError('The property ' + propertyName + ' is not defined in this graph context');
             }
         };
         
@@ -844,7 +844,7 @@
             try{
                 hasType.resource = self.isResource(propertyName,graph);
             }catch(e){
-//                console.trace( e.message +" , so we guess it's a literal");
+//                console.trace( e.message +' , so we guess it's a literal');
                 hasType.resource = false;
             }
             hasType.literal = !hasType.resource;
@@ -854,7 +854,7 @@
                 hasType.literalType = {};
                 //we take the first object
                 var obj = objects[0];
-                hasType.literalType.plain = obj["@language"] ? true : false;
+                hasType.literalType.plain = obj['@language'] ? true : false;
                 hasType.literalType.typed = !hasType.literalType.plain;
             }
             return hasType;
@@ -886,7 +886,7 @@
             
             if(!filter) {filter = filtersService.acceptAll();}
             //TODO : for now only deal with broader as default, use json-ld description to find out witch one is with @id.
-            if(!parentProperty) {parentProperty = "broader";}
+            if(!parentProperty) {parentProperty = 'broader';}
             
             var data = graph['@graph'];
                 return data.reduce(function(previous,current,index,array){
@@ -921,7 +921,7 @@
                                 }
                             }else{
                                 //TODO : find a better way to manage that.
-                                console.error("Ce broader n'existe pas dans le graph, problème de consistance");
+                                console.error('Ce broader n\'existe pas dans le graph, problème de consistance');
                             }
                         });
                         
@@ -934,7 +934,7 @@
         
         graphService.getLabelFromUri = function(/**jsonLD*/ graph, /**String*/ nodeUri, /**string*/lang){
             //TODO : make this value as a variable
-            var property = "prefLabel";
+            var property = 'prefLabel';
             var node = graphService.findNode(graph,nodeUri);
             if(node){
                 
@@ -954,7 +954,7 @@
                 return [];
                 
             }else{
-                console.warn("TODO : define return code");
+                console.warn('TODO : define return code');
             }
         };
         
@@ -971,13 +971,13 @@
         //TODO : mettre ces éléments d'history dans un graph service
         graphService.buildChanges = function(s,p,o){
             
-            var graphUrl = "http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre";
+            var graphUrl = 'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
             
             if(s == null){
-                console.warn("TODO : retrive the current graph url");
-                graphUrl = "http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre";
+                console.warn('TODO : retrive the current graph url');
+                graphUrl = 'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
             }
-            var historyGraphUrl = "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a";
+            var historyGraphUrl = 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a';
             
             var oldo = o[0];
             var newo = o[1];
@@ -985,18 +985,18 @@
             
             
             var historyRoot = {
-                    "@id": historyGraphUrl,
-                    "@type": [
-                      "history"
+                    '@id': historyGraphUrl,
+                    '@type': [
+                      'history'
                     ],
-                    "change": [
+                    'change': [
                       {
-                        "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438"
+                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438'
                       }
                     ],
-                    "historyOf": [
+                    'historyOf': [
                       {
-                        "@id": graphUrl
+                        '@id': graphUrl
                       }
                     ]
                   };
@@ -1004,106 +1004,106 @@
             var doc = [
               historyRoot,
               {
-                "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621",
-                "@type": [
-                  "http://www.culture-terminology.org/ontologies/history#subject"
+                '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621',
+                '@type': [
+                  'http://www.culture-terminology.org/ontologies/history#subject'
                 ],
-                "http://www.culture-terminology.org/ontologies/history#element": [
+                'http://www.culture-terminology.org/ontologies/history#element': [
                   {
-                    "@id": "http://www.athenaeurope.org/athenawiki/AthenaThesaurus/Michael_Subjects#Slavery"
+                    '@id': 'http://www.athenaeurope.org/athenawiki/AthenaThesaurus/Michael_Subjects#Slavery'
                   }
                 ],
-                "http://www.culture-terminology.org/ontologies/history#property": [
+                'http://www.culture-terminology.org/ontologies/history#property': [
                   {
-                    "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d"
+                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d'
                   }
                 ]
               },
               {
-                "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438",
-                "@type": ["change"],
-                "http://www.culture-terminology.org/ontologies/history#date": [
+                '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438',
+                '@type': ['change'],
+                'http://www.culture-terminology.org/ontologies/history#date': [
                     {
-                        "@value": 1413927724650.0
+                        '@value': 1413927724650.0
                       }
                     ],
-                    "http://www.culture-terminology.org/ontologies/history#from": [
+                    'http://www.culture-terminology.org/ontologies/history#from': [
                       {
-                        "@id": "http://define.GRAPH.VERSION"
+                        '@id': 'http://define.GRAPH.VERSION'
                       }
                     ],
-                    "http://www.culture-terminology.org/ontologies/history#subject": [
+                    'http://www.culture-terminology.org/ontologies/history#subject': [
                       {
-                        "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621"
+                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621'
                       }
                     ],
-                    "http://www.culture-terminology.org/ontologies/history#user": [
+                    'http://www.culture-terminology.org/ontologies/history#user': [
                       {
-                        "@value": "default user"
+                        '@value': 'default user'
                       }
                     ]
                     },
                     {
-                    "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656",
-                    "@type": [
-                      "object"
+                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656',
+                    '@type': [
+                      'object'
                     ],
-                    "element": [
+                    'element': [
                     {
-                        "@language": oldo['@language'],
-                        "@value": oldo['@value']
+                        '@language': oldo['@language'],
+                        '@value': oldo['@value']
                       }
                     ],
-                    "newValue": [
+                    'newValue': [
                       {
-                        "@language": newo['@language'],
-                        "@value": newo['@value']
+                        '@language': newo['@language'],
+                        '@value': newo['@value']
                       }
                     ]
                     },
                     {
-                    "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d",
-                    "@type": ["property"],
-                    "element": [
-                      { "@id": "http://www.w3.org/2004/02/skos/core#prefLabel"}
+                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d',
+                    '@type': ['property'],
+                    'element': [
+                      { '@id': 'http://www.w3.org/2004/02/skos/core#prefLabel'}
                     ],
-                    "object": [
+                    'object': [
                       {
-                        "@id": "http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656"
+                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656'
                       }
                       ]
                     }
                     ];
             
             var context = {
-                        "history": "http://www.culture-terminology.org/ontologies/history#history",
+                        'history': 'http://www.culture-terminology.org/ontologies/history#history',
                         
-                        "change": {
-                            "@id": "http://www.culture-terminology.org/ontologies/history#change",
-                            "@type": "@id"
+                        'change': {
+                            '@id': 'http://www.culture-terminology.org/ontologies/history#change',
+                            '@type': '@id'
                           },
                           
-                        "historyOf" : "http://www.culture-terminology.org/ontologies/history#historyOf",
-                        "element" : "http://www.culture-terminology.org/ontologies/history#element",
-                        "newValue" : "http://www.culture-terminology.org/ontologies/history#newValue",
+                        'historyOf' : 'http://www.culture-terminology.org/ontologies/history#historyOf',
+                        'element' : 'http://www.culture-terminology.org/ontologies/history#element',
+                        'newValue' : 'http://www.culture-terminology.org/ontologies/history#newValue',
                         
-                        "property" : "http://www.culture-terminology.org/ontologies/history#property",
-                        "object" : "http://www.culture-terminology.org/ontologies/history#object",
+                        'property' : 'http://www.culture-terminology.org/ontologies/history#property',
+                        'object' : 'http://www.culture-terminology.org/ontologies/history#object',
             };
                 
             var jsonLd = {
-                    "@context" : context,
-                    "@graph" : doc
+                    '@context' : context,
+                    '@graph' : doc
             };
             
             console.log(jsonLd);
             
             $http({
-                url : rdfuiConfig.server+"skosifier/changesV2",
-                method : "POST",
-                headers : {"content-type":"application/ld+json"},
+                url : rdfuiConfig.server+'skosifier/changesV2',
+                method : 'POST',
+                headers : {'content-type':'application/ld+json'},
                 data : jsonLd
-                //dataType : "json",
+                //dataType : 'json',
                 });
 
         };
@@ -1135,13 +1135,13 @@
             restrict: 'A',
             require: ['?^rdfuiGraph'], //start searching the optionnal rdfuiGraph controller on the parent DOM node
 //            scope : {
-////              graphUri : "@",
-////              drfType : "@" //dereference type can be "local" for using the parent graphData or NULL to make a request.
+////              graphUri : '@',
+////              drfType : '@' //dereference type can be 'local' for using the parent graphData or NULL to make a request.
 //            },
 //            controller : 'rdfuiGraphCtrl',
 //            transclude : true,
 //            templateUrl : function(elem,attrs){
-//                var tName = attrs.templateName ? attrs.templateName : "default";
+//                var tName = attrs.templateName ? attrs.templateName : 'default';
 //                return 'graph/rdfuiGraph.'+tName+'.tpl.html';
 //            },
             compile: function(tElement, tAttr, transclude) {
@@ -1158,20 +1158,20 @@
                     if(ctrls[0]){
                         scope.$graphCtrl = ctrls[0].scope;
                         
-                        console.warn("£££££££££££££££££££££££££££££");
+                        console.warn('£££££££££££££££££££££££££££££');
                         console.log(scope);
                         //1° TODO : a call to the graphService with an object definition of the retrive config
-                        //{ scheme : "urn:x-metadata", endpoint : "function(uri){ ... }"}
-                        var scheme = "urn:x-metadata:";
+                        //{ scheme : 'urn:x-metadata', endpoint : 'function(uri){ ... }'}
+                        var scheme = 'urn:x-metadata:';
                         var parameters = {
                                 scheme : scheme, //the default one 
                                 endpointFn : function(/*string*/ uri){
-                                    return rdfuiConfig.server+"graphs?scheme="+scheme+"&uri="+uri;
+                                    return rdfuiConfig.server+'graphs?scheme='+scheme+'&uri='+uri;
                                 }
                         };
                         
                         graphService.getGraphData(scope.$graphCtrl.graphUri,parameters).then(function(data){
-                            console.log("COOOLLLLL");
+                            console.log('COOOLLLLL');
                             console.log(data);
                             //graph language definition from metadatas
                             scope.$graphCtrl.lang.available = langService.getLanguagesFromMetadata(data);
@@ -1183,7 +1183,7 @@
                             
                             //if no language list defined in the metadata
                             if(!scope.$graphCtrl.lang.available){
-                                console.warn("there is no languages defined in the metadata of this graph !");
+                                console.warn('there is no languages defined in the metadata of this graph !');
                             }
                             
                         });
@@ -1210,8 +1210,8 @@
         var langService = {};
         
         langService.getLanguagesFromMetadata = function(/*jsonLD*/ graph, /*String*/ langProperty){
-            if(!langProperty) {langProperty = "language";}
-            console.log("$$$$$$$$$$$$$$$$$$$$$");
+            if(!langProperty) {langProperty = 'language';}
+            console.log('$$$$$$$$$$$$$$$$$$$$$');
             console.log(graph['@graph']);
             var langs = graph['@graph'][0][langProperty];
             console.log(langs);
@@ -1248,733 +1248,733 @@
         /* jshint -W100 */
             var isoLangs = {
                 ab : {
-                    name : "Abkhaz",
-                    nativeName : "аҧсуа"
+                    name : 'Abkhaz',
+                    nativeName : 'аҧсуа'
                 },
                 aa : {
-                    name : "Afar ",
-                    nativeName : "Afaraf "
+                    name : 'Afar ',
+                    nativeName : 'Afaraf '
                 },
                 af : {
-                    name : "Afrikaans ",
-                    nativeName : "Afrikaans "
+                    name : 'Afrikaans ',
+                    nativeName : 'Afrikaans '
                 },
                 ak : {
-                    name : "Akan ",
-                    nativeName : "Akan "
+                    name : 'Akan ',
+                    nativeName : 'Akan '
                 },
                 sq : {
-                    name : "Albanian ",
-                    nativeName : "Shqip "
+                    name : 'Albanian ',
+                    nativeName : 'Shqip '
                 },
                 am : {
-                    name : "Amharic ",
-                    nativeName : "አማርኛ "
+                    name : 'Amharic ',
+                    nativeName : 'አማርኛ '
                 },
                 ar : {
-                    name : "Arabic ",
-                    nativeName : "العربية ",
-                    dir : "rtl"
+                    name : 'Arabic ',
+                    nativeName : 'العربية ',
+                    dir : 'rtl'
                 },
                 an : {
-                    name : "Aragonese ",
-                    nativeName : "Aragonés "
+                    name : 'Aragonese ',
+                    nativeName : 'Aragonés '
                 },
                 hy : {
-                    name : "Armenian ",
-                    nativeName : "Հայերեն "
+                    name : 'Armenian ',
+                    nativeName : 'Հայերեն '
                 },
                 as : {
-                    name : "Assamese ",
-                    nativeName : "অসমীয়া "
+                    name : 'Assamese ',
+                    nativeName : 'অসমীয়া '
                 },
                 av : {
-                    name : "Avaric ",
-                    nativeName : "авар мацӀ, магӀарул мацӀ "
+                    name : 'Avaric ',
+                    nativeName : 'авар мацӀ, магӀарул мацӀ '
                 },
                 ae : {
-                    name : "Avestan ",
-                    nativeName : "avesta "
+                    name : 'Avestan ',
+                    nativeName : 'avesta '
                 },
                 ay : {
-                    name : "Aymara ",
-                    nativeName : "aymar aru "
+                    name : 'Aymara ',
+                    nativeName : 'aymar aru '
                 },
                 az : {
-                    name : "Azerbaijani ",
-                    nativeName : "azərbaycan dili "
+                    name : 'Azerbaijani ',
+                    nativeName : 'azərbaycan dili '
                 },
                 bm : {
-                    name : "Bambara ",
-                    nativeName : "bamanankan "
+                    name : 'Bambara ',
+                    nativeName : 'bamanankan '
                 },
                 ba : {
-                    name : "Bashkir ",
-                    nativeName : "башҡорт теле "
+                    name : 'Bashkir ',
+                    nativeName : 'башҡорт теле '
                 },
                 eu : {
-                    name : "Basque ",
-                    nativeName : "euskara, euskera "
+                    name : 'Basque ',
+                    nativeName : 'euskara, euskera '
                 },
                 be : {
-                    name : "Belarusian ",
-                    nativeName : "Беларуская "
+                    name : 'Belarusian ',
+                    nativeName : 'Беларуская '
                 },
                 bn : {
-                    name : "Bengali ",
-                    nativeName : "বাংলা "
+                    name : 'Bengali ',
+                    nativeName : 'বাংলা '
                 },
                 bh : {
-                    name : "Bihari ",
-                    nativeName : "भोजपुरी "
+                    name : 'Bihari ',
+                    nativeName : 'भोजपुरी '
                 },
                 bi : {
-                    name : "Bislama ",
-                    nativeName : "Bislama "
+                    name : 'Bislama ',
+                    nativeName : 'Bislama '
                 },
                 bs : {
-                    name : "Bosnian ",
-                    nativeName : "bosanski jezik "
+                    name : 'Bosnian ',
+                    nativeName : 'bosanski jezik '
                 },
                 br : {
-                    name : "Breton ",
-                    nativeName : "brezhoneg "
+                    name : 'Breton ',
+                    nativeName : 'brezhoneg '
                 },
                 bg : {
-                    name : "Bulgarian ",
-                    nativeName : "български език "
+                    name : 'Bulgarian ',
+                    nativeName : 'български език '
                 },
                 my : {
-                    name : "Burmese ",
-                    nativeName : "ဗမာစာ "
+                    name : 'Burmese ',
+                    nativeName : 'ဗမာစာ '
                 },
                 ca : {
-                    name : "Catalan",
-                    nativeName : "Català "
+                    name : 'Catalan',
+                    nativeName : 'Català '
                 },
                 ch : {
-                    name : "Chamorro ",
-                    nativeName : "Chamoru "
+                    name : 'Chamorro ',
+                    nativeName : 'Chamoru '
                 },
                 ce : {
-                    name : "Chechen ",
-                    nativeName : "нохчийн мотт "
+                    name : 'Chechen ',
+                    nativeName : 'нохчийн мотт '
                 },
                 ny : {
-                    name : "Chichewa",
-                    nativeName : "chiCheŵa, chinyanja "
+                    name : 'Chichewa',
+                    nativeName : 'chiCheŵa, chinyanja '
                 },
                 zh : {
-                    name : "Chinese ",
-                    nativeName : "中文 (Zhōngwén), 汉语, 漢語 "
+                    name : 'Chinese ',
+                    nativeName : '中文 (Zhōngwén), 汉语, 漢語 '
                 },
                 cv : {
-                    name : "Chuvash ",
-                    nativeName : "чӑваш чӗлхи "
+                    name : 'Chuvash ',
+                    nativeName : 'чӑваш чӗлхи '
                 },
                 kw : {
-                    name : "Cornish ",
-                    nativeName : "Kernewek "
+                    name : 'Cornish ',
+                    nativeName : 'Kernewek '
                 },
                 co : {
-                    name : "Corsican ",
-                    nativeName : "corsu, lingua corsa "
+                    name : 'Corsican ',
+                    nativeName : 'corsu, lingua corsa '
                 },
                 cr : {
-                    name : "Cree ",
-                    nativeName : "ᓀᐦᐃᔭᐍᐏᐣ "
+                    name : 'Cree ',
+                    nativeName : 'ᓀᐦᐃᔭᐍᐏᐣ '
                 },
                 hr : {
-                    name : "Croatian ",
-                    nativeName : "hrvatski "
+                    name : 'Croatian ',
+                    nativeName : 'hrvatski '
                 },
                 cs : {
-                    name : "Czech ",
-                    nativeName : "česky, čeština "
+                    name : 'Czech ',
+                    nativeName : 'česky, čeština '
                 },
                 da : {
-                    name : "Danish ",
-                    nativeName : "dansk "
+                    name : 'Danish ',
+                    nativeName : 'dansk '
                 },
                 dv : {
-                    name : "Divehi",
-                    nativeName : "ދިވެހި "
+                    name : 'Divehi',
+                    nativeName : 'ދިވެހި '
                 },
                 nl : {
-                    name : "Dutch ",
-                    nativeName : "Nederlands, Vlaams "
+                    name : 'Dutch ',
+                    nativeName : 'Nederlands, Vlaams '
                 },
                 en : {
-                    name : "English ",
-                    nativeName : "English "
+                    name : 'English ',
+                    nativeName : 'English '
                 },
                 eo : {
-                    name : "Esperanto ",
-                    nativeName : "Esperanto "
+                    name : 'Esperanto ',
+                    nativeName : 'Esperanto '
                 },
                 et : {
-                    name : "Estonian ",
-                    nativeName : "eesti, eesti keel "
+                    name : 'Estonian ',
+                    nativeName : 'eesti, eesti keel '
                 },
                 ee : {
-                    name : "Ewe ",
-                    nativeName : "Eʋegbe "
+                    name : 'Ewe ',
+                    nativeName : 'Eʋegbe '
                 },
                 fo : {
-                    name : "Faroese ",
-                    nativeName : "føroyskt "
+                    name : 'Faroese ',
+                    nativeName : 'føroyskt '
                 },
                 fj : {
-                    name : "Fijian ",
-                    nativeName : "vosa Vakaviti "
+                    name : 'Fijian ',
+                    nativeName : 'vosa Vakaviti '
                 },
                 fi : {
-                    name : "Finnish ",
-                    nativeName : "suomi, suomen kieli "
+                    name : 'Finnish ',
+                    nativeName : 'suomi, suomen kieli '
                 },
                 fr : {
-                    name : "French ",
-                    nativeName : "Français"
+                    name : 'French ',
+                    nativeName : 'Français'
                 },
                 ff : {
-                    name : "Fula",
-                    nativeName : "Fulfulde, Pulaar, Pular "
+                    name : 'Fula',
+                    nativeName : 'Fulfulde, Pulaar, Pular '
                 },
                 gl : {
-                    name : "Galician ",
-                    nativeName : "Galego "
+                    name : 'Galician ',
+                    nativeName : 'Galego '
                 },
                 ka : {
-                    name : "Georgian ",
-                    nativeName : "ქართული "
+                    name : 'Georgian ',
+                    nativeName : 'ქართული '
                 },
                 de : {
-                    name : "German ",
-                    nativeName : "Deutsch "
+                    name : 'German ',
+                    nativeName : 'Deutsch '
                 },
                 el : {
-                    name : "Greek",
-                    nativeName : "Ελληνικά "
+                    name : 'Greek',
+                    nativeName : 'Ελληνικά '
                 },
                 gn : {
-                    name : "Guaraní ",
-                    nativeName : "Avañeẽ "
+                    name : 'Guaraní ',
+                    nativeName : 'Avañeẽ '
                 },
                 gu : {
-                    name : "Gujarati ",
-                    nativeName : "ગુજરાતી "
+                    name : 'Gujarati ',
+                    nativeName : 'ગુજરાતી '
                 },
                 ht : {
-                    name : "Haitian",
-                    nativeName : "Kreyòl ayisyen "
+                    name : 'Haitian',
+                    nativeName : 'Kreyòl ayisyen '
                 },
                 ha : {
-                    name : "Hausa ",
-                    nativeName : "Hausa, هَوُسَ "
+                    name : 'Hausa ',
+                    nativeName : 'Hausa, هَوُسَ '
                 },
                 he : {
-                    name : "Hebrew",
-                    nativeName : "עברית "
+                    name : 'Hebrew',
+                    nativeName : 'עברית '
                 },
                 hz : {
-                    name : "Herero ",
-                    nativeName : "Otjiherero "
+                    name : 'Herero ',
+                    nativeName : 'Otjiherero '
                 },
                 hi : {
-                    name : "Hindi ",
-                    nativeName : "हिन्दी, हिंदी "
+                    name : 'Hindi ',
+                    nativeName : 'हिन्दी, हिंदी '
                 },
                 ho : {
-                    name : "Hiri Motu ",
-                    nativeName : "Hiri Motu "
+                    name : 'Hiri Motu ',
+                    nativeName : 'Hiri Motu '
                 },
                 hu : {
-                    name : "Hungarian ",
-                    nativeName : "Magyar "
+                    name : 'Hungarian ',
+                    nativeName : 'Magyar '
                 },
                 ia : {
-                    name : "Interlingua ",
-                    nativeName : "Interlingua "
+                    name : 'Interlingua ',
+                    nativeName : 'Interlingua '
                 },
                 id : {
-                    name : "Indonesian ",
-                    nativeName : "Bahasa Indonesia "
+                    name : 'Indonesian ',
+                    nativeName : 'Bahasa Indonesia '
                 },
                 ie : {
-                    name : "Interlingue ",
-                    nativeName : "Originally called Occidental; then Interlingue after WWII "
+                    name : 'Interlingue ',
+                    nativeName : 'Originally called Occidental; then Interlingue after WWII '
                 },
                 ga : {
-                    name : "Irish ",
-                    nativeName : "Gaeilge "
+                    name : 'Irish ',
+                    nativeName : 'Gaeilge '
                 },
                 ig : {
-                    name : "Igbo ",
-                    nativeName : "Asụsụ Igbo "
+                    name : 'Igbo ',
+                    nativeName : 'Asụsụ Igbo '
                 },
                 ik : {
-                    name : "Inupiaq ",
-                    nativeName : "Iñupiaq, Iñupiatun "
+                    name : 'Inupiaq ',
+                    nativeName : 'Iñupiaq, Iñupiatun '
                 },
                 io : {
-                    name : "Ido ",
-                    nativeName : "Ido "
+                    name : 'Ido ',
+                    nativeName : 'Ido '
                 },
                 is : {
-                    name : "Icelandic ",
-                    nativeName : "Íslenska "
+                    name : 'Icelandic ',
+                    nativeName : 'Íslenska '
                 },
                 it : {
-                    name : "Italian ",
-                    nativeName : "Italiano "
+                    name : 'Italian ',
+                    nativeName : 'Italiano '
                 },
                 iu : {
-                    name : "Inuktitut ",
-                    nativeName : "ᐃᓄᒃᑎᑐᑦ "
+                    name : 'Inuktitut ',
+                    nativeName : 'ᐃᓄᒃᑎᑐᑦ '
                 },
                 ja : {
-                    name : "Japanese ",
-                    nativeName : "日本語 (にほんご／にっぽんご) "
+                    name : 'Japanese ',
+                    nativeName : '日本語 (にほんご／にっぽんご) '
                },
                 jv : {
-                    name : "Javanese ",
-                    nativeName : "basa Jawa "
+                    name : 'Javanese ',
+                    nativeName : 'basa Jawa '
                 },
                 kl : {
-                    name : "Kalaallisut",
-                    nativeName : "kalaallisut, kalaallit oqaasii "
+                    name : 'Kalaallisut',
+                    nativeName : 'kalaallisut, kalaallit oqaasii '
                 },
                 kn : {
-                    name : "Kannada ",
-                    nativeName : "ಕನ್ನಡ "
+                    name : 'Kannada ',
+                    nativeName : 'ಕನ್ನಡ '
                 },
                 kr : {
-                    name : "Kanuri ",
-                    nativeName : "Kanuri "
+                    name : 'Kanuri ',
+                    nativeName : 'Kanuri '
                 },
                 ks : {
-                    name : "Kashmiri ",
-                    nativeName : "कश्मीरी, كشميري‎ "
+                    name : 'Kashmiri ',
+                    nativeName : 'कश्मीरी, كشميري‎ '
                 },
                 kk : {
-                    name : "Kazakh ",
-                    nativeName : "Қазақ тілі "
+                    name : 'Kazakh ',
+                    nativeName : 'Қазақ тілі '
                 },
                 km : {
-                    name : "Khmer ",
-                    nativeName : "ភាសាខ្មែរ "
+                    name : 'Khmer ',
+                    nativeName : 'ភាសាខ្មែរ '
                 },
                 ki : {
-                    name : "Kikuyu",
-                    nativeName : "Gĩkũyũ "
+                    name : 'Kikuyu',
+                    nativeName : 'Gĩkũyũ '
                 },
                 rw : {
-                    name : "Kinyarwanda ",
-                    nativeName : "Ikinyarwanda "
+                    name : 'Kinyarwanda ',
+                    nativeName : 'Ikinyarwanda '
                 },
                 ky : {
-                    name : "Kirghiz",
-                    nativeName : "кыргыз тили "
+                    name : 'Kirghiz',
+                    nativeName : 'кыргыз тили '
                 },
                 kv : {
-                    name : "Komi ",
-                    nativeName : "коми кыв "
+                    name : 'Komi ',
+                    nativeName : 'коми кыв '
                 },
                 kg : {
-                    name : "Kongo ",
-                    nativeName : "KiKongo "
+                    name : 'Kongo ',
+                    nativeName : 'KiKongo '
                 },
                 ko : {
-                    name : "Korean ",
-                    nativeName : "한국어 (韓國語), 조선말 (朝鮮語) "
+                    name : 'Korean ',
+                    nativeName : '한국어 (韓國語), 조선말 (朝鮮語) '
                 },
                 ku : {
-                    name : "Kurdish ",
-                    nativeName : "Kurdî, كوردی‎ "
+                    name : 'Kurdish ',
+                    nativeName : 'Kurdî, كوردی‎ '
                 },
                 kj : {
-                    name : "Kwanyama",
-                    nativeName : "Kuanyama "
+                    name : 'Kwanyama',
+                    nativeName : 'Kuanyama '
                 },
                 la : {
-                    name : "Latin",
-                    nativeName : "latine, lingua latina "
+                    name : 'Latin',
+                    nativeName : 'latine, lingua latina '
                 },
                 lb : {
-                    name : "Luxembourgish",
-                    nativeName : "Lëtzebuergesch "
+                    name : 'Luxembourgish',
+                    nativeName : 'Lëtzebuergesch '
                 },
                 lg : {
-                    name : "Luganda",
-                    nativeName : "Luganda "
+                    name : 'Luganda',
+                    nativeName : 'Luganda '
                 },
                 li : {
-                    name : "Limburgish",
-                    nativeName : "Limburgs "
+                    name : 'Limburgish',
+                    nativeName : 'Limburgs '
                 },
                 ln : {
-                    name : "Lingala ",
-                    nativeName : "Lingála "
+                    name : 'Lingala ',
+                    nativeName : 'Lingála '
                 },
                 lo : {
-                    name : "Lao ",
-                    nativeName : "ພາສາລາວ "
+                    name : 'Lao ',
+                    nativeName : 'ພາສາລາວ '
                 },
                 lt : {
-                    name : "Lithuanian ",
-                    nativeName : "lietuvių kalba "
+                    name : 'Lithuanian ',
+                    nativeName : 'lietuvių kalba '
                 },
                 lu : {
-                    name : "Luba-Katanga ",
-                    nativeName : ""
+                    name : 'Luba-Katanga ',
+                    nativeName : ''
                 },
                 lv : {
-                    name : "Latvian ",
-                    nativeName : "latviešu valoda "
+                    name : 'Latvian ',
+                    nativeName : 'latviešu valoda '
                 },
                 gv : {
-                    name : "Manx ",
-                    nativeName : "Gaelg, Gailck "
+                    name : 'Manx ',
+                    nativeName : 'Gaelg, Gailck '
                 },
                 mk : {
-                    name : "Macedonian ",
-                    nativeName : "македонски јазик "
+                    name : 'Macedonian ',
+                    nativeName : 'македонски јазик '
                 },
                 mg : {
-                    name : "Malagasy ",
-                    nativeName : "Malagasy fiteny "
+                    name : 'Malagasy ',
+                    nativeName : 'Malagasy fiteny '
                 },
                 ms : {
-                    name : "Malay ",
-                    nativeName : "bahasa Melayu, بهاس ملايو‎ "
+                    name : 'Malay ',
+                    nativeName : 'bahasa Melayu, بهاس ملايو‎ '
                 },
                 ml : {
-                    name : "Malayalam ",
-                    nativeName : "മലയാളം "
+                    name : 'Malayalam ',
+                    nativeName : 'മലയാളം '
                 },
                 mt : {
-                    name : "Maltese ",
-                    nativeName : "Malti "
+                    name : 'Maltese ',
+                    nativeName : 'Malti '
                 },
                 mi : {
-                    name : "Māori ",
-                    nativeName : "te reo Māori "
+                    name : 'Māori ',
+                    nativeName : 'te reo Māori '
                 },
                 mr : {
-                    name : "Marathi",
-                    nativeName : "मराठी "
+                    name : 'Marathi',
+                    nativeName : 'मराठी '
                 },
                 mh : {
-                    name : "Marshallese ",
-                    nativeName : "Kajin M̧ajeļ "
+                    name : 'Marshallese ',
+                    nativeName : 'Kajin M̧ajeļ '
                 },
                 mn : {
-                    name : "Mongolian ",
-                    nativeName : "монгол "
+                    name : 'Mongolian ',
+                    nativeName : 'монгол '
                 },
                 na : {
-                    name : "Nauru ",
-                    nativeName : "Ekakairũ Naoero "
+                    name : 'Nauru ',
+                    nativeName : 'Ekakairũ Naoero '
                 },
                 nv : {
-                    name : "Navajo",
-                    nativeName : "Diné bizaad, Dinékʼehǰí "
+                    name : 'Navajo',
+                    nativeName : 'Diné bizaad, Dinékʼehǰí '
                 },
                 nb : {
-                    name : "Norsk bokmål",
-                    nativeName : "Norsk bokmål"
+                    name : 'Norsk bokmål',
+                    nativeName : 'Norsk bokmål'
                 },
                 nd : {
-                    name : "North Ndebele ",
-                    nativeName : "isiNdebele "
+                    name : 'North Ndebele ',
+                    nativeName : 'isiNdebele '
                 },
                 ne : {
-                    name : "Nepali ",
-                    nativeName : "नेपाली "
+                    name : 'Nepali ',
+                    nativeName : 'नेपाली '
                 },
                 ng : {
-                    name : "Ndonga ",
-                    nativeName : "Owambo "
+                    name : 'Ndonga ',
+                    nativeName : 'Owambo '
                 },
                 nn : {
-                    name : "Norsk nynorsk",
-                    nativeName : "Norsk nynorsk"
+                    name : 'Norsk nynorsk',
+                    nativeName : 'Norsk nynorsk'
                 },
                 no : {
-                    name : "Norwegian ",
-                    nativeName : "Norsk "
+                    name : 'Norwegian ',
+                    nativeName : 'Norsk '
                 },
                 ii : {
-                    name : "Nuosu ",
-                    nativeName : "ꆈꌠ꒿ Nuosuhxop "
+                    name : 'Nuosu ',
+                    nativeName : 'ꆈꌠ꒿ Nuosuhxop '
                 },
                 nr : {
-                    name : "South Ndebele ",
-                    nativeName : "isiNdebele "
+                    name : 'South Ndebele ',
+                    nativeName : 'isiNdebele '
                 },
                 oc : {
-                    name : "Occitan ",
-                    nativeName : "Occitan "
+                    name : 'Occitan ',
+                    nativeName : 'Occitan '
                 },
                 oj : {
-                    name : "Ojibwe",
-                    nativeName : "ᐊᓂᔑᓈᐯᒧᐎᓐ "
+                    name : 'Ojibwe',
+                    nativeName : 'ᐊᓂᔑᓈᐯᒧᐎᓐ '
                 },
                 cu : {
-                    name : "Church Slavic",
-                    nativeName : "ѩзыкъ словѣньскъ "
+                    name : 'Church Slavic',
+                    nativeName : 'ѩзыкъ словѣньскъ '
                 },
                 om : {
-                    name : "Oromo ",
-                    nativeName : "Afaan Oromoo "
+                    name : 'Oromo ',
+                    nativeName : 'Afaan Oromoo '
                 },
                 or : {
-                    name : "Oriya ",
-                    nativeName : "ଓଡ଼ିଆ "
+                    name : 'Oriya ',
+                    nativeName : 'ଓଡ଼ିଆ '
                 },
                 os : {
-                    name : "Ossetian",
-                    nativeName : "ирон æвзаг "
+                    name : 'Ossetian',
+                    nativeName : 'ирон æвзаг '
                 },
                 pa : {
-                    name : "Panjabi",
-                    nativeName : "ਪੰਜਾਬੀ, پنجابی‎ "
+                    name : 'Panjabi',
+                    nativeName : 'ਪੰਜਾਬੀ, پنجابی‎ '
                 },
                 pi : {
-                    name : "Pāli ",
-                    nativeName : "पाऴि "
+                    name : 'Pāli ',
+                    nativeName : 'पाऴि '
                 },
                 fa : {
-                    name : "Persian ",
-                    nativeName : "فارسی "
+                    name : 'Persian ',
+                    nativeName : 'فارسی '
                 },
                 pl : {
-                    name : "Polish ",
-                    nativeName : "polski "
+                    name : 'Polish ',
+                    nativeName : 'polski '
                 },
                 ps : {
-                    name : "Pashto",
-                    nativeName : "پښتو "
+                    name : 'Pashto',
+                    nativeName : 'پښتو '
                 },
                 pt : {
-                    name : "Portuguese ",
-                    nativeName : "Português "
+                    name : 'Portuguese ',
+                    nativeName : 'Português '
                 },
                 qu : {
-                    name : "Quechua ",
-                    nativeName : "Runa Simi, Kichwa "
+                    name : 'Quechua ',
+                    nativeName : 'Runa Simi, Kichwa '
                 },
                 rm : {
-                    name : "Romansh ",
-                    nativeName : "rumantsch grischun "
+                    name : 'Romansh ',
+                    nativeName : 'rumantsch grischun '
                 },
                 rn : {
-                    name : "Kirundi ",
-                    nativeName : "kiRundi "
+                    name : 'Kirundi ',
+                    nativeName : 'kiRundi '
                 },
                 ro : {
-                    name : "Romanian",
-                    nativeName : "română "
+                    name : 'Romanian',
+                    nativeName : 'română '
                 },
                 ru : {
-                    name : "Russian ",
-                    nativeName : "русский язык "
+                    name : 'Russian ',
+                    nativeName : 'русский язык '
                 },
                 sa : {
-                    name : "Sanskrit",
-                    nativeName : "संस्कृतम् "
+                    name : 'Sanskrit',
+                    nativeName : 'संस्कृतम् '
                 },
                 sc : {
-                    name : "Sardinian ",
-                    nativeName : "sardu "
+                    name : 'Sardinian ',
+                    nativeName : 'sardu '
                 },
                 sd : {
-                    name : "Sindhi ",
-                    nativeName : "सिन्धी, سنڌي، سندھی‎ "
+                    name : 'Sindhi ',
+                    nativeName : 'सिन्धी, سنڌي، سندھی‎ '
                 },
                 se : {
-                    name : "Northern Sami ",
-                    nativeName : "Davvisámegiella "
+                    name : 'Northern Sami ',
+                    nativeName : 'Davvisámegiella '
                 },
                 sm : {
-                    name : "Samoan ",
-                    nativeName : "gagana faa Samoa "
+                    name : 'Samoan ',
+                    nativeName : 'gagana faa Samoa '
                 },
                 sg : {
-                    name : "Sango ",
-                    nativeName : "yângâ tî sängö "
+                    name : 'Sango ',
+                    nativeName : 'yângâ tî sängö '
                 },
                 sr : {
-                    name : "Serbian ",
-                    nativeName : "српски језик "
+                    name : 'Serbian ',
+                    nativeName : 'српски језик '
                 },
                 gd : {
-                    name : "Gaelic ",
-                    nativeName : "Gàidhlig "
+                    name : 'Gaelic ',
+                    nativeName : 'Gàidhlig '
                 },
                 sn : {
-                    name : "Shona ",
-                    nativeName : "chiShona "
+                    name : 'Shona ',
+                    nativeName : 'chiShona '
                 },
                 si : {
-                    name : "Sinhala",
-                    nativeName : "සිංහල "
+                    name : 'Sinhala',
+                    nativeName : 'සිංහල '
                 },
                 sk : {
-                    name : "Slovak ",
-                    nativeName : "slovenčina "
+                    name : 'Slovak ',
+                    nativeName : 'slovenčina '
                 },
                 sl : {
-                    name : "Slovene ",
-                    nativeName : "slovenščina "
+                    name : 'Slovene ',
+                    nativeName : 'slovenščina '
                 },
                 so : {
-                    name : "Somali ",
-                    nativeName : "Soomaaliga, af Soomaali "
+                    name : 'Somali ',
+                    nativeName : 'Soomaaliga, af Soomaali '
                 },
                 st : {
-                    name : "Sesotho",
-                    nativeName : "Sesotho"
+                    name : 'Sesotho',
+                    nativeName : 'Sesotho'
                 },
                 es : {
-                    name : "Spanish",
-                    nativeName : "español, castellano "
+                    name : 'Spanish',
+                    nativeName : 'español, castellano '
                 },
                 su : {
-                    name : "Sundanese ",
-                    nativeName : "Basa Sunda "
+                    name : 'Sundanese ',
+                    nativeName : 'Basa Sunda '
                 },
                 sw : {
-                    name : "Swahili ",
-                    nativeName : "Kiswahili "
+                    name : 'Swahili ',
+                    nativeName : 'Kiswahili '
                 },
                 ss : {
-                    name : "Swati ",
-                    nativeName : "SiSwati "
+                    name : 'Swati ',
+                    nativeName : 'SiSwati '
                 },
                 sv : {
-                    name : "Swedish ",
-                    nativeName : "svenska "
+                    name : 'Swedish ',
+                    nativeName : 'svenska '
                 },
                 ta : {
-                    name : "Tamil ",
-                    nativeName : "தமிழ் "
+                    name : 'Tamil ',
+                    nativeName : 'தமிழ் '
                 },
                 te : {
-                    name : "Telugu ",
-                    nativeName : "తెలుగు "
+                    name : 'Telugu ',
+                    nativeName : 'తెలుగు '
                 },
                 tg : {
-                    name : "Tajik ",
-                    nativeName : "тоҷикӣ, toğikī, تاجیکی‎ "
+                    name : 'Tajik ',
+                    nativeName : 'тоҷикӣ, toğikī, تاجیکی‎ '
                 },
                 th : {
-                    name : "Thai ",
-                    nativeName : "ไทย "
+                    name : 'Thai ',
+                    nativeName : 'ไทย '
                 },
                 ti : {
-                    name : "Tigrinya ",
-                    nativeName : "ትግርኛ "
+                    name : 'Tigrinya ',
+                    nativeName : 'ትግርኛ '
                 },
                 bo : {
-                    name : "Tibetan",
-                    nativeName : "བོད་ཡིག "
+                    name : 'Tibetan',
+                    nativeName : 'བོད་ཡིག '
                 },
                 tk : {
-                    name : "Turkmen ",
-                    nativeName : "Türkmen, Түркмен "
+                    name : 'Turkmen ',
+                    nativeName : 'Türkmen, Түркмен '
                 },
                 tl : {
-                    name : "Tagalog ",
-                    nativeName : "Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔ "
+                    name : 'Tagalog ',
+                    nativeName : 'Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔ '
                 },
                 tn : {
-                    name : "Tswana ",
-                    nativeName : "Setswana "
+                    name : 'Tswana ',
+                    nativeName : 'Setswana '
                 },
                 to : {
-                    name : "Tonga",
-                    nativeName : "faka Tonga "
+                    name : 'Tonga',
+                    nativeName : 'faka Tonga '
                 },
                 tr : {
-                    name : "Turkish ",
-                    nativeName : "Türkçe "
+                    name : 'Turkish ',
+                    nativeName : 'Türkçe '
                 },
                 ts : {
-                    name : "Tsonga ",
-                    nativeName : "Xitsonga "
+                    name : 'Tsonga ',
+                    nativeName : 'Xitsonga '
                 },
                 tt : {
-                    name : "Tatar ",
-                    nativeName : "татарча, tatarça, تاتارچا‎ "
+                    name : 'Tatar ',
+                    nativeName : 'татарча, tatarça, تاتارچا‎ '
                 },
                 tw : {
-                    name : "Twi ",
-                    nativeName : "Twi "
+                    name : 'Twi ',
+                    nativeName : 'Twi '
                 },
                 ty : {
-                    name : "Tahitian ",
-                    nativeName : "Reo Tahiti "
+                    name : 'Tahitian ',
+                    nativeName : 'Reo Tahiti '
                 },
                 ug : {
-                    name : "Uighur",
-                    nativeName : "Uyƣurqə, ئۇيغۇرچە‎ "
+                    name : 'Uighur',
+                    nativeName : 'Uyƣurqə, ئۇيغۇرچە‎ '
                 },
                 uk : {
-                    name : "Ukrainian ",
-                    nativeName : "українська "
+                    name : 'Ukrainian ',
+                    nativeName : 'українська '
                 },
                 ur : {
-                    name : "Urdu ",
-                    nativeName : "اردو "
+                    name : 'Urdu ',
+                    nativeName : 'اردو '
                 },
                 uz : {
-                    name : "Uzbek ",
-                    nativeName : "zbek, Ўзбек, أۇزبېك‎ "
+                    name : 'Uzbek ',
+                    nativeName : 'zbek, Ўзбек, أۇزبېك‎ '
                 },
                 ve : {
-                    name : "Venda ",
-                    nativeName : "Tshivenḓa "
+                    name : 'Venda ',
+                    nativeName : 'Tshivenḓa '
                 },
                 vi : {
-                    name : "Vietnamese ",
-                    nativeName : "Tiếng Việt "
+                    name : 'Vietnamese ',
+                    nativeName : 'Tiếng Việt '
                 },
                 vo : {
-                    name : "Volapük ",
-                    nativeName : "Volapük "
+                    name : 'Volapük ',
+                    nativeName : 'Volapük '
                 },
                 wa : {
-                    name : "Walloon ",
-                    nativeName : "Walon "
+                    name : 'Walloon ',
+                    nativeName : 'Walon '
                 },
                 cy : {
-                    name : "Welsh ",
-                    nativeName : "Cymraeg "
+                    name : 'Welsh ',
+                    nativeName : 'Cymraeg '
                 },
                 wo : {
-                    name : "Wolof ",
-                    nativeName : "Wollof "
+                    name : 'Wolof ',
+                    nativeName : 'Wollof '
                 },
                 fy : {
-                    name : "Frysk",
-                    nativeName : "Frysk"
+                    name : 'Frysk',
+                    nativeName : 'Frysk'
                 },
                 xh : {
-                    name : "Xhosa ",
-                    nativeName : "isiXhosa "
+                    name : 'Xhosa ',
+                    nativeName : 'isiXhosa '
                 },
                 yi : {
-                    name : "Yiddish ",
-                    nativeName : "ייִדיש "
+                    name : 'Yiddish ',
+                    nativeName : 'ייִדיש '
                 },
                 yo : {
-                    name : "Yoruba ",
-                    nativeName : "Yorùbá "
+                    name : 'Yoruba ',
+                    nativeName : 'Yorùbá '
                 },
                 za : {
-                    name : "Zhuang",
-                    nativeName : "Saɯ cueŋƅ, Saw cuengh "
+                    name : 'Zhuang',
+                    nativeName : 'Saɯ cueŋƅ, Saw cuengh '
                 }
             };
             
@@ -1992,7 +1992,7 @@
   .controller('rdfuiLangdisplayedCtrl', ['$scope', '$q', 'langService',
   function($scope,$q,langService) {
 
-    $scope.name = "rdfuiLangdisplayedCtrl";
+    $scope.name = 'rdfuiLangdisplayedCtrl';
     
 //    $scope.lang = {};
 //    
@@ -2003,7 +2003,7 @@
     });
     
 //    $scope.langSelected = function(i,m){
-////        console.warn("********************");
+////        console.warn('********************');
 ////        console.warn(arguments);
 ////        console.warn($scope.langDisplayed);
 //        //$scope.graphCtrl.mainLang = i;
@@ -2060,7 +2060,7 @@
   .controller('rdfuiMainlangCtrl', ['$scope', '$q', 'langService',
   function($scope,$q,langService) {
 
-    $scope.name = "rdfuiMainlangCtrl";
+    $scope.name = 'rdfuiMainlangCtrl';
     
 //    $scope.mainLangSelected = null;
     
@@ -2136,9 +2136,9 @@
         require: 'ngModel',
         templateUrl : 'literal/rdfuiLiteralEdit.tpl.html',
         scope : {
-            langs : "=",
-            selectedLang : "=",
-            property : "="
+            langs : '=',
+            selectedLang : '=',
+            property : '='
         },
         priority: 1, // needed for angular 1.2.x
         link: function(scope, elm, attr, ngModel) {
@@ -2157,7 +2157,7 @@
             },true);
             
             //directive's model --> main model
-            scope.$watch("literal",function(newval,oldval){
+            scope.$watch('literal',function(newval,oldval){
                 if(!oldval) {
                     return;
                 }
@@ -2173,7 +2173,7 @@
                     
                   }else{
                     //the form is not valid, so we don't update the model
-                      console.log("the form is not valid, so we don't update the model");
+                      console.log('the form is not valid, so we don\'t update the model');
                   }
             },true);
             
@@ -2192,15 +2192,15 @@
         require: ['?^rdfuiGraph','^rdfuiProperty','^rdfuiObjects'],
 //        templateUrl : 'object/rdfuiObject.tpl.html',
         scope : {
-//            langs : "=", //les langues doivent être générés au niveau du rui-subject
-//            selectedLang : "=",
-//            subject : "=",
-//            uri : "@",
-            object : "="
+//            langs : '=', //les langues doivent être générés au niveau du rui-subject
+//            selectedLang : '=',
+//            subject : '=',
+//            uri : '@',
+            object : '='
         },
         transclude : true,
         templateUrl : function(elem,attrs){
-            var tName = attrs.templateName ? attrs.templateName : "default";
+            var tName = attrs.templateName ? attrs.templateName : 'default';
             return 'object/rdfuiObject.'+tName+'.tpl.html';
         },
         compile: function(tElement, tAttr, transclude) {
@@ -2234,7 +2234,7 @@
       function ($scope, $element, $transclude, $compile, $attrs, $http, $q, graphService,filtersService) {
         this.scope = $scope;
 
-        $scope.name = "objectsCtrl";
+        $scope.name = 'objectsCtrl';
         
         
         return $scope;
@@ -2266,22 +2266,22 @@
             require: ['?ngModel','?^rdfuiGraph','?^rdfuiProperty'],
             scope : {
                 //TODO : clean properties here, only graphUri is required
-              //  langs : "=", //les langues doivent être générés au niveau du rui-subject
-              //selectedLang : "=",
-              //subject : "=",
-              //propertyLabel : "@",
-              //graphUri : "@"
-//              graphData : "=",
-              templateName : "=",
-              objects : "="
-//              filter : "="
+              //  langs : '=', //les langues doivent être générés au niveau du rui-subject
+              //selectedLang : '=',
+              //subject : '=',
+              //propertyLabel : '@',
+              //graphUri : '@'
+//              graphData : '=',
+              templateName : '=',
+              objects : '='
+//              filter : '='
             },
             //scope:true,
             //priority: 1, // needed for angular 1.2.x
             controller : 'rdfuiObjectsCtrl',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "default";
+                var tName = attrs.templateName ? attrs.templateName : 'default';
                 return 'objects/rdfuiObjects.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {
@@ -2326,7 +2326,7 @@
   function($scope, $element, $transclude, $compile, $http) {
 
       this.scope = $scope;
-      $scope.name = "rdfuiPropertyCtrl";
+      $scope.name = 'rdfuiPropertyCtrl';
     
     $scope.showSelector = false;
     
@@ -2338,13 +2338,13 @@
             $scope.showSelector = true;
         }else{
             $scope.objects.push({
-                "@value" : "",
-                "@language" : ""
+                '@value' : '',
+                '@language' : ''
             });
         }
         
         
-        console.log("Ajout d'un nouvel object !!!!");
+        console.log('Ajout d\'un nouvel object !!!!');
     };
     
     $scope.selectionDone = function($item,$model){
@@ -2378,16 +2378,16 @@
         //TODO : remove the ngmodel here.
         require: ['?ngModel','?^rdfuiGraph'],
         scope : {
-            langs : "=", //les langues doivent être générés au niveau du rui-subject
-            selectedLang : "=",
-            subject : "=",
-            propertyLabel : "@",
-            templateName : "=",
-            propertyName : "@",
+            langs : '=', //les langues doivent être générés au niveau du rui-subject
+            selectedLang : '=',
+            subject : '=',
+            propertyLabel : '@',
+            templateName : '=',
+            propertyName : '@',
         },
         transclude : true,
         templateUrl : function(elem,attrs){
-            var tName = attrs.templateName ? attrs.templateName : "default";
+            var tName = attrs.templateName ? attrs.templateName : 'default';
             return 'property/rdfuiProperty.'+tName+'.tpl.html';
         },
         controller : 'rdfuiPropertyCtrl',
@@ -2408,14 +2408,14 @@
                 if(ctrls[1]){
                     scope.graphCtrl = ctrls[1].scope;
                     
-                    //TODO : create a service for "deference" depending on context the name of the property
+                    //TODO : create a service for 'deference' depending on context the name of the property
                     
                     scope.objects = [];
                     scope.isResource = false;
                     
                     //TODO : use scope binding instead of attr ? Not sure
                     attr.$observe('propertyName',function(value){
-                        console.warn("this is deprecated. object type is now guessed in objects elements");
+                        console.warn('this is deprecated. object type is now guessed in objects elements');
                         //scope.propertyName = value;
                         scope.graphCtrl.initiated.then(function(){
                             scope.isResource = graphService.isResource(scope.propertyName,scope.graphCtrl.graph);
@@ -2441,7 +2441,7 @@
 //                    scope.graphCtrl.getLinkableConcepts().then(function(d){
 //                        scope.values = d;
 //                        scope.values.forEach(function(val,i){
-//                            var p = propertyFilter(val,"prefLabel");
+//                            var p = propertyFilter(val,'prefLabel');
 //                            if(p){
 //                                val.$literals = langFilter(p,scope.graphCtrl.mainLang);
 //                            }else{
@@ -2472,18 +2472,18 @@
         require: ['?^rdfuiGraph'],
         templateUrl : 'resource/rdfuiResourceView.tpl.html',
         scope : {
-//            langs : "=", //les langues doivent être générés au niveau du rui-subject
-//            selectedLang : "=",
-//            subject : "=",
-            uri : "@",
+//            langs : '=', //les langues doivent être générés au niveau du rui-subject
+//            selectedLang : '=',
+//            subject : '=',
+            uri : '@',
         },
         priority: 1, // needed for angular 1.2.x
         link: function($scope, elm, attr, ctrls) {
             
 //            var graphCtrl = ;
-//            console.log("/////////////////////////////////////////////");
+//            console.log('/////////////////////////////////////////////');
 //            console.log(graphCtrl);
-//            console.log("/////////////////////////////////////////////");
+//            console.log('/////////////////////////////////////////////');
             
             //TODO : use a if here as this function is called two times : first with values initialized a secondly whith no values...
             //try to check why we have that here.
@@ -2785,11 +2785,11 @@
         $scope.$watch('entity',function(nv,ov){
             if(nv){
                 
-                //TODO :: this filtering have to be done in "rdfui-properties" dom node
+                //TODO :: this filtering have to be done in 'rdfui-properties' dom node
                 $scope.$properties = [];
                 //TODO : use the filter definition here instead where we add $_* and @id
                 Object.keys(nv).forEach(function(d){
-                    if( !((d == "@id") || d == "@type" || d.indexOf("$_") === 0)){
+                    if( !((d == '@id') || d == '@type' || d.indexOf('$_') === 0)){
                         $scope.$properties.push(d);
                     }
                 });
@@ -2823,13 +2823,13 @@
             restrict: 'E',
             require: ['?^rdfuiGraph'],
             scope : {
-              entity : "=",
-              uri : "@" //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled.
+              entity : '=',
+              uri : '@' //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled.
             },
             controller : 'rdfuiSubjectCtrl',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "default";
+                var tName = attrs.templateName ? attrs.templateName : 'default';
                 return 'subject/rdfuiSubject.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {
@@ -2848,7 +2848,7 @@
                         //Expose the user controler before the use of graph directive
                         scope.$parentScope = scope.graphCtrl.$parentScope;
                         
-                        console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss");
+                        console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss');
                         console.log(scope.$parentScope);
                         console.log(scope.graphCtrl.$parentScope == null);
                     }
@@ -2877,10 +2877,10 @@
             if(nv){ //remark don't add this condition : && (nv !== ov) because if present the watch is not done when subjects is on dereferencing.
                 if(!$scope.filter){
                     if($scope.graphCtrl.lazyLoading){
-                        console.error("!!!!!!!!!!!!!!!!!!! no loading if no graph");
+                        console.error('!!!!!!!!!!!!!!!!!!! no loading if no graph');
                         return;
                     }else{
-                        console.warn("There is no filter defined. Default filter will be applied (all pass)");
+                        console.warn('There is no filter defined. Default filter will be applied (all pass)');
                     }
                     
                 }
@@ -2895,17 +2895,17 @@
         });
         
         $scope.$watch('filter',function(nv,ov){
-            console.log("dans le watch filter");
+            console.log('dans le watch filter');
             console.log(arguments);
            if(nv){
                if($scope.graphCtrl.lazyLoading){
-                   console.log("************** Start lazy loading *********");
+                   console.log('************** Start lazy loading *********');
                    $scope.graphCtrl.parameters = {
-                           scheme : "", //the default one 
+                           scheme : '', //the default one 
                            queryFn : function(/*string*/ uri){
                                return {
-                                   method : "POST",
-                                   url : rdfuiConfig.server+"graph/data/*/"+uri,
+                                   method : 'POST',
+                                   url : rdfuiConfig.server+'graph/data/*/'+uri,
                                    data : $scope.filter,
                                };
                               }
@@ -2922,7 +2922,7 @@
                    
                    
                }else{
-                   console.warn("This usecase is not implemented for now");
+                   console.warn('This usecase is not implemented for now');
                }
            }
         },true);
@@ -2962,14 +2962,14 @@
             restrict: 'E',
             require: ['?^rdfuiGraph'],
             scope : {
-              graphData : "=",
-              templateName : "=",
-              filter : "=",
+              graphData : '=',
+              templateName : '=',
+              filter : '=',
             },
             controller : 'rdfuiSubjectsCtrl',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "default";
+                var tName = attrs.templateName ? attrs.templateName : 'default';
                 return 'subjects/rdfuiSubjects.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {
@@ -2988,7 +2988,7 @@
                         //Expose the user controler before the use of graph directive
                         scope.$parentScope = scope.graphCtrl.$parentScope;
                         scope.toto = scope.graphCtrl;
-                        console.log("*******************");
+                        console.log('*******************');
                         console.log(scope.$parentScope);
                         console.log(scope.graphCtrl.$parentScope == null);
                     }

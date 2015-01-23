@@ -43,6 +43,8 @@ Watch the Tree component in action on the [demo page](http://jimliu.github.io/an
 Load the css file: `angular-ui-tree.min.css` in your application:
 ```html
 <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+
+<link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
 ```
 
 
@@ -50,14 +52,15 @@ Load the css file: `angular-ui-tree.min.css` in your application:
 Load the script file: `angular-ui-tree.js` or `angular-ui-tree.min.js` in your application:
 
 ```html
-<script type="text/javascript" src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+<script src="bower_components/angular-rdf-ui/dist/angular-rdf-ui.js"></script>
+<script src="bower_components/angular-ui-select/dist/select.js"></script>
 ```
 
 ### Code
 Add the sortable module as a dependency to your application module:
 
 ```js
-var myAppModule = angular.module('MyApp', ['ui.tree'])
+var myAppModule = angular.module('MyApp', ['rdf.ui','ui.select'])
 ```
 
 Injecting `ui.tree`, `ui-tree-nodes`, `ui-tree-node`, `ui-tree-handle` to your html.

@@ -8,7 +8,7 @@
   function($scope, $element, $transclude, $compile, $http) {
 
       this.scope = $scope;
-      $scope.name = "rdfuiPropertyCtrl";
+      $scope.name = 'rdfuiPropertyCtrl';
     
     $scope.showSelector = false;
     
@@ -20,13 +20,13 @@
             $scope.showSelector = true;
         }else{
             $scope.objects.push({
-                "@value" : "",
-                "@language" : ""
+                '@value' : '',
+                '@language' : ''
             });
         }
         
         
-        console.log("Ajout d'un nouvel object !!!!");
+        console.log('Ajout d\'un nouvel object !!!!');
     };
     
     $scope.selectionDone = function($item,$model){

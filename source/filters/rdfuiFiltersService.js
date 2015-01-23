@@ -62,7 +62,7 @@
             if(!filterDef) {return null;}
             filterDef.fn = function(/**entity as jsonLD*/ entity){
                 var res = entityPropertyInArray(entity,filterDef.on.property,filterDef.on.values);
-                return filterDef.type == "accept" ? res : !res;
+                return filterDef.type == 'accept' ? res : !res;
             };
             
             return filterDef.fn;

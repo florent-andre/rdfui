@@ -9,18 +9,18 @@
         require: ['?^rdfuiGraph'],
         templateUrl : 'resource/rdfuiResourceView.tpl.html',
         scope : {
-//            langs : "=", //les langues doivent être générés au niveau du rui-subject
-//            selectedLang : "=",
-//            subject : "=",
-            uri : "@",
+//            langs : '=', //les langues doivent être générés au niveau du rui-subject
+//            selectedLang : '=',
+//            subject : '=',
+            uri : '@',
         },
         priority: 1, // needed for angular 1.2.x
         link: function($scope, elm, attr, ctrls) {
             
 //            var graphCtrl = ;
-//            console.log("/////////////////////////////////////////////");
+//            console.log('/////////////////////////////////////////////');
 //            console.log(graphCtrl);
-//            console.log("/////////////////////////////////////////////");
+//            console.log('/////////////////////////////////////////////');
             
             //TODO : use a if here as this function is called two times : first with values initialized a secondly whith no values...
             //try to check why we have that here.

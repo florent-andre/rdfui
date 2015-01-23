@@ -20,22 +20,22 @@
             require: ['?ngModel','?^rdfuiGraph','?^rdfuiProperty'],
             scope : {
                 //TODO : clean properties here, only graphUri is required
-              //  langs : "=", //les langues doivent être générés au niveau du rui-subject
-              //selectedLang : "=",
-              //subject : "=",
-              //propertyLabel : "@",
-              //graphUri : "@"
-//              graphData : "=",
-              templateName : "=",
-              objects : "="
-//              filter : "="
+              //  langs : '=', //les langues doivent être générés au niveau du rui-subject
+              //selectedLang : '=',
+              //subject : '=',
+              //propertyLabel : '@',
+              //graphUri : '@'
+//              graphData : '=',
+              templateName : '=',
+              objects : '='
+//              filter : '='
             },
             //scope:true,
             //priority: 1, // needed for angular 1.2.x
             controller : 'rdfuiObjectsCtrl',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "default";
+                var tName = attrs.templateName ? attrs.templateName : 'default';
                 return 'objects/rdfuiObjects.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {

@@ -20,9 +20,9 @@
         require: 'ngModel',
         templateUrl : 'literal/rdfuiLiteralEdit.tpl.html',
         scope : {
-            langs : "=",
-            selectedLang : "=",
-            property : "="
+            langs : '=',
+            selectedLang : '=',
+            property : '='
         },
         priority: 1, // needed for angular 1.2.x
         link: function(scope, elm, attr, ngModel) {
@@ -41,7 +41,7 @@
             },true);
             
             //directive's model --> main model
-            scope.$watch("literal",function(newval,oldval){
+            scope.$watch('literal',function(newval,oldval){
                 if(!oldval) {
                     return;
                 }
@@ -57,7 +57,7 @@
                     
                   }else{
                     //the form is not valid, so we don't update the model
-                      console.log("the form is not valid, so we don't update the model");
+                      console.log('the form is not valid, so we don\'t update the model');
                   }
             },true);
             

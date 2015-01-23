@@ -18,15 +18,15 @@
             restrict: 'E',
             require: ['?^^rdfuiGraph'], //start searching the optional rdfuiGraph controller on the parent DOM node
             scope : {
-              graphUri : "@",
-              drfType : "@", //dereference type can be "local" for using the parent graphData or NULL to make a request.
-              lazyLoading : "@",
-              parameters : "=",
+              graphUri : '@',
+              drfType : '@', //dereference type can be 'local' for using the parent graphData or NULL to make a request.
+              lazyLoading : '@',
+              parameters : '=',
             },
             controller : 'rdfuiGraphCtrl',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "default";
+                var tName = attrs.templateName ? attrs.templateName : 'default';
                 return 'graph/rdfuiGraph.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {

@@ -7,7 +7,7 @@
   .controller('rdfuiLangdisplayedCtrl', ['$scope', '$q', 'langService',
   function($scope,$q,langService) {
 
-    $scope.name = "rdfuiLangdisplayedCtrl";
+    $scope.name = 'rdfuiLangdisplayedCtrl';
     
 //    $scope.lang = {};
 //    
@@ -18,7 +18,7 @@
     });
     
 //    $scope.langSelected = function(i,m){
-////        console.warn("********************");
+////        console.warn('********************');
 ////        console.warn(arguments);
 ////        console.warn($scope.langDisplayed);
 //        //$scope.graphCtrl.mainLang = i;

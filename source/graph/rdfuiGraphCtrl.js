@@ -11,15 +11,15 @@
         $scope.initialisation = $q.defer();
         $scope.initiated = $scope.initialisation.promise;
         
-        $scope.name = "graphCtrl";
+        $scope.name = 'graphCtrl';
         
         $scope.graph = null;
         
         $scope.currentNode = null;
         
         $scope.lang = {};
-        $scope.lang.main = "fr";
-        $scope.lang.available = ["en","fr","es"];
+        $scope.lang.main = 'fr';
+        $scope.lang.available = ['en','fr','es'];
         $scope.lang.displayed = $scope.lang.available;
         
         //@deprecated use $scope.lang.* instead of this ones.
@@ -42,10 +42,10 @@
             $scope.initialisation = $q.defer();
             //options for lazy loading
               if($scope.lazyLoading){
-                  console.log("#######");
+                  console.log('#######');
                   console.log($scope.parameters);
                   graphService.getLazyGraph($scope.graphUri, $scope.parameters, true).then(function(data){
-                      console.log("lazy graph data");
+                      console.log('lazy graph data');
                       $scope.graph = data;
                       //TODO : ?? remove the graphTree building here as it's now done in a specific controller, right ??
                       //$scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
@@ -54,8 +54,8 @@
                   });
                   return;
               }
-              console.log("??? ca continue ??");
-              //option for "normal fetching" and local graph extraction
+              console.log('??? ca continue ??');
+              //option for 'normal fetching' and local graph extraction
               if(!$scope.drfType){
                   graphService.getLazyGraph($scope.graphUri, $scope.parameters, false).then(function(data){
                       
@@ -69,8 +69,8 @@
                   
                   //TODO : clean this... maybe define a drf service that return a standard object for all dereferences types
                   $scope.graph = {};
-                  $scope.graph["@context"] = angular.copy($scope.$parentGraphCtrl.graph["@context"]);
-                  $scope.graph["@graph"] = [graphService.findNode($scope.$parentGraphCtrl.graph,$scope.graphUri)];
+                  $scope.graph['@context'] = angular.copy($scope.$parentGraphCtrl.graph['@context']);
+                  $scope.graph['@graph'] = [graphService.findNode($scope.$parentGraphCtrl.graph,$scope.graphUri)];
                   $scope.initialisation.resolve();
               }
           };
@@ -98,12 +98,12 @@
         };
         
         $scope.remove = function(node){
-            console.log("TODO : implement this");
+            console.log('TODO : implement this');
             console.warn(node);
         };
         
         $scope.newSubItem = function(node){
-            console.log("TODO : implement this");
+            console.log('TODO : implement this');
             console.warn(node);
         };
         

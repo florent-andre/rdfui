@@ -18,6 +18,7 @@
     "curly": true,
     "browser": true,
     "curly": true,
+    "quotmark": "single",
     //"indent": 2, --> a remplacer par ce module : https://github.com/jscs-dev/node-jscs
     //a remettre par la suite (lorsque le code de "base" supprimé
     //"undef":true,

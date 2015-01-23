@@ -18,14 +18,14 @@
             restrict: 'E',
             require: ['?^rdfuiGraph'],
             scope : {
-              graphData : "=",
-              templateName : "=",
-              filter : "=",
+              graphData : '=',
+              templateName : '=',
+              filter : '=',
             },
             controller : 'rdfuiSubjectsCtrl',
             transclude : true,
             templateUrl : function(elem,attrs){
-                var tName = attrs.templateName ? attrs.templateName : "default";
+                var tName = attrs.templateName ? attrs.templateName : 'default';
                 return 'subjects/rdfuiSubjects.'+tName+'.tpl.html';
             },
             compile: function(tElement, tAttr, transclude) {
@@ -44,7 +44,7 @@
                         //Expose the user controler before the use of graph directive
                         scope.$parentScope = scope.graphCtrl.$parentScope;
                         scope.toto = scope.graphCtrl;
-                        console.log("*******************");
+                        console.log('*******************');
                         console.log(scope.$parentScope);
                         console.log(scope.graphCtrl.$parentScope == null);
                     }

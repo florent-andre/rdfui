@@ -18,16 +18,16 @@
         //TODO : remove the ngmodel here.
         require: ['?ngModel','?^rdfuiGraph'],
         scope : {
-            langs : "=", //les langues doivent être générés au niveau du rui-subject
-            selectedLang : "=",
-            subject : "=",
-            propertyLabel : "@",
-            templateName : "=",
-            propertyName : "@",
+            langs : '=', //les langues doivent être générés au niveau du rui-subject
+            selectedLang : '=',
+            subject : '=',
+            propertyLabel : '@',
+            templateName : '=',
+            propertyName : '@',
         },
         transclude : true,
         templateUrl : function(elem,attrs){
-            var tName = attrs.templateName ? attrs.templateName : "default";
+            var tName = attrs.templateName ? attrs.templateName : 'default';
             return 'property/rdfuiProperty.'+tName+'.tpl.html';
         },
         controller : 'rdfuiPropertyCtrl',
@@ -48,14 +48,14 @@
                 if(ctrls[1]){
                     scope.graphCtrl = ctrls[1].scope;
                     
-                    //TODO : create a service for "deference" depending on context the name of the property
+                    //TODO : create a service for 'deference' depending on context the name of the property
                     
                     scope.objects = [];
                     scope.isResource = false;
                     
                     //TODO : use scope binding instead of attr ? Not sure
                     attr.$observe('propertyName',function(value){
-                        console.warn("this is deprecated. object type is now guessed in objects elements");
+                        console.warn('this is deprecated. object type is now guessed in objects elements');
                         //scope.propertyName = value;
                         scope.graphCtrl.initiated.then(function(){
                             scope.isResource = graphService.isResource(scope.propertyName,scope.graphCtrl.graph);
@@ -81,7 +81,7 @@
 //                    scope.graphCtrl.getLinkableConcepts().then(function(d){
 //                        scope.values = d;
 //                        scope.values.forEach(function(val,i){
-//                            var p = propertyFilter(val,"prefLabel");
+//                            var p = propertyFilter(val,'prefLabel');
 //                            if(p){
 //                                val.$literals = langFilter(p,scope.graphCtrl.mainLang);
 //                            }else{

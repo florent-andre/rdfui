@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 				    '!<%= cfg.demoDir %>/bower_components/**/*'
 				 ],
 				 options: {
-					 livereload: true
+					 livereload: 35730
 				 }
 			},
 		    build: {
@@ -146,8 +146,8 @@ module.exports = function(grunt) {
 		// connect
 		connect: {
     		options: {
-    		    port: 9000,
-    			livereload: 35729,
+    		    port: 9001,
+    			livereload: 35730,
     			hostname: '0.0.0.0'
     			},
     		    demo: {

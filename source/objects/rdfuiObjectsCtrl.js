@@ -7,7 +7,7 @@
       function ($scope, $element, $transclude, $compile, $attrs, $http, $q, graphService,filtersService) {
         this.scope = $scope;
 
-        $scope.name = "objectsCtrl";
+        $scope.name = 'objectsCtrl';
         
         
         return $scope;

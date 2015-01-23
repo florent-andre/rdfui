@@ -9,15 +9,15 @@
         require: ['?^rdfuiGraph','^rdfuiProperty','^rdfuiObjects'],
 //        templateUrl : 'object/rdfuiObject.tpl.html',
         scope : {
-//            langs : "=", //les langues doivent être générés au niveau du rui-subject
-//            selectedLang : "=",
-//            subject : "=",
-//            uri : "@",
-            object : "="
+//            langs : '=', //les langues doivent être générés au niveau du rui-subject
+//            selectedLang : '=',
+//            subject : '=',
+//            uri : '@',
+            object : '='
         },
         transclude : true,
         templateUrl : function(elem,attrs){
-            var tName = attrs.templateName ? attrs.templateName : "default";
+            var tName = attrs.templateName ? attrs.templateName : 'default';
             return 'object/rdfuiObject.'+tName+'.tpl.html';
         },
         compile: function(tElement, tAttr, transclude) {

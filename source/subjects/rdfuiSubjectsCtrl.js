@@ -15,10 +15,10 @@
             if(nv){ //remark don't add this condition : && (nv !== ov) because if present the watch is not done when subjects is on dereferencing.
                 if(!$scope.filter){
                     if($scope.graphCtrl.lazyLoading){
-                        console.error("!!!!!!!!!!!!!!!!!!! no loading if no graph");
+                        console.error('!!!!!!!!!!!!!!!!!!! no loading if no graph');
                         return;
                     }else{
-                        console.warn("There is no filter defined. Default filter will be applied (all pass)");
+                        console.warn('There is no filter defined. Default filter will be applied (all pass)');
                     }
                     
                 }
@@ -33,17 +33,17 @@
         });
         
         $scope.$watch('filter',function(nv,ov){
-            console.log("dans le watch filter");
+            console.log('dans le watch filter');
             console.log(arguments);
            if(nv){
                if($scope.graphCtrl.lazyLoading){
-                   console.log("************** Start lazy loading *********");
+                   console.log('************** Start lazy loading *********');
                    $scope.graphCtrl.parameters = {
-                           scheme : "", //the default one 
+                           scheme : '', //the default one 
                            queryFn : function(/*string*/ uri){
                                return {
-                                   method : "POST",
-                                   url : rdfuiConfig.server+"graph/data/*/"+uri,
+                                   method : 'POST',
+                                   url : rdfuiConfig.server+'graph/data/*/'+uri,
                                    data : $scope.filter,
                                };
                               }
@@ -60,7 +60,7 @@
                    
                    
                }else{
-                   console.warn("This usecase is not implemented for now");
+                   console.warn('This usecase is not implemented for now');
                }
            }
         },true);

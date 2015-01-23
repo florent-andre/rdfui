@@ -7,7 +7,7 @@
   .controller('rdfuiMainlangCtrl', ['$scope', '$q', 'langService',
   function($scope,$q,langService) {
 
-    $scope.name = "rdfuiMainlangCtrl";
+    $scope.name = 'rdfuiMainlangCtrl';
     
 //    $scope.mainLangSelected = null;
     
