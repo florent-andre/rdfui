@@ -29,7 +29,7 @@ demo/bower_components/
 # build and distribution related folders #
 #########################
 
-dist/
+#dist/
 demo/dist
 build/
 
