@@ -737,6 +737,32 @@
             }
         };
         
+        
+        graphService.createGraph = function(/**String*/graphUri, /*graphQueryParameter*/ parameters, /*jsonld*/ initData){
+            if(!parameters){
+                parameters = {
+                        scheme : '', //the default one 
+                        queryFn : function(/*string*/ uri){
+                            return {
+                                method : 'POST',
+                                url : rdfuiConfig.server+'graph/data/*/'+uri,
+                                data : initData
+                            };
+                        }
+                };
+            }
+            
+            var $dfd = $q.defer();
+            
+            $http(parameters.queryFn(graphUri)).success(function(data){
+                self._postProcess(data,parameters,graphUri);
+                $dfd.resolve(data);
+            });
+            
+            return $dfd.promise;
+            
+        };
+        
         //TODO : remove getGraphData and then rename getLazyGraph into getGraphData
         graphService.getLazyGraph = function(/**String*/graphUri, /*graphQueryParameter*/ parameters, /*boolean*/ lazy){
             if(!parameters && !lazy){
@@ -770,6 +796,8 @@
             return $dfd.promise;
             
         };
+        
+        
         
         graphService.getGraphData = function(/**String*/graphUri, /*graphQueryParameter*/ parameters){
             console.warn('@Deprecated :: use graphService.getLazyGraph instead');
