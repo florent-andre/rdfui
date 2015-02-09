@@ -199,8 +199,8 @@
 
   angular.module('rdf.ui')
 
-    .controller('rdfuiGraphCtrl', ['$scope', '$element', '$transclude', '$compile', '$attrs', '$http', '$q', 'graphService',
-      function ($scope, $element, $transclude, $compile, $attrs, $http, $q, graphService) {
+    .controller('rdfuiGraphCtrl', ['$scope', '$element', '$transclude', '$compile', '$attrs', '$http', '$q', 'graphService', 'arrayService',
+      function ($scope, $element, $transclude, $compile, $attrs, $http, $q, graphService, arrayService) {
         this.scope = $scope;
         
                 
@@ -278,9 +278,10 @@
         
         $scope.setCurrentNode = function(/**String*/nodeUri){
             var g = $scope.graph['@graph'];
-            $scope.currentNode = g[g.lazyIndexOf(function(a,b){
+            var index = arrayService.lazyIndexOf(g,function(a,b){
                 return a['@id'] == b;
-            },nodeUri)];
+            },nodeUri);
+            $scope.currentNode = g[index];
         };
         
         $scope.getLinkableConcepts = function(){
@@ -1985,7 +1986,7 @@
         link: function(scope, elm, attr, ngModel) {
             
             ngModel.$render = function(){
-                scope.literal = angular.copy(ngModel.$viewValue);
+                scope.literal = angular.copy(ngModel.$viewValue,{});
             };
         
             //main model --> directive's model
