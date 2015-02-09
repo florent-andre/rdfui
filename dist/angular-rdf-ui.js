@@ -5,27 +5,27 @@
     'use strict';
 //-- arrays utilities
     
-    var toArray = function(v){
-        return [].slice.call(v);
-    };
-    
-    //TODO : create a lib for array management
-    //look at array imps here and see if include in the lib : https://github.com/mbostock/d3/wiki/Arrays#wiki-d3_nest    
-
-    //add the last() utility to array
-    
-    // ## Array.last
-    // Get the last value of Array
-    // **Returns**:
-    // *{Array[]}* : Last value of Array
-    // **Example**:
-    //
-    //var last = Tab.last();
-    if(!Array.prototype.last) {
-        Array.prototype.last = function() {
-            return this[this.length - 1];
-        };
-    }
+//    var toArray = function(v){
+//        return [].slice.call(v);
+//    };
+//    
+//    //TODO : create a lib for array management
+//    //look at array imps here and see if include in the lib : https://github.com/mbostock/d3/wiki/Arrays#wiki-d3_nest    
+//
+//    //add the last() utility to array
+//    
+//    // ## Array.last
+//    // Get the last value of Array
+//    // **Returns**:
+//    // *{Array[]}* : Last value of Array
+//    // **Example**:
+//    //
+//    //var last = Tab.last();
+//    if(!Array.prototype.last) {
+//        Array.prototype.last = function() {
+//            return this[this.length - 1];
+//        };
+//    }
     
     // ## Array.prototype.lazyIndexOf
     // Array.prototype.lazyIndexOf = function (f,searchElement /*, fromIndex */ )
@@ -84,104 +84,104 @@
     // **Example**:
     //     tab.merge(function(a,b){return a == b;}, tab2, tab3);    
 
-    Array.prototype.merge = function(/* variable number of arrays */){
-        for(var i = 0; i < arguments.length; i++){
-            var array = arguments[i];
-            for(var j = 0; j < array.length; j++){
-                if(this.indexOf(array[j]) === -1) {
-                    this.push(array[j]);
-                }
-            }
-        }
-        return this;
-    };
-    
-    // ## Array.prototype.lazyMerge
-    // Array.prototype.lazyMerge = function(f /* variable number of arrays */)
-    // lazy merge, merge array with lazy comparator
-    // **Parameters**:
-    // *{function}* **f** The array caller param
-    // *{array}* **searchElement** the others array 
-    // **Returns**:
-    // *{array}* : return the first array
-    // **Example**:
-    //     tab.lazyMerge(function(a,b){return a == b;}, tab2, tab3);    
-
-
-    Array.prototype.lazyMerge = function(f /* variable number of arrays */){
-        for(var i = 1; i < arguments.length; i++){
-            var array = arguments[i];
-            for(var j = 0; j < array.length; j++){
-                if(this.lazyIndexOf(f,array[j]) === -1) {
-                    this.push(array[j]);
-                }
-            }
-        }
-        return this;
-    };
-
-    // ## Array.prototype.lazyMinus
-    // Array.prototype.lazyMinus = function(f /* variable number of arrays */)
-    // lazy minus, substract content of all array in param from the caller
-    // **Parameters**:
-    // *{function}* **f** The array caller param
-    // *{array}* **searchElement** the others array 
-    // **Returns**:
-    // *{array}* : return a new array
-    // **Example**:
-    //     tab.lazyMinus(function(a,b){return a == b;}, tab2, tab3);    
-    
-    Array.prototype.lazyMinus = function(f /* variable number of arrays */){
-        var result = [];
-        for(var i = 1; i < arguments.length; i++){
-            var array = arguments[i];
-            for(var j = 0; j < this.length; j++){
-                var po = array.lazyIndexOf(f,this[j]);
-                if(po === -1) {
-                    result.push(this[j]);
-                }
-            }
-        }
-        return result;
-    };
-    
-    // ## Array.prototype.lazyUnion
-    // Array.prototype.lazyUnion = function(f /* variable number of arrays */)
-    // lazyunion : only keep elements in the original array that is in *all* params arrays
-    // **Parameters**:
-    // *{function}* **f** The array caller param
-    // *{array}* **searchElement** the others array 
-    // **Returns**:
-    // *{array}* : return the first array
-    // **Example**:
-    //     var lazyunion = Tab.lazyUnion(function(a,b){return a == b;}, Tab2, Tab3);
-        
-    Array.prototype.lazyUnion = function(f /* variable number of arrays */){
-        for(var i = 1; i < arguments.length; i++){
-            var array = arguments[i];
-            for(var j = 0; j < this.length; j++){
-                if(array.lazyIndexOf(f,this[j]) === -1) {
-                    this.splice(j,1);
-                    j--;
-                }
-            }
-        }
-        return this;
-    };
-    
-    // ## Array.prototype.lazyUnionAndMerge
-    // Array.prototype.lazyUnionAndMerge = function(f /* variable number of arrays */)
-    // lazyunion + lazymerge
-    // **Parameters**:
-    // *{array}* **searchElement** the others array 
-    // **Example**:
-    //     Tab.lazyUnionAndMerge(function(a,b){return a == b;}, Tab2, Tab3);
-
-    //TODO : test if multiple array is well passing throw
-    Array.prototype.lazyUnionAndMerge = function(f /* variable number of arrays */){
-        this.lazyUnion.apply(this, arguments);
-        this.lazyMerge.apply(this, arguments);
-    };
+//    Array.prototype.merge = function(/* variable number of arrays */){
+//        for(var i = 0; i < arguments.length; i++){
+//            var array = arguments[i];
+//            for(var j = 0; j < array.length; j++){
+//                if(this.indexOf(array[j]) === -1) {
+//                    this.push(array[j]);
+//                }
+//            }
+//        }
+//        return this;
+//    };
+//    
+//    // ## Array.prototype.lazyMerge
+//    // Array.prototype.lazyMerge = function(f /* variable number of arrays */)
+//    // lazy merge, merge array with lazy comparator
+//    // **Parameters**:
+//    // *{function}* **f** The array caller param
+//    // *{array}* **searchElement** the others array 
+//    // **Returns**:
+//    // *{array}* : return the first array
+//    // **Example**:
+//    //     tab.lazyMerge(function(a,b){return a == b;}, tab2, tab3);    
+//
+//
+//    Array.prototype.lazyMerge = function(f /* variable number of arrays */){
+//        for(var i = 1; i < arguments.length; i++){
+//            var array = arguments[i];
+//            for(var j = 0; j < array.length; j++){
+//                if(this.lazyIndexOf(f,array[j]) === -1) {
+//                    this.push(array[j]);
+//                }
+//            }
+//        }
+//        return this;
+//    };
+//
+//    // ## Array.prototype.lazyMinus
+//    // Array.prototype.lazyMinus = function(f /* variable number of arrays */)
+//    // lazy minus, substract content of all array in param from the caller
+//    // **Parameters**:
+//    // *{function}* **f** The array caller param
+//    // *{array}* **searchElement** the others array 
+//    // **Returns**:
+//    // *{array}* : return a new array
+//    // **Example**:
+//    //     tab.lazyMinus(function(a,b){return a == b;}, tab2, tab3);    
+//    
+//    Array.prototype.lazyMinus = function(f /* variable number of arrays */){
+//        var result = [];
+//        for(var i = 1; i < arguments.length; i++){
+//            var array = arguments[i];
+//            for(var j = 0; j < this.length; j++){
+//                var po = array.lazyIndexOf(f,this[j]);
+//                if(po === -1) {
+//                    result.push(this[j]);
+//                }
+//            }
+//        }
+//        return result;
+//    };
+//    
+//    // ## Array.prototype.lazyUnion
+//    // Array.prototype.lazyUnion = function(f /* variable number of arrays */)
+//    // lazyunion : only keep elements in the original array that is in *all* params arrays
+//    // **Parameters**:
+//    // *{function}* **f** The array caller param
+//    // *{array}* **searchElement** the others array 
+//    // **Returns**:
+//    // *{array}* : return the first array
+//    // **Example**:
+//    //     var lazyunion = Tab.lazyUnion(function(a,b){return a == b;}, Tab2, Tab3);
+//        
+//    Array.prototype.lazyUnion = function(f /* variable number of arrays */){
+//        for(var i = 1; i < arguments.length; i++){
+//            var array = arguments[i];
+//            for(var j = 0; j < this.length; j++){
+//                if(array.lazyIndexOf(f,this[j]) === -1) {
+//                    this.splice(j,1);
+//                    j--;
+//                }
+//            }
+//        }
+//        return this;
+//    };
+//    
+//    // ## Array.prototype.lazyUnionAndMerge
+//    // Array.prototype.lazyUnionAndMerge = function(f /* variable number of arrays */)
+//    // lazyunion + lazymerge
+//    // **Parameters**:
+//    // *{array}* **searchElement** the others array 
+//    // **Example**:
+//    //     Tab.lazyUnionAndMerge(function(a,b){return a == b;}, Tab2, Tab3);
+//
+//    //TODO : test if multiple array is well passing throw
+//    Array.prototype.lazyUnionAndMerge = function(f /* variable number of arrays */){
+//        this.lazyUnion.apply(this, arguments);
+//        this.lazyMerge.apply(this, arguments);
+//    };
     
     //-- end arrays utilities
 })();
