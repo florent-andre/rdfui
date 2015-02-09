@@ -28,7 +28,7 @@
         link: function(scope, elm, attr, ngModel) {
             
             ngModel.$render = function(){
-                scope.literal = angular.copy(ngModel.$viewValue);
+                scope.literal = angular.copy(ngModel.$viewValue,{});
             };
         
             //main model --> directive's model
