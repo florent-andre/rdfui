@@ -1,4 +1,4 @@
-describe('filterService', function () {
+describe('filtersService', function () {
 
     var scope, $compile, $httpBackend,filtersService;
     var element;

@@ -251,5 +251,33 @@ describe('graphService', function () {
         });
     });
     
-    
+    describe('graphService.findObject',function(){
+       
+        it('should find objects value from a filter',function(){
+           
+            var dfd = graphService.getGraphData(graph2);
+            $httpBackend.flush();
+            
+            dfd.then(function(data){
+               
+                var filterDef = { 
+                        "type" : "accept",
+                        "on" : {"property" : "@id", 
+                           "values" : ['http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1114']}
+                        
+                }
+                expect(data).not.toBe(undefined);
+                var objectVal = graphService.findObject(data,filterDef,'modified');
+                expect(objectVal[0]).toBe("2014-10-16T15:39:35+02:00");
+                
+//                var fromGraphData = graphService.findNode(data['@graph'],'http://data.culture.fr/thesaurus/resource/ark:/67717/T96-1114');
+//                expect(fromGraphData).not.toBe(undefined);
+                
+                            
+            },function(d){
+                //there is an error
+                expect(true).toBe(false);
+            });
+        });
+    });
 });

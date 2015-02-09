@@ -344,7 +344,6 @@
         graphService.doFilter = function(/**jsonLD or array*/ graph, /**filter function*/ filterFn){
             if(!filterFn) {filterFn = filtersService.acceptAll();}
             var data = graph['@graph'] ? graph['@graph'] : graph;
-            
             return data.filter(filterFn);
             
         };
@@ -436,6 +435,16 @@
             },nodeUri);
             
             return index != -1 ? graph[index] : null;
+        };
+        
+        graphService.findObject = function(graph,nodeFilter,property){
+            var entities = self.doFilter(graph,filtersService.compile(nodeFilter));
+            var results = [];
+            entities.forEach(function(d,i){
+                if(d[property]) {results.push(d[property]);}
+            });
+            
+            return results;
         };
         
         //TODO : mettre ces éléments d'history dans un graph service

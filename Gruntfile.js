@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   
     //grunt.loadNpmTasks('grunt-html2js');    
     var mountFolder = function(connect, dir) {
-	return connect.static(require('path').resolve(dir));
+        return connect.static(require('path').resolve(dir));
     };
 
     var cfg = {

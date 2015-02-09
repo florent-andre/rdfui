@@ -1,7 +1,5 @@
 <rdfui-objects objects="objects">
-	<div ng-repeat="obj in objects">
-		<rdfui-object object="obj">
-			{{object}}
-		</rdfui-object>
-	</div>
+	<rdfui-object ng-repeat="obj in objects" object="obj">
+		{{object}}
+	</rdfui-object>
 </rdfui-objects>

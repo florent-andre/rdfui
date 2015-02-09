@@ -724,7 +724,6 @@
         graphService.doFilter = function(/**jsonLD or array*/ graph, /**filter function*/ filterFn){
             if(!filterFn) {filterFn = filtersService.acceptAll();}
             var data = graph['@graph'] ? graph['@graph'] : graph;
-            
             return data.filter(filterFn);
             
         };
@@ -816,6 +815,16 @@
             },nodeUri);
             
             return index != -1 ? graph[index] : null;
+        };
+        
+        graphService.findObject = function(graph,nodeFilter,property){
+            var entities = self.doFilter(graph,filtersService.compile(nodeFilter));
+            var results = [];
+            entities.forEach(function(d,i){
+                if(d[property]) {results.push(d[property]);}
+            });
+            
+            return results;
         };
         
         //TODO : mettre ces éléments d'history dans un graph service
@@ -2862,44 +2871,42 @@ angular.module("literal/rdfuiLiteralEdit.tpl.html", []).run(["$templateCache", f
 angular.module("object/rdfuiObject.blank.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("object/rdfuiObject.blank.tpl.html",
     "<!-- default blank page -->\n" +
-    "<div ng-transclude></div>\n" +
+    "<ng-transclude></ng-transclude>\n" +
     "");
 }]);
 
 angular.module("object/rdfuiObject.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("object/rdfuiObject.default.tpl.html",
     "<!-- default blank page -->\n" +
-    "<div ng-transclude></div>\n" +
+    "<ng-transclude></ng-transclude>\n" +
     "");
 }]);
 
 angular.module("object/rdfuiObject.full.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("object/rdfuiObject.full.tpl.html",
     "<!-- <p> full template to fill when markup in test file is okay</p> -->\n" +
-    "<div ng-transclude></div>\n" +
+    "<ng-transclude></ng-transclude>\n" +
     "");
 }]);
 
 angular.module("objects/rdfuiObjects.blank.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("objects/rdfuiObjects.blank.tpl.html",
     "<!-- this is the default, empty template when you don't want to use objects' templates -->\n" +
-    " <div ng-transclude></div>");
+    " <ng-transclude></ng-transclude>");
 }]);
 
 angular.module("objects/rdfuiObjects.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("objects/rdfuiObjects.default.tpl.html",
     "<!-- this is the default, empty template when you don't want to use objects' templates -->\n" +
-    " <div ng-transclude></div>");
+    " <ng-transclude></ng-transclude>");
 }]);
 
 angular.module("property/rdfuiProperty.baseObject.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("property/rdfuiProperty.baseObject.tpl.html",
     "<rdfui-objects objects=\"objects\">\n" +
-    "	<div ng-repeat=\"obj in objects\">\n" +
-    "		<rdfui-object object=\"obj\">\n" +
-    "			{{object}}\n" +
-    "		</rdfui-object>\n" +
-    "	</div>\n" +
+    "	<rdfui-object ng-repeat=\"obj in objects\" object=\"obj\">\n" +
+    "		{{object}}\n" +
+    "	</rdfui-object>\n" +
     "</rdfui-objects>");
 }]);
 
