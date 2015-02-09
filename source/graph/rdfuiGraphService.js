@@ -176,6 +176,8 @@
                 
                 //we finally build the @graph property :
                 data['@graph'] = [graphObject];
+                //add the information about the graphUri
+                data.$graphUri = graphUri;
             }
         };
         
@@ -225,6 +227,7 @@
             
             if(lazy && !parameters){
                 var data = {};
+                data.$graphUri = graphUri;
                 //self._postProcess(data,parameters,graphUri);
                 $dfd.resolve(data);
                 return $dfd.promise;
@@ -448,9 +451,9 @@
         };
         
         //TODO : mettre ces éléments d'history dans un graph service
-        graphService.buildChanges = function(s,p,o){
+        graphService.buildChanges = function(graph, s,p,o){
             
-            var graphUrl = 'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
+            var graphUrl = graph.$graphUri; //'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
             
             if(s == null){
                 console.warn('TODO : retrive the current graph url');
@@ -462,6 +465,12 @@
             var newo = o[1];
             //build the change on object
             
+            //TODO : generate the guid here
+            var changeId = '85be670a-076a-4da3-af97-724511485438';
+            var subjectId = 'fa55df25-3150-4225-85fe-9eb03d059621';
+            var propertyId = '64a37452-c07b-40c6-ac14-d8d5e935e10d';
+            var objectId = '97fac8c6-a264-4e4b-bd8b-f49109aed656';
+            //end
             
             var historyRoot = {
                     '@id': historyGraphUrl,
@@ -470,7 +479,7 @@
                     ],
                     'change': [
                       {
-                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438'
+                        '@id': historyGraphUrl+'#'+changeId
                       }
                     ],
                     'historyOf': [
@@ -483,7 +492,31 @@
             var doc = [
               historyRoot,
               {
-                '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621',
+                  '@id': historyGraphUrl+'#'+changeId,
+                  '@type': ['change'],
+                  'http://www.culture-terminology.org/ontologies/history#date': [
+                      {
+                          '@value': 1413927724650.0
+                        }
+                      ],
+                      'http://www.culture-terminology.org/ontologies/history#from': [
+                        {
+                          '@id': 'http://define.GRAPH.VERSION'
+                        }
+                      ],
+                      'http://www.culture-terminology.org/ontologies/history#subject': [
+                        {
+                          '@id': historyGraphUrl+'#'+subjectId
+                        }
+                      ],
+                      'http://www.culture-terminology.org/ontologies/history#user': [
+                        {
+                          '@value': 'default user'
+                        }
+                      ]
+                 },
+              {
+                '@id': historyGraphUrl+'#'+subjectId,
                 '@type': [
                   'http://www.culture-terminology.org/ontologies/history#subject'
                 ],
@@ -494,65 +527,44 @@
                 ],
                 'http://www.culture-terminology.org/ontologies/history#property': [
                   {
-                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d'
+                    '@id': historyGraphUrl+'#'+propertyId
                   }
                 ]
               },
+              
               {
-                '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438',
-                '@type': ['change'],
-                'http://www.culture-terminology.org/ontologies/history#date': [
+                  '@id': historyGraphUrl+'#'+propertyId,
+                  '@type': ['property'],
+                  'element': [
+                    { '@id': 'http://www.w3.org/2004/02/skos/core#prefLabel'}
+                  ],
+                  'object': [
                     {
-                        '@value': 1413927724650.0
-                      }
-                    ],
-                    'http://www.culture-terminology.org/ontologies/history#from': [
-                      {
-                        '@id': 'http://define.GRAPH.VERSION'
-                      }
-                    ],
-                    'http://www.culture-terminology.org/ontologies/history#subject': [
-                      {
-                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621'
-                      }
-                    ],
-                    'http://www.culture-terminology.org/ontologies/history#user': [
-                      {
-                        '@value': 'default user'
-                      }
-                    ]
-                    },
-                    {
-                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656',
-                    '@type': [
-                      'object'
-                    ],
-                    'element': [
-                    {
-                        '@language': oldo['@language'],
-                        '@value': oldo['@value']
-                      }
-                    ],
-                    'newValue': [
-                      {
-                        '@language': newo['@language'],
-                        '@value': newo['@value']
-                      }
-                    ]
-                    },
-                    {
-                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d',
-                    '@type': ['property'],
-                    'element': [
-                      { '@id': 'http://www.w3.org/2004/02/skos/core#prefLabel'}
-                    ],
-                    'object': [
-                      {
-                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656'
-                      }
-                      ]
+                      '@id': historyGraphUrl+'#'+objectId
                     }
-                    ];
+                    ]
+              },
+              
+              {
+                '@id': historyGraphUrl+'#'+objectId,
+                '@type': [
+                  'object'
+                ],
+                'element': [
+                {
+                    '@language': oldo['@language'],
+                    '@value': oldo['@value']
+                  }
+                ],
+                'newValue': [
+                  {
+                    '@language': newo['@language'],
+                    '@value': newo['@value']
+                  }
+                ]
+               },
+                    
+            ];
             
             var context = {
                         'history': 'http://www.culture-terminology.org/ontologies/history#history',
