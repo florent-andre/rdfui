@@ -556,6 +556,8 @@
                 
                 //we finally build the @graph property :
                 data['@graph'] = [graphObject];
+                //add the information about the graphUri
+                data.$graphUri = graphUri;
             }
         };
         
@@ -605,6 +607,7 @@
             
             if(lazy && !parameters){
                 var data = {};
+                data.$graphUri = graphUri;
                 //self._postProcess(data,parameters,graphUri);
                 $dfd.resolve(data);
                 return $dfd.promise;
@@ -828,9 +831,9 @@
         };
         
         //TODO : mettre ces éléments d'history dans un graph service
-        graphService.buildChanges = function(s,p,o){
+        graphService.buildChanges = function(graph, s,p,o){
             
-            var graphUrl = 'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
+            var graphUrl = graph.$graphUri; //'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
             
             if(s == null){
                 console.warn('TODO : retrive the current graph url');
@@ -842,6 +845,12 @@
             var newo = o[1];
             //build the change on object
             
+            //TODO : generate the guid here
+            var changeId = '85be670a-076a-4da3-af97-724511485438';
+            var subjectId = 'fa55df25-3150-4225-85fe-9eb03d059621';
+            var propertyId = '64a37452-c07b-40c6-ac14-d8d5e935e10d';
+            var objectId = '97fac8c6-a264-4e4b-bd8b-f49109aed656';
+            //end
             
             var historyRoot = {
                     '@id': historyGraphUrl,
@@ -850,7 +859,7 @@
                     ],
                     'change': [
                       {
-                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438'
+                        '@id': historyGraphUrl+'#'+changeId
                       }
                     ],
                     'historyOf': [
@@ -863,7 +872,31 @@
             var doc = [
               historyRoot,
               {
-                '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621',
+                  '@id': historyGraphUrl+'#'+changeId,
+                  '@type': ['change'],
+                  'http://www.culture-terminology.org/ontologies/history#date': [
+                      {
+                          '@value': 1413927724650.0
+                        }
+                      ],
+                      'http://www.culture-terminology.org/ontologies/history#from': [
+                        {
+                          '@id': 'http://define.GRAPH.VERSION'
+                        }
+                      ],
+                      'http://www.culture-terminology.org/ontologies/history#subject': [
+                        {
+                          '@id': historyGraphUrl+'#'+subjectId
+                        }
+                      ],
+                      'http://www.culture-terminology.org/ontologies/history#user': [
+                        {
+                          '@value': 'default user'
+                        }
+                      ]
+                 },
+              {
+                '@id': historyGraphUrl+'#'+subjectId,
                 '@type': [
                   'http://www.culture-terminology.org/ontologies/history#subject'
                 ],
@@ -874,65 +907,44 @@
                 ],
                 'http://www.culture-terminology.org/ontologies/history#property': [
                   {
-                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d'
+                    '@id': historyGraphUrl+'#'+propertyId
                   }
                 ]
               },
+              
               {
-                '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#85be670a-076a-4da3-af97-724511485438',
-                '@type': ['change'],
-                'http://www.culture-terminology.org/ontologies/history#date': [
+                  '@id': historyGraphUrl+'#'+propertyId,
+                  '@type': ['property'],
+                  'element': [
+                    { '@id': 'http://www.w3.org/2004/02/skos/core#prefLabel'}
+                  ],
+                  'object': [
                     {
-                        '@value': 1413927724650.0
-                      }
-                    ],
-                    'http://www.culture-terminology.org/ontologies/history#from': [
-                      {
-                        '@id': 'http://define.GRAPH.VERSION'
-                      }
-                    ],
-                    'http://www.culture-terminology.org/ontologies/history#subject': [
-                      {
-                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#fa55df25-3150-4225-85fe-9eb03d059621'
-                      }
-                    ],
-                    'http://www.culture-terminology.org/ontologies/history#user': [
-                      {
-                        '@value': 'default user'
-                      }
-                    ]
-                    },
-                    {
-                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656',
-                    '@type': [
-                      'object'
-                    ],
-                    'element': [
-                    {
-                        '@language': oldo['@language'],
-                        '@value': oldo['@value']
-                      }
-                    ],
-                    'newValue': [
-                      {
-                        '@language': newo['@language'],
-                        '@value': newo['@value']
-                      }
-                    ]
-                    },
-                    {
-                    '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#64a37452-c07b-40c6-ac14-d8d5e935e10d',
-                    '@type': ['property'],
-                    'element': [
-                      { '@id': 'http://www.w3.org/2004/02/skos/core#prefLabel'}
-                    ],
-                    'object': [
-                      {
-                        '@id': 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a#97fac8c6-a264-4e4b-bd8b-f49109aed656'
-                      }
-                      ]
+                      '@id': historyGraphUrl+'#'+objectId
                     }
-                    ];
+                    ]
+              },
+              
+              {
+                '@id': historyGraphUrl+'#'+objectId,
+                '@type': [
+                  'object'
+                ],
+                'element': [
+                {
+                    '@language': oldo['@language'],
+                    '@value': oldo['@value']
+                  }
+                ],
+                'newValue': [
+                  {
+                    '@language': newo['@language'],
+                    '@value': newo['@value']
+                  }
+                ]
+               },
+                    
+            ];
             
             var context = {
                         'history': 'http://www.culture-terminology.org/ontologies/history#history',
@@ -2809,7 +2821,7 @@ angular.module('rdf.ui.tpl', ['graph/rdfuiGraph.default.tpl.html', 'langs/rdfuiL
 
 angular.module("graph/rdfuiGraph.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("graph/rdfuiGraph.default.tpl.html",
-    "<div ng-transclude></div>");
+    "<ng-transclude></ng-transclude>");
 }]);
 
 angular.module("langs/rdfuiLangdisplayed.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -2969,7 +2981,7 @@ angular.module("resource/rdfuiResourceView.tpl.html", []).run(["$templateCache",
 angular.module("subject/rdfuiSubject.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("subject/rdfuiSubject.default.tpl.html",
     "<!-- this is the default, empty template when you don't want to use subject's templates -->\n" +
-    "<div ng-transclude></div>");
+    "<ng-transclude></ng-transclude>");
 }]);
 
 angular.module("subjects/rdfuiSubjects.blank.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -2983,7 +2995,7 @@ angular.module("subjects/rdfuiSubjects.blank.tpl.html", []).run(["$templateCache
     "\n" +
     "<!-- <p>=============================</p> -->\n" +
     "\n" +
-    "<div ng-transclude></div>");
+    "<ng-transclude></ng-transclude>");
 }]);
 
 angular.module("subjects/rdfuiSubjects.default.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -2996,7 +3008,7 @@ angular.module("subjects/rdfuiSubjects.default.tpl.html", []).run(["$templateCac
     "<!-- <p>Expose graphTree :: {{graphTree}}</p> -->\n" +
     "\n" +
     "<!-- <p>=============================</p> -->\n" +
-    "<div ng-transclude></div>");
+    "<ng-transclude></ng-transclude>");
 }]);
 
 angular.module("subjects/rdfuiSubjects.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -3008,7 +3020,7 @@ angular.module("subjects/rdfuiSubjects.tpl.html", []).run(["$templateCache", fun
     "     <p>{{list}}<p>\n" +
     "     <p>{{test}}</p>\n" +
     "     <p>{{test.val}}</p>\n" +
-    "<div ng-transclude></div>");
+    "<ng-transclude></ng-transclude>");
 }]);
 
 angular.module("subjects/rdfuiSubjects.tree.node.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -3055,5 +3067,5 @@ angular.module("subjects/rdfuiSubjects.tree.tpl.html", []).run(["$templateCache"
     "        <li ng-repeat=\"node in graphTree\" ui-tree-node ng-include=\"'subjects/rdfuiSubjects.tree.node.tpl.html'\"></li>\n" +
     "    </ol>\n" +
     "</div>\n" +
-    "<div ng-transclude></div>");
+    "<ng-transclude></ng-transclude>");
 }]);
