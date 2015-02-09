@@ -55,6 +55,11 @@ module.exports = function(grunt) {
 				        '<%= cfg.srcDir %>/**/*.css'
 			    ],
 			    tasks: ['cssmin', 'copy']
+			},
+			
+			protractor: {
+			    files: ['<%= cfg.buildDir %>/*.js', 'tests/e2e/*.js'],
+			    tasks: ['protractor:continuous']
 			}
 	    },
 
@@ -196,6 +201,27 @@ module.exports = function(grunt) {
 				browsers: ['PhantomJS', 'Firefox']
 			}
 	    },
+	    
+	    protractor: {
+	        options: {
+	        configFile: "protractor.conf.js", // Default config file
+	        // keepAlive: true, // If false, the grunt process stops when the test fails.
+	        noColor: false, // If true, protractor will not use colors in its output.
+	        // debug: true,
+	        args: {
+	        }
+	        },
+	        e2e: {
+	        options: {
+	        keepAlive: false
+	        }
+	        },
+	        continuous: {
+	        options: {
+	        keepAlive: true
+	        }
+	        }
+	        },
 
 		// available tasks
 		tasks_list: {
@@ -248,4 +274,9 @@ module.exports = function(grunt) {
     grunt.registerTask('serve', ['clean','build', 'karma:single', 'open', 'connect:demo', 'watch']);
     grunt.registerTask('test', ['karma:single']);
     grunt.registerTask('test:continuous', ['karma:continuous']);
+    
+    //e2e protactor related
+    grunt.registerTask('e2e-test', ['connect:demo', 'protractor:continuous', 'watch:protractor']);
+    //grunt.registerTask('test', ['karma:unit:start', 'connect:test', 'run:mock_server', 'protractor:e2e']);
+    
 };

@@ -458,6 +458,31 @@ Use the `ui-tree-handle` to specify an element used to drag the object. If you d
 [Give us a like on ngmodules](http://ngmodules.org/modules/angular-ui-tree)
 
 ## Development environment setup
+
+@TODO : document other dependencies
+
+
+@TODO : review this install process
+
+* installation of grunt-protactor-runner module
+./node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update
+
+
+* In order to test that the protactor installation is okay, run : 
+grunt e2e-test
+
+==> under this are others options to make the installation working. To review, but may be not needed.
+
+* local install
+- Install protractor
+npm install protractor --save-dev
+- Download the selenium standalone server
+./node_modules/protractor/bin/webdriver-manager update
+
+* global install (seems don't work when launching via grunt)
+sudo npm install protractor -g
+sudo webdriver-manager update
+
 #### Prerequisites
 
 * [Node Package Manager](https://npmjs.org/) (NPM)
