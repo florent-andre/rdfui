@@ -229,7 +229,14 @@
         $scope.$watch('graphUri',function(nv,ov){
             if(nv){
                 $scope.loadGraph();
-                
+            }
+        });
+        
+        $scope.$watch('graphData',function(nv,ov){
+            if(nv){
+                $scope.initialisation = $q.defer();
+                $scope.graph = nv;
+                $scope.initialisation.resolve();
             }
         });
         
@@ -332,6 +339,7 @@
             require: ['?^^rdfuiGraph'], //start searching the optional rdfuiGraph controller on the parent DOM node
             scope : {
               graphUri : '@',
+              graphData : '=', //use it when you want to load graph data from a locally available jsonld file
               drfType : '@', //dereference type can be 'local' for using the parent graphData or NULL to make a request.
               lazyLoading : '@',
               parameters : '=',
@@ -2788,7 +2796,7 @@
     }]);
 })();
 
-angular.module('rdf.ui.tpl', ['graph/rdfuiGraph.default.tpl.html', 'langs/rdfuiLangdisplayed.tpl.html', 'langs/rdfuiMainlang.tpl.html', 'literal/rdfuiLiteralEdit.tpl.html', 'object/rdfuiObject.blank.tpl.html', 'object/rdfuiObject.default.tpl.html', 'object/rdfuiObject.full.tpl.html', 'objects/rdfuiObjects.blank.tpl.html', 'objects/rdfuiObjects.default.tpl.html', 'property/rdfuiProperty.blank.tpl.html', 'property/rdfuiProperty.default.tpl.html', 'resource/rdfuiResourceView.tpl.html', 'subject/rdfuiSubject.default.tpl.html', 'subjects/rdfuiSubjects.blank.tpl.html', 'subjects/rdfuiSubjects.default.tpl.html', 'subjects/rdfuiSubjects.tpl.html', 'subjects/rdfuiSubjects.tree.node.tpl.html', 'subjects/rdfuiSubjects.tree.tpl.html']);
+angular.module('rdf.ui.tpl', ['graph/rdfuiGraph.default.tpl.html', 'langs/rdfuiLangdisplayed.tpl.html', 'langs/rdfuiMainlang.tpl.html', 'literal/rdfuiLiteralEdit.tpl.html', 'object/rdfuiObject.blank.tpl.html', 'object/rdfuiObject.default.tpl.html', 'object/rdfuiObject.full.tpl.html', 'objects/rdfuiObjects.blank.tpl.html', 'objects/rdfuiObjects.default.tpl.html', 'property/rdfuiProperty.baseObject.tpl.html', 'property/rdfuiProperty.blank.tpl.html', 'property/rdfuiProperty.default.tpl.html', 'resource/rdfuiResourceView.tpl.html', 'subject/rdfuiSubject.default.tpl.html', 'subjects/rdfuiSubjects.blank.tpl.html', 'subjects/rdfuiSubjects.default.tpl.html', 'subjects/rdfuiSubjects.tpl.html', 'subjects/rdfuiSubjects.tree.node.tpl.html', 'subjects/rdfuiSubjects.tree.tpl.html']);
 
 angular.module("graph/rdfuiGraph.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("graph/rdfuiGraph.default.tpl.html",
@@ -2882,6 +2890,17 @@ angular.module("objects/rdfuiObjects.default.tpl.html", []).run(["$templateCache
   $templateCache.put("objects/rdfuiObjects.default.tpl.html",
     "<!-- this is the default, empty template when you don't want to use objects' templates -->\n" +
     " <div ng-transclude></div>");
+}]);
+
+angular.module("property/rdfuiProperty.baseObject.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("property/rdfuiProperty.baseObject.tpl.html",
+    "<rdfui-objects objects=\"objects\">\n" +
+    "	<div ng-repeat=\"obj in objects\">\n" +
+    "		<rdfui-object object=\"obj\">\n" +
+    "			{{object}}\n" +
+    "		</rdfui-object>\n" +
+    "	</div>\n" +
+    "</rdfui-objects>");
 }]);
 
 angular.module("property/rdfuiProperty.blank.tpl.html", []).run(["$templateCache", function($templateCache) {

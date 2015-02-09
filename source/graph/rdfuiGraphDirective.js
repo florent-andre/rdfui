@@ -19,6 +19,7 @@
             require: ['?^^rdfuiGraph'], //start searching the optional rdfuiGraph controller on the parent DOM node
             scope : {
               graphUri : '@',
+              graphData : '=', //use it when you want to load graph data from a locally available jsonld file
               drfType : '@', //dereference type can be 'local' for using the parent graphData or NULL to make a request.
               lazyLoading : '@',
               parameters : '=',

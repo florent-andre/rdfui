@@ -165,6 +165,54 @@
          return false;
      }
      
+     $scope.graphListSubjectFilter = {
+             "type" : "accept",
+             "on" : {"property" : "@id", "values" : ["org.apache.clerezza.rdf.core.BNode@35341ee4"]}
+         }
+     
+     $scope.graphList = [
+                         
+                         {"@context":
+                             {
+                                 "http://ooffee.eu/ns/urban#author":{"@type":"http://www.w3.org/2001/XMLSchema#string"},
+                                 "http://ooffee.eu/ns/urban#dateCreate":{"@type":"http://www.w3.org/2001/XMLSchema#string"},
+                                 "http://ooffee.eu/ns/urban#dateUpdate":{"@type":"http://www.w3.org/2001/XMLSchema#string"},
+                                 "http://ooffee.eu/ns/urban#id":{"@type":"http://www.w3.org/2001/XMLSchema#string"},
+                                 "http://ooffee.eu/ns/urban#name":{"@type":"http://www.w3.org/2001/XMLSchema#string"},
+                                 "http://ooffee.eu/ns/urban#status":{"@type":"http://www.w3.org/2001/XMLSchema#string"},
+                                 "xsd":"http://www.w3.org/2001/XMLSchema#"
+                             },
+                         "@graph":[
+                                   {
+                                       "@id":"org.apache.clerezza.rdf.core.BNode@28048a43",
+                                       "http://ooffee.eu/ns/urban#name":"Yes"},
+                                       {"@id":"org.apache.clerezza.rdf.core.BNode@35341ee4",
+                                           "http://ooffee.eu/ns/urban#advertising":[
+                                                                                    "org.apache.clerezza.rdf.core.BNode@5b1ececb",
+                                                                                    "org.apache.clerezza.rdf.core.BNode@70d82605",
+                                                                                    "org.apache.clerezza.rdf.core.BNode@7ea84c23"],
+                                            "http://ooffee.eu/ns/urban#author":"Julien",
+                                            "http://ooffee.eu/ns/urban#dateCreate":"09/02/2015",
+                                            "http://ooffee.eu/ns/urban#dateUpdate":"09/02/2015",
+                                            "http://ooffee.eu/ns/urban#id":"b277",
+                                            "http://ooffee.eu/ns/urban#isfooter":[
+                                                                                  "org.apache.clerezza.rdf.core.BNode@5c89066b",
+                                                                                  "org.apache.clerezza.rdf.core.BNode@439aa029"
+                                                                                  ],
+                                            "http://ooffee.eu/ns/urban#ishomePage": ["org.apache.clerezza.rdf.core.BNode@28048a43","org.apache.clerezza.rdf.core.BNode@4211493b"],
+                                           "http://ooffee.eu/ns/urban#name":"xsq",
+                                           "http://ooffee.eu/ns/urban#status":"App"
+                                               },
+                                           {"@id":"org.apache.clerezza.rdf.core.BNode@4211493b","http://ooffee.eu/ns/urban#name":"No"},
+                                           {"@id":"org.apache.clerezza.rdf.core.BNode@439aa029","http://ooffee.eu/ns/urban#name":"Yes"},
+                                           {"@id":"org.apache.clerezza.rdf.core.BNode@5b1ececb","http://ooffee.eu/ns/urban#name":"SmartMap"},
+                                           {"@id":"org.apache.clerezza.rdf.core.BNode@5c89066b","http://ooffee.eu/ns/urban#name":"No"},
+                                           {"@id":"org.apache.clerezza.rdf.core.BNode@70d82605","http://ooffee.eu/ns/urban#name":"App IPAD"},
+                                           {"@id":"org.apache.clerezza.rdf.core.BNode@7ea84c23","http://ooffee.eu/ns/urban#name":"Version Web"}]},
+
+             ,
+         ];
+     
   });
   
 //  demoApp.controller('FilterCtrl', function($scope) {

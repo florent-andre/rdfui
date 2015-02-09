@@ -178,7 +178,12 @@ $scope.treeFilter = {
  * "property" : defining the json-ld property where the filter is done
  * "values" : is an array containing the accepted or refused values.
 * "fn" : it's an optional property. this property contains the function to do the filtering. If present this is this function that is used. If not present this function is calculated from the previous properties. This function have to implement // TODO :: document this //          
-          
+ 
+ 
+# get the parent controller
+
+* rdfui-* webcomponents are all isolated scope.
+* A binding to the parent controller is available throw the $parentScope object         
               
 ## Migrate From v1.x to v2.0
 [Migrate From v1.x to v2.0](https://github.com/JimLiu/angular-ui-tree/wiki/Migrate-From-v1.x-to-v2.0)

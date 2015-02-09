@@ -33,7 +33,14 @@
         $scope.$watch('graphUri',function(nv,ov){
             if(nv){
                 $scope.loadGraph();
-                
+            }
+        });
+        
+        $scope.$watch('graphData',function(nv,ov){
+            if(nv){
+                $scope.initialisation = $q.defer();
+                $scope.graph = nv;
+                $scope.initialisation.resolve();
             }
         });
         

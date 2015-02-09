@@ -42,18 +42,38 @@
 <!--         </rdfui-graph> -->
      </div>
      <div class="row">
-<!--         <rdfui-graph graph-uri="http://dasboard.com/data/oie" lazy-loading="true" parameters="oieParameters"> -->
-<!--         	<rdfui-subjects graph-data="graph" filter="$parentScope.test.filter"> -->
-<!--         		<div ng-repeat="node in $subjects"> -->
+     	
+     	<p> Demo for loading a graph from a jsonLD object and display properties with default object template </p>
+     	
+     	 <div ng-repeat="project in graphList">
+     	 	
+     	 	<rdfui-graph graph-data="project">
+     	 		
+     	 		<rdfui-subjects graph-data="graph" filter="$parentScope.graphListSubjectFilter">
+        			<div ng-repeat="node in $subjects">
         			
-<!--         			<rdfui-subject entity="node"> -->
-<!--         				<a href="{{entity['@id']}}" ng-click="$parentScope.onOIEClick(entity); $event.preventDefault();"> -->
-<!--         				({{entity['http://dashboard.com/ontology/v0.1#refCycle']['@value']}}) {{entity['http://dashboard.com/ontology/v0.1#procedure']['@value']}} -->
-<!--         				</a> -->
-<!--         			</rdfui-subject> -->
-<!--         		</div> -->
-<!--         	</rdfui-subjects> -->
-<!--         </rdfui-graph> -->
+	        			<rdfui-subject entity="node">
+	        				
+	        				<!-- TODO :: add here the rdfui-properties element -->
+	        				
+		        			<rdfui-property subject="entity"
+		                        property-name="http://ooffee.eu/ns/urban#author"
+		                        template-name="baseObject"
+	                        >
+	               			</rdfui-property>
+	               			
+	               			<rdfui-property subject="entity"
+		                        property-name="http://ooffee.eu/ns/urban#name"
+		                        template-name="baseObject"
+	                        >
+	               			</rdfui-property>
+	               			
+	               			
+	        			</rdfui-subject>
+        			</div>
+        	</rdfui-subjects>
+     	 		
+    	</div>
     </div>
     
     <div class="row">
