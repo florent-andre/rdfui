@@ -12,8 +12,8 @@
     * @description
     * angular-ui-tree.
     */
-    .factory('graphService', ['$http', '$log', '$q', '$rootScope', 'rdfuiConfig', 'filtersService',
-      function ($http,$log, $q, $rootScope, rdfuiConfig,filtersService) {
+    .factory('graphService', ['$http', '$log', '$q', '$rootScope', 'rdfuiConfig', 'filtersService', 'arrayService',
+      function ($http,$log, $q, $rootScope, rdfuiConfig,filtersService,arrayService) {
         var currentTermino = null;
         
         var self = null;
@@ -431,7 +431,7 @@
         graphService.findNode = function(g,nodeUri){
             var graph = Array.isArray(g) ? g : g['@graph'];
 
-            var index = graph.lazyIndexOf(function(a,b){
+            var index = arrayService.lazyIndexOf(graph, function(a,b){
                 return a['@id'] == b;
             },nodeUri);
             
