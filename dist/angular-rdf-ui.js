@@ -556,9 +556,9 @@
 
                 //we finally build the @graph property :
                 data['@graph'] = [graphObject];
-                //add the information about the graphUri
-                data.$graphUri = graphUri;
             }
+            //add the information about the graphUri
+            data.$graphUri = graphUri;
         };
 
 
@@ -846,24 +846,22 @@
 
         //TODO : mettre ces éléments d'history dans un graph service
         graphService.buildChanges = function(graph, s,p,o){
-
-
-
-
-
+            
             var graphUrl = graph.$graphUri; //'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
 
             if(s == null){
-                console.warn('TODO : retrive the current graph url');
-                graphUrl = 'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
+                //TODO send an error
+                console.error('The subject is undefined');
             }
-            var historyGraphUrl = 'http://www.culture-terminology.org/ontoHisto/4b8e72a0-f558-47fe-9880-40bb366b268a';
+            
+            //TODO : define a static historyGraphUrl in the graph object or query it on the endpoint.
+            var historyGraphUrl = 'http://www.culture-terminology.org/ontoHisto/'+guidService.guid();
             console.log(o);
             var oldo = o[0];
             var newo = o[1];
             //build the change on object
 
-            //TODO : generate the guid here
+            var historyRootId = guidService.guid();
             var changeId = guidService.guid();
             var subjectId = guidService.guid();
             var propertyId = guidService.guid();
@@ -871,7 +869,7 @@
             //end
 
             var historyRoot = {
-                    '@id': historyGraphUrl,
+                    '@id': historyGraphUrl + '#' + historyRootId,
                     '@type': [
                       'history'
                     ],
@@ -920,7 +918,7 @@
                 ],
                 'http://www.culture-terminology.org/ontologies/history#element': [
                   {
-                    '@id': 'http://www.athenaeurope.org/athenawiki/AthenaThesaurus/Michael_Subjects#Slavery'
+                    '@id': s
                   }
                 ],
                 'http://www.culture-terminology.org/ontologies/history#property': [
@@ -934,7 +932,7 @@
                   '@id': historyGraphUrl+'#'+propertyId,
                   '@type': ['property'],
                   'element': [
-                    { '@id': 'http://www.w3.org/2004/02/skos/core#prefLabel'}
+                    { '@id': p}
                   ],
                   'object': [
                     {
@@ -948,18 +946,8 @@
                 '@type': [
                   'object'
                 ],
-                'element': [
-                {
-                    '@language': oldo['@language'],
-                    '@value': oldo['@value']
-                  }
-                ],
-                'newValue': [
-                  {
-                    '@language': newo['@language'],
-                    '@value': newo['@value']
-                  }
-                ]
+                'element': [ oldo ],
+                'newValue': [ newo ]
                },
 
             ];
@@ -972,7 +960,10 @@
                             '@type': '@id'
                           },
 
-                        'historyOf' : 'http://www.culture-terminology.org/ontologies/history#historyOf',
+                        'historyOf' : {
+                            '@id' : 'http://www.culture-terminology.org/ontologies/history#historyOf',
+                            '@type' : '@id'
+                        },
                         'element' : 'http://www.culture-terminology.org/ontologies/history#element',
                         'newValue' : 'http://www.culture-terminology.org/ontologies/history#newValue',
 
@@ -992,18 +983,14 @@
                     queryFn : function(/*string*/ uri){
                         return {
                             method : 'POST',
-                            url : rdfuiConfig.server+'history/data/*/'+uri,
-                            data : jsonLd
+                            url : rdfuiConfig.server+'history/data/myUser/'+uri,
+                            data : jsonLd,
+                            headers: {'Accept':'application/json-ld'},
                         };
                     }
             };
 
-            $http({
-                method : 'POST',
-                url : parameters.queryFn(graph.$graphUri), //rdfuiConfig.server+'skosifier?uri='+uri,
-                headers: {'Accept':'application/json-ld'},
-                data : jsonLd
-            }).success(function(){
+            $http(parameters.queryFn(graphUrl)).success(function(){
                 console.log('ok');
             }).error(function(){
                 console.log('ko');
@@ -2664,7 +2651,6 @@
       ]);
 
 })();
-
 (function () {
   'use strict';
 
