@@ -846,19 +846,23 @@
 
         //TODO : mettre ces éléments d'history dans un graph service
         graphService.buildChanges = function(graph, s,p,o){
-            
+
             var graphUrl = graph.$graphUri; //'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
 
             if(s == null){
                 //TODO send an error
                 console.error('The subject is undefined');
             }
-            
+
             //TODO : define a static historyGraphUrl in the graph object or query it on the endpoint.
             var historyGraphUrl = 'http://www.culture-terminology.org/ontoHisto/'+guidService.guid();
             console.log(o);
             var oldo = o[0];
             var newo = o[1];
+
+            console.log(o[0]);
+            console.log(o[1]);
+
             //build the change on object
 
             var historyRootId = guidService.guid();
@@ -2650,7 +2654,9 @@
 
       ]);
 
+
 })();
+
 (function () {
   'use strict';
 
