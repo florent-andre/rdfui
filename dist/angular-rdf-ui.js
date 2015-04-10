@@ -849,19 +849,37 @@
 
             var graphUrl = graph.$graphUri; //'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
 
-            if(s == null){
+            if(s == null || p == null || o == null){
                 //TODO send an error
-                console.error('The subject is undefined');
+                console.error('The subject/property/object is undefined');
             }
 
             //TODO : define a static historyGraphUrl in the graph object or query it on the endpoint.
             var historyGraphUrl = 'http://www.culture-terminology.org/ontoHisto/'+guidService.guid();
             console.log(o);
+
+            var olds = null;
+            var news = null;
+
+            if(Array.isArray(s)){
+              olds = s[0];
+              news = s[1];
+            }
+
+            var oldp = p[0];
+            var newp = p[1];
+
             var oldo = o[0];
             var newo = o[1];
 
+
             console.log(o[0]);
             console.log(o[1]);
+
+            console.log(s);
+            console.log(p);
+            console.log(o);
+            console.log(graphUrl);
 
             //build the change on object
 
@@ -889,48 +907,93 @@
                     ]
                   };
 
+            var subject = {
+              '@id': historyGraphUrl+'#'+subjectId,
+              '@type': [
+                'subject'
+              ],
+              'property': [
+                {
+                  '@id': historyGraphUrl+'#'+propertyId
+                }
+                ]
+            };
+
+            if(!Array.isArray(s)){
+              subject.element = [
+                {
+                  '@id': s
+                }
+              ];
+            }else{
+
+              if(news == null){
+                console.log('TODO : modifier pour permettre la suppression');
+              }else{
+                if(olds !=null){
+                  subject.element = [{
+                    '@id': olds
+                  }];
+                  }
+                subject.newValue = [{
+                  '@id': news
+                }];
+              }
+
+            }
+
+            var object = {
+              '@id': historyGraphUrl+'#'+objectId,
+              '@type': [
+                'object'
+              ]
+            };
+
+            if(!Array.isArray(o)){
+              object.element = [
+                {
+                  '@id': o
+                }
+              ];
+            }else{
+
+              if(newo == null){
+                console.log('TODO : modifier pour permettre la suppression');
+              }else{
+                if(oldo !=null){
+                  object.element = [oldo];
+                  }
+                object.newValue = [newo];
+              }
+
+            }
+
             var doc = [
               historyRoot,
               {
                   '@id': historyGraphUrl+'#'+changeId,
                   '@type': ['change'],
-                  'http://www.culture-terminology.org/ontologies/history#date': [
+                  'date': [
                       {
                           '@value': 1413927724650.0
                         }
                       ],
-                      'http://www.culture-terminology.org/ontologies/history#from': [
+                      'from': [
                         {
                           '@id': 'http://define.GRAPH.VERSION'
                         }
                       ],
-                      'http://www.culture-terminology.org/ontologies/history#subject': [
+                      'subject': [
                         {
                           '@id': historyGraphUrl+'#'+subjectId
                         }
                       ],
-                      'http://www.culture-terminology.org/ontologies/history#user': [
+                      'user': [
                         {
                           '@value': 'default user'
-                        }
-                      ]
+                        }                      ]
                  },
-              {
-                '@id': historyGraphUrl+'#'+subjectId,
-                '@type': [
-                  'http://www.culture-terminology.org/ontologies/history#subject'
-                ],
-                'http://www.culture-terminology.org/ontologies/history#element': [
-                  {
-                    '@id': s
-                  }
-                ],
-                'http://www.culture-terminology.org/ontologies/history#property': [
-                  {
-                    '@id': historyGraphUrl+'#'+propertyId
-                  }
-                ]
-              },
+              subject,
 
               {
                   '@id': historyGraphUrl+'#'+propertyId,
@@ -945,16 +1008,11 @@
                     ]
               },
 
-              {
-                '@id': historyGraphUrl+'#'+objectId,
-                '@type': [
-                  'object'
-                ],
-                'element': [ oldo ],
-                'newValue': [ newo ]
-               },
+              object
 
             ];
+            console.log('*************************************');
+            console.log(doc);
 
             var context = {
                         'history': 'http://www.culture-terminology.org/ontologies/history#history',
@@ -968,9 +1026,12 @@
                             '@id' : 'http://www.culture-terminology.org/ontologies/history#historyOf',
                             '@type' : '@id'
                         },
+                        'subject' : 'http://www.culture-terminology.org/ontologies/history#subject',
                         'element' : 'http://www.culture-terminology.org/ontologies/history#element',
                         'newValue' : 'http://www.culture-terminology.org/ontologies/history#newValue',
-
+                        'user' : 'http://www.culture-terminology.org/ontologies/history#user',
+                        'from': 'http://www.culture-terminology.org/ontologies/history#from',
+                        'date': 'http://www.culture-terminology.org/ontologies/history#date',
                         'property' : 'http://www.culture-terminology.org/ontologies/history#property',
                         'object' : 'http://www.culture-terminology.org/ontologies/history#object',
             };
