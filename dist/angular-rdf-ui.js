@@ -847,6 +847,7 @@
         //TODO : mettre ces éléments d'history dans un graph service
         graphService.buildChanges = function(graph, s,p,o){
 
+            var $dfd = $q.defer();//$.Deferred();
             var graphUrl = graph.$graphUri; //'http://www.culture-terminology.org/thesaurus/C4DFECD168B5A529F18140FDAC52E554/el%20tiltredre';
 
             if(s == null || p == null || o == null){
@@ -1057,11 +1058,12 @@
 
             $http(parameters.queryFn(graphUrl)).success(function(){
                 console.log('ok');
+                $dfd.resolve();
             }).error(function(){
                 console.log('ko');
             });
 
-
+            return $dfd.promise;
 
 
 
