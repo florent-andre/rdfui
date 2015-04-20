@@ -477,7 +477,6 @@
 
             //TODO : define a static historyGraphUrl in the graph object or query it on the endpoint.
             var historyGraphUrl = 'http://www.culture-terminology.org/ontoHisto/'+guidService.guid();
-            console.log(o);
 
             var olds = null;
             var news = null;
@@ -492,15 +491,6 @@
 
             var oldo = o[0];
             var newo = o[1];
-
-
-            console.log(o[0]);
-            console.log(o[1]);
-
-            console.log(s);
-            console.log(p);
-            console.log(o);
-            console.log(graphUrl);
 
             //build the change on object
 
@@ -589,6 +579,7 @@
 
             }
 
+
             var doc = [
               historyRoot,
               {
@@ -632,8 +623,7 @@
               object
 
             ];
-            console.log('*************************************');
-            console.log(doc);
+
 
             var context = {
                         'history': 'http://www.culture-terminology.org/ontologies/history#history',
@@ -662,7 +652,6 @@
                     '@graph' : doc
             };
 
-            console.log(jsonLd);
 
             var parameters = {
                     scheme : '', //the default one
