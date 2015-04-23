@@ -539,7 +539,9 @@
             }else{
 
               if(news == null){
-                console.log('TODO : modifier pour permettre la suppression');
+                console.log('TODO : modifier pour permettre la suppression s');
+                  subject.element = ['all'];
+
               }else{
                 if(olds !=null){
                   subject.element = [{
@@ -569,12 +571,49 @@
             }else{
 
               if(newo == null){
-                console.log('TODO : modifier pour permettre la suppression');
+                console.log('TODO : modifier pour permettre la suppression object o');
+                object.element = {'@id':
+                  'http://www.culture-terminology.org/ontologies/history#all'
+                };
+                object.newValue = {'@id':
+                  'http://www.culture-terminology.org/ontologies/history#delete'
+                };
               }else{
                 if(oldo !=null){
                   object.element = [oldo];
                   }
                 object.newValue = [newo];
+              }
+
+            }
+
+
+            var property = {
+              '@id': historyGraphUrl+'#'+propertyId,
+              '@type': ['property'],
+              'object': [
+                {
+                  '@id': historyGraphUrl+'#'+objectId
+                }]
+            };
+
+            if(!Array.isArray(p)){
+              property.element = [
+                {
+                  '@id': p
+                }
+              ];
+            }else{
+
+              if(newp == null){
+                console.log('TODO : modifier pour permettre la suppression p');
+                property.element = ['all'];
+                property.newValue = ['delete'];
+              }else{
+                if(oldp != null){
+                  property.element = [oldp];
+                  }
+                property.newValue = [newp];
               }
 
             }
@@ -607,18 +646,7 @@
                  },
               subject,
 
-              {
-                  '@id': historyGraphUrl+'#'+propertyId,
-                  '@type': ['property'],
-                  'element': [
-                    { '@id': p}
-                  ],
-                  'object': [
-                    {
-                      '@id': historyGraphUrl+'#'+objectId
-                    }
-                    ]
-              },
+              property,
 
               object
 
@@ -645,6 +673,8 @@
                         'date': 'http://www.culture-terminology.org/ontologies/history#date',
                         'property' : 'http://www.culture-terminology.org/ontologies/history#property',
                         'object' : 'http://www.culture-terminology.org/ontologies/history#object',
+                        'delete' : 'http://www.culture-terminology.org/ontologies/history#delete',
+                        'all' : 'http://www.culture-terminology.org/ontologies/history#all'
             };
 
             var jsonLd = {
