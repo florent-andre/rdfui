@@ -572,9 +572,8 @@
 
               if(newo == null){
                 console.log('TODO : modifier pour permettre la suppression object o');
-                object.element = {'@id':
-                  'http://www.culture-terminology.org/ontologies/history#all'
-                };
+                object.element = oldo == 'http://www.culture-terminology.org/ontologies/history#all' ? {'@id':oldo}:oldo;
+
                 object.newValue = {'@id':
                   'http://www.culture-terminology.org/ontologies/history#delete'
                 };
