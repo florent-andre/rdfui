@@ -70,58 +70,59 @@
                     <rdfui-mainlang></rdfui-mainlang>
                     <rdfui-langdisplayed></rdfui-langdisplayed>
                     
-                    <!-- TODO : when rdfui-subject element defined, create a rdfui-subject-id element for displaying the id (with a link or not, an absolute or relative,...) -->
                     <p>{{currentNode['@id']}}</p>
+        			
+	        			<rdfui-subject entity="currentNode">
+	        				
+	        				<rdfui-property subject="entity"
+					                        property-name="prefLabel"
+					                        property-label="prefLabels"
+					                        langs="graphCtrl.lang.available"
+					                        selectedLang="graphCtrl.lang.main"
+					                        ></rdfui-property>
+	        				
+		        			 <rdfui-property subject="entity"
+					                        property-name="altLabel"
+					                        property-label="altLabels"
+					                        langs="graphCtrl.lang.available"
+					                        selectedLang="graphCtrl.lang.main"
+					                        ></rdfui-property>
                     
-                    <rdfui-property ng-model="currentNode" 
-                        subject="currentNode"
-                        property-name="prefLabel"
-                        property-label="perfLabels"
-                        langs="lang.available"
-                        selectedLang="lang.main"
-                        ></rdfui-property>
+		                    <rdfui-property subject="entity"
+		                        property-name="hiddenLabel"
+		                        property-label="hidden Labels"
+		                        langs="graphCtrl.lang.available"
+		                        selectedLang="graphCtrl.lang.main"
+		                        ></rdfui-property>
+		                    
+		                    <rdfui-property subject="entity"
+		                        property-name="scopeNote"
+		                        property-label="Scope Note"
+		                        langs="graphCtrl.lang.available"
+		                        selectedLang="graphCtrl.lang.main"
+		                        ></rdfui-property>    
+		                    
+		                    
+		                    <rdfui-property subject="entity"
+		                        property-name="broader"
+		                        property-label="broader"
+		                        langs="graphCtrl.lang.available"
+		                        selectedLang="graphCtrl.lang.main"
+		                        ></rdfui-property>
+		                        
+		                     <rdfui-property subject="entity"
+						            property-name="narrower"
+						            property-label="narrower"
+						            langs="graphCtrl.lang.available"
+						            selectedLang="graphCtrl.lang.main"
+						            ></rdfui-property>
+		            
+	               			
+	               			
+	        			</rdfui-subject>
                     
-                    <rdfui-property ng-model="currentNode" 
-                        subject="currentNode"
-                        property-name="altLabel"
-                        property-label="altLabels"
-                        langs="lang.available"
-                        selectedLang="lang.main"
-                        ></rdfui-property>
                     
-                    <rdfui-property ng-model="currentNode" 
-                        subject="currentNode"
-                        property-name="hiddenLabel"
-                        property-label="hidden Labels"
-                        langs="lang.available"
-                        selectedLang="lang.main"
-                        ></rdfui-property>
-                    
-                    <rdfui-property ng-model="currentNode" 
-                        subject="currentNode"
-                        property-name="scopeNote"
-                        property-label="Scope Note"
-                        langs="lang.available"
-                        selectedLang="lang.main"
-                        ></rdfui-property>    
-                    
-                    
-                    <rdfui-property ng-model="currentNode" 
-                        subject="currentNode"
-                        property-name="broader"
-                        property-label="broader"
-                        langs="lang.available"
-                        selectedLang="lang.main"
-                        ></rdfui-property>
-                        
-                     <rdfui-property ng-model="currentNode" 
-				            subject="currentNode"
-				            property-name="narrower"
-				            property-label="narrower"
-				            langs="lang.available"
-				            selectedLang="lang.main"
-				            ></rdfui-property>
-            
+                   
             
              </div>   
         </rdfui-graph>

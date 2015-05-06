@@ -14,11 +14,12 @@ describe('Rdfui tree and detail view', function() {
       
       expect(meubleDomestique.getText()).toEqual('meuble domestique');
       
-      var properties = element.all(by.model('currentNode'));
+      
+      var properties = element.all(by.css('rdfui-property'));
       
       var prefLabelProperty = properties.get(0);
       var prefLabelHeader = prefLabelProperty.element(by.tagName('h2'));
-      expect(prefLabelHeader.getText()).toEqual('perfLabels');
+      expect(prefLabelHeader.getText()).toEqual('prefLabels');
       
       //now we try to clic on the element
       meubleDomestique.element(by.css('span.ng-scope.ng-binding')).click();
@@ -35,6 +36,10 @@ describe('Rdfui tree and detail view', function() {
       
       var label = prefLabelProperty.element(by.model("literal['@value']"));
       expect(label.isPresent()).toBe(true);
+      
+      var lang = prefLabelProperty.element(by.model("literal['@language']"));
+      expect(lang.isPresent()).toBe(true);
+      expect(lang.all(by.css("option")).count()).toBe(4); //3 langs + the default value
       
       //try to send text and check if updated in the tree view
       var txt = 'my text';

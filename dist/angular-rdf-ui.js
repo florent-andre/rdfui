@@ -2116,7 +2116,7 @@
     .directive('rdfuiLiteralEdit', [ 'graphService',function(graphService) {
     return {
         restrict: 'E',
-        require: 'ngModel',
+        require: ['ngModel','?^rdfuiGraph','?^rdfuiSubject'],
         templateUrl : 'literal/rdfuiLiteralEdit.tpl.html',
         scope : {
             langs : '=',
@@ -2124,7 +2124,11 @@
             property : '='
         },
         priority: 1, // needed for angular 1.2.x
-        link: function(scope, elm, attr, ngModel) {
+        link: function(scope, elm, attr, ctrls) {
+            
+            var ngModel = ctrls[0];
+            var graph = ctrls[1].scope.graph;
+            var subject = ctrls[2];
             
             ngModel.$render = function(){
                 scope.literal = angular.copy(ngModel.$viewValue,{});
@@ -2149,7 +2153,7 @@
                     if(ngModel.$viewValue['@value'] != newval['@value']
                     ||
                     ngModel.$viewValue['@language'] != newval['@language']){
-                        graphService.buildChanges(null,scope.property,[ngModel.$viewValue,newval]);
+                        graphService.buildChanges(graph,subject,scope.property,[ngModel.$viewValue,newval]);
                         ngModel.$viewValue['@value'] = newval['@value'];
                         ngModel.$viewValue['@language'] = newval['@language'];
                     }
@@ -3087,7 +3091,7 @@ angular.module("property/rdfuiProperty.default.tpl.html", []).run(["$templateCac
     "		<div ng-if=\"!isResource\">\n" +
     "		<!-- @TODO : retrive property and lang from the parent object -->\n" +
     "			<rdfui-literal-edit \n" +
-    "			     property=\"prefLabel\"\n" +
+    "			     property=\"propertyName\"\n" +
     "			     ng-model=\"obj\" \n" +
     "			     langs=\"langs\" \n" +
     "			></rdfui-literal-edit>\n" +
