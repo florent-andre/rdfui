@@ -15,6 +15,7 @@
 //            uri : '@',
             object : '='
         },
+        controller : 'rdfuiObjectCtrl',
         transclude : true,
         templateUrl : function(elem,attrs){
             var tName = attrs.templateName ? attrs.templateName : 'default';

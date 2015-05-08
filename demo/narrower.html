@@ -70,30 +70,103 @@
                 					<div>
                 						<p>type de l'object : {{objectsCtrl.hasType}} : </p>
                 						<b>{{propertyCtrl.propertyLabel}} : </b>
-                 	<div ng-if="objectsCtrl.hasType.resource">
-                   this is a ressource :: TODO : manage the dereferencing or not, have a look to rdfui-resource-view directive
-                 	</div>
-                 <div ng-if="objectsCtrl.hasType.literal">
-<!-- 											                                             <p>this is a literal</p> -->
-                       <div ng-if="objectsCtrl.hasType.literalType.plain">
-<!-- 											                                                     <p>this is a plain literal</p> -->
-                           {{object['@value']}} <button class="btn btn-scent" >{{object['@language']}}</button>
-                       </div>
-                       <div ng-if="objectsCtrl.hasType.literalType.typed">
-<!-- 											                                                     <p>this is a typed literal</p> -->
-                           {{object}}
-                                                        </div>
-                 </div>
-                </div>
-            </rdfui-object>
-<!-- 	                                                                           </li> -->
-<!-- 	                                                                       </ol> -->
-                              
+                 						<div ng-if="objectsCtrl.hasType.resource">
+                   							this is a ressource :: TODO : manage the dereferencing or not, have a look to rdfui-resource-view directive
+                   							
+                   							<p>{{object}}</p>
+                   							<rdfui-resource-view uri="{{object}}" template-name="blank">
+                   								<!-- TODO : migrate this content to the full template -->
+                   								<p>other {{uri}}</p>
+                   								<rdfui-graph graph-uri="{{uri}}"
+                                                                 drf-type="local"
+                                                        >
+                                                        <rdfui-subjects graph-data="graph"
+                                                                        template-name="blank"
+													                    >
+													        
+<!-- 													        <pre>{{$subjects[0]|json}}</pre> -->
+													           
+													         <!-- TODO : create a "all" template for the subjects contains a forEach and create rdfui-subject -->
+													        <rdfui-subject entity="$subjects[0]">
+													           
+													           <rdfui-properties entity="entity">
+													           
+													           <pre>{{$properties|json}}</pre>
+													           <div ng-repeat="prop in $properties">
+	
+		                                                            <rdfui-property ng-model="entity" 
+	                                                                           subject="entity"
+	                                                                           property-name="{{prop}}"
+	                                                                           property-label="{{prop}}"
+	                                                                           langs="graphCtrl.lang.available"
+	                                                                           selectedLang="graphCtrl.lang.main"
+	                                                                           template-name="blank"
+	                                                                           >
+	                                                                   <rdfui-objects ng-model="objects"
+	                                                                                  objects="objects"
+	                                                                                  template-name="blank">
+ 	                                                                       <div>
+											                                           		<b>{{propertyCtrl.propertyLabel}} : </b>
+
+	                                                                               <rdfui-object ng-repeat="obj in objects"
+											                                                      object="obj"
+											                                                      template-name="full"
+											                                                      maxdfdlevel="2"
+											                                                      >
+											                                           
+												                                           	<div ng-if="objectsCtrl.hasType.resource">
+												                                             this is a ressource :: TODO : manage the dereferencing or not, have a look to rdfui-resource-view directive
+												                                           	</div>
+												                                           <div ng-if="objectsCtrl.hasType.literal">
+	<!-- 											                                             <p>this is a literal</p> -->
+												                                                 <div ng-if="objectsCtrl.hasType.literalType.plain">
+	<!-- 											                                                     <p>this is a plain literal</p> -->
+												                                                     {{object['@value']}} <button class="btn btn-scent" >{{object['@language']}}</button>
+												                                                 </div>
+												                                                 <div ng-if="objectsCtrl.hasType.literalType.typed">
+	<!-- 											                                                     <p>this is a typed literal</p> -->
+												                                                     {{object}}
+	                                                                                             </div>
+												                                           </div>
+											                                           
+											                                       </rdfui-object>
+											                                       </div>
+	                                                                   
+	                                                                   </rdfui-objects>
+	                                                                   
+	                                                                   
+	                                                               </rdfui-property>												               
+														               
+													           </div>
+													           
+													           <button class="btn btn-scent" ng-click="toggle()">{{toggleText}}</button>
+													           </rdfui-properties>
+													        </rdfui-subject>
+                                                            
+                                                        </rdfui-subjects>
+                                                    </rdfui-graph>
+                   								
+                   								
+                   							</rdfui-resource-view>
+                 						</div>
+						                 <div ng-if="objectsCtrl.hasType.literal">
+						                 	<p>this is a literal</p>
+						                    <div ng-if="objectsCtrl.hasType.literalType.plain">
+						                    	<p>this is a plain literal</p>
+						                        {{object['@value']}} <button class="btn btn-scent" >{{object['@language']}}</button>
+						                    </div>
+						                    <div ng-if="objectsCtrl.hasType.literalType.typed">
+						                    	<p>this is a typed literal</p>
+						                        {{object}}
+						                    </div>
+						                 </div>
+                					</div>
+            					</rdfui-object>
                               </rdfui-objects>
                             
                             
                             
-                            </rdfui-property>
+                      </rdfui-property>
             
             
              </div>   

@@ -169,8 +169,8 @@ Notable differences are on the use of "subjects", "predicates" and "objects" lev
 
 basic structure for a filter is : 
 $scope.treeFilter = {
-              "type" : "accept",
-              "on" : {"property" : "@type", "values" : ["Concept"]}
+              type : 'accept',
+              on : {property : '@type', values : ['Concept']}
           }
           
 * "type" values can be "accept" or "reject"

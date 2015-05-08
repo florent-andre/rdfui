@@ -2168,6 +2168,22 @@
     };
     }]);
 })();
+(function () {
+  'use strict';
+
+  angular.module('rdf.ui')
+
+    .controller('rdfuiObjectCtrl', ['$scope', '$element', '$transclude', '$compile', '$attrs', '$http', '$q', 'graphService', 'filtersService',
+      function ($scope, $element, $transclude, $compile, $attrs, $http, $q, graphService,filtersService) {
+        this.scope = $scope;
+
+        $scope.name = 'objectCtrl';
+        
+        return $scope;
+      }
+    ]);
+})();
+
 
 (function () {
   'use strict';
@@ -2185,6 +2201,7 @@
 //            uri : '@',
             object : '='
         },
+        controller : 'rdfuiObjectCtrl',
         transclude : true,
         templateUrl : function(elem,attrs){
             var tName = attrs.templateName ? attrs.templateName : 'default';
@@ -2296,6 +2313,242 @@
                         });
                         
                         
+                    }
+                    
+                };
+            },
+            
+          };
+    }]);
+})();
+
+(function () {
+  'use strict';
+
+  angular.module('rdf.ui')
+
+    .controller('rdfuiPropertiesCtrl', ['$scope', '$element', '$transclude', '$compile', '$attrs', '$http', '$q', 'graphService', 'filtersService', 'arrayService',
+      function ($scope, $element, $transclude, $compile, $attrs, $http, $q, graphService,filtersService,arrayService) {
+        this.scope = $scope;
+        
+        //TODO :: see if we can move this functions into the rdfuiFilterService as a properties filter
+        var propertyFilter = function(entityProp,properties){
+            
+            //TODO : use the array.find function when available
+            var res = false;
+            if(properties.indexOf(entityProp) != -1 ) {res = true;}
+            
+            return res;
+        };
+        
+        var compile = function(/** */ filterDef){
+            if(!filterDef) {return null;}
+            filterDef.fn = function(entityProp){
+                var res = propertyFilter(entityProp,filterDef.properties);
+                return filterDef.type == 'accept' ? res : !res;
+            };
+            
+            return filterDef.fn;
+        };
+        //END TODO :: see if we can move this functions into the rdfuiFilterService as a properties filter
+        
+        var getFromDisplayConfig = function(val){
+            
+            var index = arrayService.lazyIndexOf(displayConfig,
+                    function(a,b){
+                        console.log('333333333333333333333333333333333"');
+                        console.log(a);
+                        console.log(b);
+                        return a.short == b;},
+                    val
+            );
+            
+            return index == -1 ? null : displayConfig[index];
+            
+        };
+        
+        var buildPropertyObject = function(short,weight,full,human){
+            var res = {};
+            if(short){
+                res.short = short;
+                //TODO : retrive the full from here
+            }
+            if(weight){
+                res.weight = weight;
+            }else{
+                res.weight = -10;
+            }
+            if(full){
+                res.full=full;
+                //TODO : check the consistency with the full url retrived of throw a warning
+                //TODO : extract the short if possible and not already existing
+            }
+            if(human){
+                res.human = human;
+            }
+            return res;
+        };
+        
+        var updateProperties = function(nv){
+            console.warn('%%%%%%%%%%%%%%%%%%%%%%%%%');
+            console.log(nv);
+            var prop = []; //Object.keys(nv).filter(compile($scope.propertiesFilter));
+            
+            var filterFn = compile($scope.propertiesFilter);
+            //step1 filter
+            Object.keys(nv).forEach(function(d){
+                
+                var index = arrayService.lazyIndexOf($scope.propertiesFilter.properties,
+                        function(a,b){ return a.short == b;},
+                        d
+                );
+                
+                var filterResult = -1 != index;
+                    
+                
+                filterResult = $scope.propertiesFilter.type == 'accept' ? filterResult : !filterResult;
+                
+                if(filterResult){
+                    if(index != -1) {
+                        prop.push($scope.propertiesFilter.properties[index]);
+                    }else{
+                        var v = getFromDisplayConfig(d);
+                        if ( v == null){
+                            v = buildPropertyObject(d,null,null,null);
+                        }
+                        prop.push(v);
+                    }
+                    console.log('do something here !!');
+                }else{
+                    console.log('do something else');
+                }
+                
+                
+                console.log('resultssszzsssss');
+                console.log(prop);
+                
+            });
+            
+            //step2 sort
+            prop = prop.sort(function(a,b){
+                return b.weight - a.weight;
+            });
+            
+            $scope.$properties = prop;
+            console.log($scope.$properties);
+            console.log('test');
+        };
+        
+        var displayConfig = [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
+                               buildPropertyObject('definition',5,null,'Definition'),
+                              ];
+        
+        var minimalDisplay = {
+                type : 'accept',
+                properties : [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
+                               buildPropertyObject('definition',5,null,'Definition'),
+                              ]
+            };
+        
+        var fullDisplay = {
+                type : 'reject',
+                properties : [buildPropertyObject('@id',null,null,null),
+                              buildPropertyObject('@type',null,null,null),
+                              buildPropertyObject('$_children',null,null,null),
+                              ]
+            };
+        
+        $scope.propertiesFilter = minimalDisplay;
+        
+        
+        //TODO : use a watch collection to react on change for the differents attributes
+        $scope.$watch('entity',function(nv,ov){
+            if(nv){
+                
+                //TODO :: remove that when okay.
+                $scope.$properties = [];
+                //TODO : use the filter definition here instead where we add $_* and @id
+                Object.keys(nv).forEach(function(d){
+                    if( !((d == '@id') || d == '@type' || d.indexOf('$_') === 0)){
+                        $scope.$properties.push(d);
+                    }
+                });
+                
+                updateProperties(nv);
+            }
+        });
+        
+        $scope.$watch('propertiesFilter',function(nv,ov){
+            if(nv){
+                updateProperties($scope.entity);
+            }
+        });
+        
+        var expandText = '+';
+        var colapseText = '-';
+        
+        $scope.toggleText = expandText;
+        
+        $scope.toggle = function(){
+            $scope.toggleText = $scope.toggleText == expandText ? colapseText : expandText;
+            $scope.propertiesFilter = $scope.propertiesFilter == fullDisplay ? minimalDisplay : fullDisplay;
+        };
+        
+        return $scope;
+        
+        
+      }
+    ]);
+})();
+
+
+
+/**
+ * Directive that build a 2 inputs fields for create a literal.
+ * 
+ * The main model is changed only if the 2 required inputs are valid.
+ * 
+ * To manage this, this directive deal with an internal model (scope.literal) that maintain copies of the 
+ * main model values.
+ */
+(function () {
+
+    'use strict';
+    
+    angular.module('rdf.ui')
+    .directive('rdfuiProperties', ['$compile',function($compile) {
+        return {
+            restrict: 'E',
+            require: ['?^rdfuiGraph'],
+            scope : {
+              entity : '=',
+              uri : '@' //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled.
+            },
+            controller : 'rdfuiPropertiesCtrl',
+            transclude : true,
+            templateUrl : function(elem,attrs){
+                var tName = attrs.templateName ? attrs.templateName : 'default';
+                return 'properties/rdfuiProperties.'+tName+'.tpl.html';
+            },
+            compile: function(tElement, tAttr, transclude) {
+                var contents = tElement.contents().remove();
+                var compiledContents;
+                return function(scope, elm, attr, ctrls) {
+                    if(!compiledContents) {
+                        compiledContents = $compile(contents, transclude);
+                    }
+                    compiledContents(scope, function(clone, scope) {
+                             elm.append(clone);
+                    });
+                    
+                    if(ctrls[0]){
+                        scope.graphCtrl = ctrls[0].scope;
+                        //Expose the user controler before the use of graph directive
+                        scope.$parentScope = scope.graphCtrl.$parentScope;
+                        
+//                        console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss');
+//                        console.log(scope.$parentScope);
+//                        console.log(scope.graphCtrl.$parentScope == null);
                     }
                     
                 };
@@ -2450,51 +2703,78 @@
     }]); //end directive
   
 })(); //end anonymous function
+(function () {
+  'use strict';
+
+  angular.module('rdf.ui')
+
+    .controller('rdfuiResourceViewCtrl', ['$scope', '$element', '$transclude', '$compile', '$attrs', '$http', '$q', 'graphService', 'filtersService',
+      function ($scope, $element, $transclude, $compile, $attrs, $http, $q, graphService,filtersService) {
+        this.scope = $scope;
+
+        $scope.name = 'resourceViewCtrl';
+        
+        
+        return $scope;
+        
+        
+      }
+    ]);
+})();
+
 
 (function () {
   'use strict';
 
   angular.module('rdf.ui')
-  .directive('rdfuiResourceView', ['graphService',function(graphService) {
+  .directive('rdfuiResourceView', ['$compile','graphService',function($compile, graphService) {
     return {
         restrict: 'E',
         require: ['?^rdfuiGraph'],
-        templateUrl : 'resource/rdfuiResourceView.tpl.html',
         scope : {
-//            langs : '=', //les langues doivent être générés au niveau du rui-subject
-//            selectedLang : '=',
-//            subject : '=',
+            templateName : '=',
             uri : '@',
         },
-        priority: 1, // needed for angular 1.2.x
-        link: function($scope, elm, attr, ctrls) {
-            
-//            var graphCtrl = ;
-//            console.log('/////////////////////////////////////////////');
-//            console.log(graphCtrl);
-//            console.log('/////////////////////////////////////////////');
-            
-            //TODO : use a if here as this function is called two times : first with values initialized a secondly whith no values...
-            //try to check why we have that here.
-            if(ctrls[0]){
+        transclude : true,
+        templateUrl : function(elem,attrs){
+            var tName = attrs.templateName ? attrs.templateName : 'default';
+            return 'resource/rdfuiResourceView.'+tName+'.tpl.html';
+        },
+        controller : 'rdfuiResourceViewCtrl',
+        
+        compile: function(tElement, tAttr, transclude) {
+            var contents = tElement.contents().remove();
+            var compiledContents;
+            return function(scope, elm, attr, ctrls) {
                 
-                $scope.graphCtrl = ctrls[0].scope;
-                
-                $scope.$watch('uri',function(){
-                    //TODO : make a service to get the access uri
-                    $scope.accessUri = $scope.uri;
+                if(!compiledContents) {
+                    compiledContents = $compile(contents, transclude);
+                }
+                compiledContents(scope, function(clone, scope) {
+                         elm.append(clone);
                 });
                 
-                $scope.getLiteralValues = function(/**String*/ uri){
+                if(ctrls[0]){
+                    scope.graphCtrl = ctrls[0].scope;
+                }
+                
+                //TODO : review this part, not still used since migration
+                scope.$watch('uri',function(){
+                    //TODO : make a service to get the access uri
+                    scope.accessUri = scope.uri;
+                });
+                
+                scope.getLiteralValues = function(/**String*/ uri){
                     if(!uri) { return [null]; }
-                    var labels = graphService.getLabelFromUri($scope.graphCtrl.graph['@graph'],uri,$scope.graphCtrl.lang.main);
+                    var labels = graphService.getLabelFromUri(scope.graphCtrl.graph['@graph'],uri,scope.graphCtrl.lang.main);
                     return labels.length > 0 ? labels : [null];
                 };
-            }
-            
-        }
-    };
-  }]);
+                
+            };
+        },
+        
+    };//end return
+  }]); //end directive
 })();
 (function () {
   'use strict';
@@ -2754,19 +3034,19 @@
         this.scope = $scope;
         
         //TODO : use a watch collection to react on change for the differents attributes
-        $scope.$watch('entity',function(nv,ov){
-            if(nv){
-                
-                //TODO :: this filtering have to be done in 'rdfui-properties' dom node
-                $scope.$properties = [];
-                //TODO : use the filter definition here instead where we add $_* and @id
-                Object.keys(nv).forEach(function(d){
-                    if( !((d == '@id') || d == '@type' || d.indexOf('$_') === 0)){
-                        $scope.$properties.push(d);
-                    }
-                });
-            }
-        });
+//        $scope.$watch('entity',function(nv,ov){
+//            if(nv){
+//                
+//                //TODO :: this filtering have to be done in 'rdfui-properties' dom node
+//                $scope.$properties = [];
+//                //TODO : use the filter definition here instead where we add $_* and @id
+//                Object.keys(nv).forEach(function(d){
+//                    if( !((d == '@id') || d == '@type' || d.indexOf('$_') === 0)){
+//                        $scope.$properties.push(d);
+//                    }
+//                });
+//            }
+//        });
         
         return $scope;
         
@@ -2972,7 +3252,7 @@
     }]);
 })();
 
-angular.module('rdf.ui.tpl', ['graph/rdfuiGraph.default.tpl.html', 'langs/rdfuiLangdisplayed.tpl.html', 'langs/rdfuiMainlang.tpl.html', 'literal/rdfuiLiteralEdit.tpl.html', 'object/rdfuiObject.blank.tpl.html', 'object/rdfuiObject.default.tpl.html', 'object/rdfuiObject.full.tpl.html', 'objects/rdfuiObjects.blank.tpl.html', 'objects/rdfuiObjects.default.tpl.html', 'property/rdfuiProperty.baseObject.tpl.html', 'property/rdfuiProperty.blank.tpl.html', 'property/rdfuiProperty.default.tpl.html', 'resource/rdfuiResourceView.tpl.html', 'subject/rdfuiSubject.default.tpl.html', 'subjects/rdfuiSubjects.blank.tpl.html', 'subjects/rdfuiSubjects.default.tpl.html', 'subjects/rdfuiSubjects.tpl.html', 'subjects/rdfuiSubjects.tree.node.tpl.html', 'subjects/rdfuiSubjects.tree.tpl.html']);
+angular.module('rdf.ui.tpl', ['graph/rdfuiGraph.default.tpl.html', 'langs/rdfuiLangdisplayed.tpl.html', 'langs/rdfuiMainlang.tpl.html', 'literal/rdfuiLiteralEdit.tpl.html', 'object/rdfuiObject.blank.tpl.html', 'object/rdfuiObject.default.tpl.html', 'object/rdfuiObject.full.tpl.html', 'objects/rdfuiObjects.blank.tpl.html', 'objects/rdfuiObjects.default.tpl.html', 'properties/rdfuiProperties.default.tpl.html', 'property/rdfuiProperty.baseObject.tpl.html', 'property/rdfuiProperty.blank.tpl.html', 'property/rdfuiProperty.default.tpl.html', 'resource/rdfuiResourceView.blank.tpl.html', 'resource/rdfuiResourceView.default.tpl.html', 'subject/rdfuiSubject.default.tpl.html', 'subjects/rdfuiSubjects.blank.tpl.html', 'subjects/rdfuiSubjects.default.tpl.html', 'subjects/rdfuiSubjects.tpl.html', 'subjects/rdfuiSubjects.tree.node.tpl.html', 'subjects/rdfuiSubjects.tree.tpl.html']);
 
 angular.module("graph/rdfuiGraph.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("graph/rdfuiGraph.default.tpl.html",
@@ -3068,6 +3348,12 @@ angular.module("objects/rdfuiObjects.default.tpl.html", []).run(["$templateCache
     " <ng-transclude></ng-transclude>");
 }]);
 
+angular.module("properties/rdfuiProperties.default.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("properties/rdfuiProperties.default.tpl.html",
+    "<!-- this is the default, empty template when you don't want to use subject's templates -->\n" +
+    "<ng-transclude></ng-transclude>");
+}]);
+
 angular.module("property/rdfuiProperty.baseObject.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("property/rdfuiProperty.baseObject.tpl.html",
     "<rdfui-objects objects=\"objects\">\n" +
@@ -3125,12 +3411,19 @@ angular.module("property/rdfuiProperty.default.tpl.html", []).run(["$templateCac
     "<div ng-transclude></div>");
 }]);
 
-angular.module("resource/rdfuiResourceView.tpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("resource/rdfuiResourceView.tpl.html",
+angular.module("resource/rdfuiResourceView.blank.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("resource/rdfuiResourceView.blank.tpl.html",
+    "<!-- This is the blank template for rdfuiproperties display -->\n" +
+    "<div ng-transclude></div>\n" +
+    "");
+}]);
+
+angular.module("resource/rdfuiResourceView.default.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("resource/rdfuiResourceView.default.tpl.html",
     "<a href=\"{{accessUri}}\">\n" +
     "	<span ng-repeat=\"v in getLiteralValues(uri)\">{{v['@value']}}</</span>\n" +
     "</a>\n" +
-    "");
+    "<div ng-transclude></div>");
 }]);
 
 angular.module("subject/rdfuiSubject.default.tpl.html", []).run(["$templateCache", function($templateCache) {
