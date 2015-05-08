@@ -33,6 +33,14 @@
             compile: function(tElement, tAttr, transclude) {
                 var contents = tElement.contents().remove();
                 var compiledContents;
+                
+                var getFirstParent = function(parentGraphCtrl){
+                    if(parentGraphCtrl.$parentGraphCtrl){
+                        return getFirstParent(parentGraphCtrl.$parentGraphCtrl);
+                    }
+                    return parentGraphCtrl;
+                };
+                
                 return function(scope, elm, attr, ctrls) {
                     
                     //this need to be placed before the compile for immediate availability for the children nodes
@@ -47,7 +55,7 @@
                     });
                     
                     if(ctrls[0]){
-                        scope.$parentGraphCtrl = ctrls[0].scope;
+                        scope.$parentGraphCtrl = getFirstParent(ctrls[0].scope);
                       
                     }
                     

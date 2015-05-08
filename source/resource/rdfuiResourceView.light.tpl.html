@@ -2,7 +2,7 @@
 <rdfui-graph graph-uri="{{uri}}" drf-type="local">
 	<rdfui-subjects graph-data="graph" template-name="blank">
 		<rdfui-subject entity="$subjects[0]">
-			<rdfui-properties entity="entity">
+			<rdfui-properties entity="entity" filtername="lightDisplay">
    				<div ng-repeat="prop in $properties">
    					<rdfui-property ng-model="entity" 
                                     subject="entity"
@@ -15,35 +15,31 @@
                     	<rdfui-objects ng-model="objects"
                                        objects="objects"
                                        template-name="blank">
-                        	<div>
-                        		<b>{{propertyCtrl.propertyLabel}} : </b>
                        			<rdfui-object ng-repeat="obj in objects"
 	                                            object="obj"
 	                                            template-name="full"
 	                                            maxdfdlevel="2"
 	                                            >
-                                
-                                 	<div ng-if="objectsCtrl.hasType.resource">
+<!--                                  	<div ng-if="objectsCtrl.hasType.resource"> -->
                                  		<!-- TODO : put all the logic for defining the template name in the objectCtrl -->
                                  		<!-- pour les uri non deréférencables -->
 <!--                                  		<rdfui-resource-view uri="{{object}}" template-name="simpleUri"></rdfui-resource-view> -->
-                                 		<rdfui-resource-view uri="{{object}}" template-name="light"></rdfui-resource-view>
-                                 	</div>
+<!--                                  		<rdfui-resource-view uri="{{object}}" template-name="full"></rdfui-resource-view> -->
+<!--                                  	</div> -->
                                   	<div ng-if="objectsCtrl.hasType.literal">
 										<div ng-if="objectsCtrl.hasType.literalType.plain">
-    										{{object['@value']}} <button class="btn btn-scent" >{{object['@language']}}</button>
+    										<a href="{{graphCtrl.graphUri}}">{{object['@value']}} </a><button class="btn btn-scent" >{{object['@language']}}</button>
 										</div>
-										<div ng-if="objectsCtrl.hasType.literalType.typed">
-                                            {{object}}
-                                    	</div>
+<!-- 										<div ng-if="objectsCtrl.hasType.literalType.typed"> -->
+<!--                                             {{object}} -->
+<!--                                     	</div> -->
                                   </div>
                              	</rdfui-object>
-                            </div>
                           </rdfui-objects>
                       </rdfui-property>												               
    				</div>
    
-   				<button class="btn btn-scent" ng-click="toggle()">{{toggleText}}</button>
+<!--    				<button class="btn btn-scent" ng-click="toggle()">{{toggleText}}</button> -->
    			</rdfui-properties>
 		</rdfui-subject>
                                        

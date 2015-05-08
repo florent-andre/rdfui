@@ -353,6 +353,14 @@
             compile: function(tElement, tAttr, transclude) {
                 var contents = tElement.contents().remove();
                 var compiledContents;
+                
+                var getFirstParent = function(parentGraphCtrl){
+                    if(parentGraphCtrl.$parentGraphCtrl){
+                        return getFirstParent(parentGraphCtrl.$parentGraphCtrl);
+                    }
+                    return parentGraphCtrl;
+                };
+                
                 return function(scope, elm, attr, ctrls) {
                     
                     //this need to be placed before the compile for immediate availability for the children nodes
@@ -367,7 +375,7 @@
                     });
                     
                     if(ctrls[0]){
-                        scope.$parentGraphCtrl = ctrls[0].scope;
+                        scope.$parentGraphCtrl = getFirstParent(ctrls[0].scope);
                       
                     }
                     
@@ -2355,11 +2363,7 @@
         var getFromDisplayConfig = function(val){
             
             var index = arrayService.lazyIndexOf(displayConfig,
-                    function(a,b){
-                        console.log('333333333333333333333333333333333"');
-                        console.log(a);
-                        console.log(b);
-                        return a.short == b;},
+                    function(a,b){return a.short == b;},
                     val
             );
             
@@ -2443,12 +2447,16 @@
         
         var displayConfig = [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
                                buildPropertyObject('definition',5,null,'Definition'),
+                               buildPropertyObject('exactMatch', 20,null,'exactMatch'),
+                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#prefLabel', 20,null,null),
                               ];
         
         var minimalDisplay = {
                 type : 'accept',
                 properties : [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
                                buildPropertyObject('definition',5,null,'Definition'),
+                               //buildPropertyObject('exactMatch', 20,null,'exactMatch'),
+                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#prefLabel', 20,null,null)
                               ]
             };
         
@@ -2457,6 +2465,13 @@
                 properties : [buildPropertyObject('@id',null,null,null),
                               buildPropertyObject('@type',null,null,null),
                               buildPropertyObject('$_children',null,null,null),
+                              ]
+            };
+        
+        var lightDisplay = {
+                type : 'accept',
+                properties : [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
+                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#literalForm',5,null,'XL Literal Form'),
                               ]
             };
         
@@ -2484,6 +2499,15 @@
             if(nv){
                 updateProperties($scope.entity);
             }
+        });
+        
+        $scope.$watch('filtername',function(nv,ov){
+           if(nv){
+               if(nv == 'lightDisplay'){
+                   $scope.propertiesFilter = lightDisplay;
+                   updateProperties($scope.entity);
+               }
+           }
         });
         
         var expandText = '+';
@@ -2524,7 +2548,8 @@
             require: ['?^rdfuiGraph'],
             scope : {
               entity : '=',
-              uri : '@' //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled.
+              filtername : '@',
+              uri : '@' //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled. 
             },
             controller : 'rdfuiPropertiesCtrl',
             transclude : true,
@@ -3254,7 +3279,7 @@
     }]);
 })();
 
-angular.module('rdf.ui.tpl', ['graph/rdfuiGraph.default.tpl.html', 'langs/rdfuiLangdisplayed.tpl.html', 'langs/rdfuiMainlang.tpl.html', 'literal/rdfuiLiteralEdit.tpl.html', 'object/rdfuiObject.blank.tpl.html', 'object/rdfuiObject.default.tpl.html', 'object/rdfuiObject.full.tpl.html', 'objects/rdfuiObjects.blank.tpl.html', 'objects/rdfuiObjects.default.tpl.html', 'properties/rdfuiProperties.default.tpl.html', 'property/rdfuiProperty.baseObject.tpl.html', 'property/rdfuiProperty.blank.tpl.html', 'property/rdfuiProperty.default.tpl.html', 'resource/rdfuiResourceView.blank.tpl.html', 'resource/rdfuiResourceView.default.tpl.html', 'resource/rdfuiResourceView.full.tpl.html', 'subject/rdfuiSubject.default.tpl.html', 'subjects/rdfuiSubjects.blank.tpl.html', 'subjects/rdfuiSubjects.default.tpl.html', 'subjects/rdfuiSubjects.tpl.html', 'subjects/rdfuiSubjects.tree.node.tpl.html', 'subjects/rdfuiSubjects.tree.tpl.html']);
+angular.module('rdf.ui.tpl', ['graph/rdfuiGraph.default.tpl.html', 'langs/rdfuiLangdisplayed.tpl.html', 'langs/rdfuiMainlang.tpl.html', 'literal/rdfuiLiteralEdit.tpl.html', 'object/rdfuiObject.blank.tpl.html', 'object/rdfuiObject.default.tpl.html', 'object/rdfuiObject.full.tpl.html', 'objects/rdfuiObjects.blank.tpl.html', 'objects/rdfuiObjects.default.tpl.html', 'properties/rdfuiProperties.default.tpl.html', 'property/rdfuiProperty.baseObject.tpl.html', 'property/rdfuiProperty.blank.tpl.html', 'property/rdfuiProperty.default.tpl.html', 'resource/rdfuiResourceView.blank.tpl.html', 'resource/rdfuiResourceView.default.tpl.html', 'resource/rdfuiResourceView.full.tpl.html', 'resource/rdfuiResourceView.light.tpl.html', 'resource/rdfuiResourceView.simpleUri.tpl.html', 'subject/rdfuiSubject.default.tpl.html', 'subjects/rdfuiSubjects.blank.tpl.html', 'subjects/rdfuiSubjects.default.tpl.html', 'subjects/rdfuiSubjects.tpl.html', 'subjects/rdfuiSubjects.tree.node.tpl.html', 'subjects/rdfuiSubjects.tree.tpl.html']);
 
 angular.module("graph/rdfuiGraph.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("graph/rdfuiGraph.default.tpl.html",
@@ -3422,6 +3447,7 @@ angular.module("resource/rdfuiResourceView.blank.tpl.html", []).run(["$templateC
 
 angular.module("resource/rdfuiResourceView.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("resource/rdfuiResourceView.default.tpl.html",
+    "<!-- TODO : update this template regarding all the new developements -->\n" +
     "<a href=\"{{accessUri}}\">\n" +
     "	<span ng-repeat=\"v in getLiteralValues(uri)\">{{v['@value']}}</</span>\n" +
     "</a>\n" +
@@ -3455,7 +3481,10 @@ angular.module("resource/rdfuiResourceView.full.tpl.html", []).run(["$templateCa
     "	                                            >\n" +
     "                                \n" +
     "                                 	<div ng-if=\"objectsCtrl.hasType.resource\">\n" +
-    "                                   		this is a ressource :: TODO : manage the dereferencing or not, have a look to rdfui-resource-view directive\n" +
+    "                                 		<!-- TODO : put all the logic for defining the template name in the objectCtrl -->\n" +
+    "                                 		<!-- pour les uri non deréférencables -->\n" +
+    "<!--                                  		<rdfui-resource-view uri=\"{{object}}\" template-name=\"simpleUri\"></rdfui-resource-view> -->\n" +
+    "                                 		<rdfui-resource-view uri=\"{{object}}\" template-name=\"light\"></rdfui-resource-view>\n" +
     "                                 	</div>\n" +
     "                                  	<div ng-if=\"objectsCtrl.hasType.literal\">\n" +
     "										<div ng-if=\"objectsCtrl.hasType.literalType.plain\">\n" +
@@ -3479,6 +3508,73 @@ angular.module("resource/rdfuiResourceView.full.tpl.html", []).run(["$templateCa
     "</rdfui-graph>\n" +
     "				\n" +
     "						");
+}]);
+
+angular.module("resource/rdfuiResourceView.light.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("resource/rdfuiResourceView.light.tpl.html",
+    "<!-- <p>this is the light display : {{uri}}</p> -->\n" +
+    "<rdfui-graph graph-uri=\"{{uri}}\" drf-type=\"local\">\n" +
+    "<!-- 	<p>the graph content :: {{graph}}</p> -->\n" +
+    "	<rdfui-subjects graph-data=\"graph\" template-name=\"blank\">\n" +
+    "<!-- 		<p>subjectss : {{$subjects}}</p> -->\n" +
+    "<!-- 		<p>subject :: {{$subjects[0]}}</p> -->\n" +
+    "		<rdfui-subject entity=\"$subjects[0]\">\n" +
+    "<!-- 			<p>entity :: {{entity}}</p> -->\n" +
+    "			<rdfui-properties entity=\"entity\" filtername=\"lightDisplay\">\n" +
+    "<!-- 				<p>properties :: {{$properties}} -- {{filtername}}</p> -->\n" +
+    "   				<div ng-repeat=\"prop in $properties\">\n" +
+    "   					<rdfui-property ng-model=\"entity\" \n" +
+    "                                    subject=\"entity\"\n" +
+    "                                    property-name=\"{{prop.short}}\"\n" +
+    "                                    property-label=\"{{prop.human}}\"\n" +
+    "                                    langs=\"graphCtrl.lang.available\"\n" +
+    "                                    selectedLang=\"graphCtrl.lang.main\"\n" +
+    "                                    template-name=\"blank\"\n" +
+    "                                    >\n" +
+    "                    	<rdfui-objects ng-model=\"objects\"\n" +
+    "                                       objects=\"objects\"\n" +
+    "                                       template-name=\"blank\">\n" +
+    "                                       <p>uri : {{graphCtrl.graphUri}}</p>\n" +
+    "                       			<rdfui-object ng-repeat=\"obj in objects\"\n" +
+    "	                                            object=\"obj\"\n" +
+    "	                                            template-name=\"full\"\n" +
+    "	                                            maxdfdlevel=\"2\"\n" +
+    "	                                            >\n" +
+    "<!--                                  	<div ng-if=\"objectsCtrl.hasType.resource\"> -->\n" +
+    "                                 		<!-- TODO : put all the logic for defining the template name in the objectCtrl -->\n" +
+    "                                 		<!-- pour les uri non deréférencables -->\n" +
+    "<!--                                  		<rdfui-resource-view uri=\"{{object}}\" template-name=\"simpleUri\"></rdfui-resource-view> -->\n" +
+    "<!--                                  		<rdfui-resource-view uri=\"{{object}}\" template-name=\"full\"></rdfui-resource-view> -->\n" +
+    "<!--                                  	</div> -->\n" +
+    "                                  	<div ng-if=\"objectsCtrl.hasType.literal\">\n" +
+    "										<div ng-if=\"objectsCtrl.hasType.literalType.plain\">\n" +
+    "    										<a href=\"{{graphCtrl.graphUri}}\">{{object['@value']}} </a><button class=\"btn btn-scent\" >{{object['@language']}}</button>\n" +
+    "										</div>\n" +
+    "<!-- 										<div ng-if=\"objectsCtrl.hasType.literalType.typed\"> -->\n" +
+    "<!--                                             {{object}} -->\n" +
+    "<!--                                     	</div> -->\n" +
+    "                                  </div>\n" +
+    "                             	</rdfui-object>\n" +
+    "                          </rdfui-objects>\n" +
+    "                      </rdfui-property>												               \n" +
+    "   				</div>\n" +
+    "   \n" +
+    "<!--    				<button class=\"btn btn-scent\" ng-click=\"toggle()\">{{toggleText}}</button> -->\n" +
+    "   			</rdfui-properties>\n" +
+    "		</rdfui-subject>\n" +
+    "                                       \n" +
+    "    </rdfui-subjects>\n" +
+    "</rdfui-graph>\n" +
+    "				\n" +
+    "						");
+}]);
+
+angular.module("resource/rdfuiResourceView.simpleUri.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("resource/rdfuiResourceView.simpleUri.tpl.html",
+    "<a href=\"{{accessUri}}\" target=\"blank\">\n" +
+    "	{{accessUri}}\n" +
+    "</a>\n" +
+    "<ng-transclude></ng-transclude>");
 }]);
 
 angular.module("subject/rdfuiSubject.default.tpl.html", []).run(["$templateCache", function($templateCache) {

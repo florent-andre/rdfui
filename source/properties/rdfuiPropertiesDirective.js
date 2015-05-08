@@ -19,7 +19,8 @@
             require: ['?^rdfuiGraph'],
             scope : {
               entity : '=',
-              uri : '@' //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled.
+              filtername : '@',
+              uri : '@' //TODO : define if uri have to be with @ or not. and how to manage if entity and uri are filled. 
             },
             controller : 'rdfuiPropertiesCtrl',
             transclude : true,

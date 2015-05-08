@@ -31,11 +31,7 @@
         var getFromDisplayConfig = function(val){
             
             var index = arrayService.lazyIndexOf(displayConfig,
-                    function(a,b){
-                        console.log('333333333333333333333333333333333"');
-                        console.log(a);
-                        console.log(b);
-                        return a.short == b;},
+                    function(a,b){return a.short == b;},
                     val
             );
             
@@ -119,12 +115,16 @@
         
         var displayConfig = [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
                                buildPropertyObject('definition',5,null,'Definition'),
+                               buildPropertyObject('exactMatch', 20,null,'exactMatch'),
+                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#prefLabel', 20,null,null),
                               ];
         
         var minimalDisplay = {
                 type : 'accept',
                 properties : [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
                                buildPropertyObject('definition',5,null,'Definition'),
+                               //buildPropertyObject('exactMatch', 20,null,'exactMatch'),
+                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#prefLabel', 20,null,null)
                               ]
             };
         
@@ -133,6 +133,13 @@
                 properties : [buildPropertyObject('@id',null,null,null),
                               buildPropertyObject('@type',null,null,null),
                               buildPropertyObject('$_children',null,null,null),
+                              ]
+            };
+        
+        var lightDisplay = {
+                type : 'accept',
+                properties : [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
+                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#literalForm',5,null,'XL Literal Form'),
                               ]
             };
         
@@ -160,6 +167,15 @@
             if(nv){
                 updateProperties($scope.entity);
             }
+        });
+        
+        $scope.$watch('filtername',function(nv,ov){
+           if(nv){
+               if(nv == 'lightDisplay'){
+                   $scope.propertiesFilter = lightDisplay;
+                   updateProperties($scope.entity);
+               }
+           }
         });
         
         var expandText = '+';
