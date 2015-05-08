@@ -1,0 +1,50 @@
+
+<rdfui-graph graph-uri="{{uri}}" drf-type="local">
+	<rdfui-subjects graph-data="graph" template-name="blank">
+		<rdfui-subject entity="$subjects[0]">
+			<rdfui-properties entity="entity">
+   				<div ng-repeat="prop in $properties">
+   					<rdfui-property ng-model="entity" 
+                                    subject="entity"
+                                    property-name="{{prop.short}}"
+                                    property-label="{{prop.human}}"
+                                    langs="graphCtrl.lang.available"
+                                    selectedLang="graphCtrl.lang.main"
+                                    template-name="blank"
+                                    >
+                    	<rdfui-objects ng-model="objects"
+                                       objects="objects"
+                                       template-name="blank">
+                        	<div>
+                        		<b>{{propertyCtrl.propertyLabel}} : </b>
+                       			<rdfui-object ng-repeat="obj in objects"
+	                                            object="obj"
+	                                            template-name="full"
+	                                            maxdfdlevel="2"
+	                                            >
+                                
+                                 	<div ng-if="objectsCtrl.hasType.resource">
+                                   		this is a ressource :: TODO : manage the dereferencing or not, have a look to rdfui-resource-view directive
+                                 	</div>
+                                  	<div ng-if="objectsCtrl.hasType.literal">
+										<div ng-if="objectsCtrl.hasType.literalType.plain">
+    										{{object['@value']}} <button class="btn btn-scent" >{{object['@language']}}</button>
+										</div>
+										<div ng-if="objectsCtrl.hasType.literalType.typed">
+                                            {{object}}
+                                    	</div>
+                                  </div>
+                             	</rdfui-object>
+                            </div>
+                          </rdfui-objects>
+                      </rdfui-property>												               
+   				</div>
+   
+   				<button class="btn btn-scent" ng-click="toggle()">{{toggleText}}</button>
+   			</rdfui-properties>
+		</rdfui-subject>
+                                       
+    </rdfui-subjects>
+</rdfui-graph>
+				
+						

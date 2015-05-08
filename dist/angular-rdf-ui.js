@@ -2385,6 +2385,8 @@
             }
             if(human){
                 res.human = human;
+            }else{
+                res.human = res.short;
             }
             return res;
         };
@@ -3252,7 +3254,7 @@
     }]);
 })();
 
-angular.module('rdf.ui.tpl', ['graph/rdfuiGraph.default.tpl.html', 'langs/rdfuiLangdisplayed.tpl.html', 'langs/rdfuiMainlang.tpl.html', 'literal/rdfuiLiteralEdit.tpl.html', 'object/rdfuiObject.blank.tpl.html', 'object/rdfuiObject.default.tpl.html', 'object/rdfuiObject.full.tpl.html', 'objects/rdfuiObjects.blank.tpl.html', 'objects/rdfuiObjects.default.tpl.html', 'properties/rdfuiProperties.default.tpl.html', 'property/rdfuiProperty.baseObject.tpl.html', 'property/rdfuiProperty.blank.tpl.html', 'property/rdfuiProperty.default.tpl.html', 'resource/rdfuiResourceView.blank.tpl.html', 'resource/rdfuiResourceView.default.tpl.html', 'subject/rdfuiSubject.default.tpl.html', 'subjects/rdfuiSubjects.blank.tpl.html', 'subjects/rdfuiSubjects.default.tpl.html', 'subjects/rdfuiSubjects.tpl.html', 'subjects/rdfuiSubjects.tree.node.tpl.html', 'subjects/rdfuiSubjects.tree.tpl.html']);
+angular.module('rdf.ui.tpl', ['graph/rdfuiGraph.default.tpl.html', 'langs/rdfuiLangdisplayed.tpl.html', 'langs/rdfuiMainlang.tpl.html', 'literal/rdfuiLiteralEdit.tpl.html', 'object/rdfuiObject.blank.tpl.html', 'object/rdfuiObject.default.tpl.html', 'object/rdfuiObject.full.tpl.html', 'objects/rdfuiObjects.blank.tpl.html', 'objects/rdfuiObjects.default.tpl.html', 'properties/rdfuiProperties.default.tpl.html', 'property/rdfuiProperty.baseObject.tpl.html', 'property/rdfuiProperty.blank.tpl.html', 'property/rdfuiProperty.default.tpl.html', 'resource/rdfuiResourceView.blank.tpl.html', 'resource/rdfuiResourceView.default.tpl.html', 'resource/rdfuiResourceView.full.tpl.html', 'subject/rdfuiSubject.default.tpl.html', 'subjects/rdfuiSubjects.blank.tpl.html', 'subjects/rdfuiSubjects.default.tpl.html', 'subjects/rdfuiSubjects.tpl.html', 'subjects/rdfuiSubjects.tree.node.tpl.html', 'subjects/rdfuiSubjects.tree.tpl.html']);
 
 angular.module("graph/rdfuiGraph.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("graph/rdfuiGraph.default.tpl.html",
@@ -3414,7 +3416,7 @@ angular.module("property/rdfuiProperty.default.tpl.html", []).run(["$templateCac
 angular.module("resource/rdfuiResourceView.blank.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("resource/rdfuiResourceView.blank.tpl.html",
     "<!-- This is the blank template for rdfuiproperties display -->\n" +
-    "<div ng-transclude></div>\n" +
+    "<ng-transclude></ng-transclude>\n" +
     "");
 }]);
 
@@ -3423,7 +3425,60 @@ angular.module("resource/rdfuiResourceView.default.tpl.html", []).run(["$templat
     "<a href=\"{{accessUri}}\">\n" +
     "	<span ng-repeat=\"v in getLiteralValues(uri)\">{{v['@value']}}</</span>\n" +
     "</a>\n" +
-    "<div ng-transclude></div>");
+    "<ng-transclude></ng-transclude>");
+}]);
+
+angular.module("resource/rdfuiResourceView.full.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("resource/rdfuiResourceView.full.tpl.html",
+    "<rdfui-graph graph-uri=\"{{uri}}\" drf-type=\"local\">\n" +
+    "	<rdfui-subjects graph-data=\"graph\" template-name=\"blank\">\n" +
+    "		<rdfui-subject entity=\"$subjects[0]\">\n" +
+    "			<rdfui-properties entity=\"entity\">\n" +
+    "   				<div ng-repeat=\"prop in $properties\">\n" +
+    "   					<rdfui-property ng-model=\"entity\" \n" +
+    "                                    subject=\"entity\"\n" +
+    "                                    property-name=\"{{prop.short}}\"\n" +
+    "                                    property-label=\"{{prop.human}}\"\n" +
+    "                                    langs=\"graphCtrl.lang.available\"\n" +
+    "                                    selectedLang=\"graphCtrl.lang.main\"\n" +
+    "                                    template-name=\"blank\"\n" +
+    "                                    >\n" +
+    "                    	<rdfui-objects ng-model=\"objects\"\n" +
+    "                                       objects=\"objects\"\n" +
+    "                                       template-name=\"blank\">\n" +
+    "                        	<div>\n" +
+    "                        		<b>{{propertyCtrl.propertyLabel}} : </b>\n" +
+    "                       			<rdfui-object ng-repeat=\"obj in objects\"\n" +
+    "	                                            object=\"obj\"\n" +
+    "	                                            template-name=\"full\"\n" +
+    "	                                            maxdfdlevel=\"2\"\n" +
+    "	                                            >\n" +
+    "                                \n" +
+    "                                 	<div ng-if=\"objectsCtrl.hasType.resource\">\n" +
+    "                                   		this is a ressource :: TODO : manage the dereferencing or not, have a look to rdfui-resource-view directive\n" +
+    "                                 	</div>\n" +
+    "                                  	<div ng-if=\"objectsCtrl.hasType.literal\">\n" +
+    "										<div ng-if=\"objectsCtrl.hasType.literalType.plain\">\n" +
+    "    										{{object['@value']}} <button class=\"btn btn-scent\" >{{object['@language']}}</button>\n" +
+    "										</div>\n" +
+    "										<div ng-if=\"objectsCtrl.hasType.literalType.typed\">\n" +
+    "                                            {{object}}\n" +
+    "                                    	</div>\n" +
+    "                                  </div>\n" +
+    "                             	</rdfui-object>\n" +
+    "                            </div>\n" +
+    "                          </rdfui-objects>\n" +
+    "                      </rdfui-property>												               \n" +
+    "   				</div>\n" +
+    "   \n" +
+    "   				<button class=\"btn btn-scent\" ng-click=\"toggle()\">{{toggleText}}</button>\n" +
+    "   			</rdfui-properties>\n" +
+    "		</rdfui-subject>\n" +
+    "                                       \n" +
+    "    </rdfui-subjects>\n" +
+    "</rdfui-graph>\n" +
+    "				\n" +
+    "						");
 }]);
 
 angular.module("subject/rdfuiSubject.default.tpl.html", []).run(["$templateCache", function($templateCache) {

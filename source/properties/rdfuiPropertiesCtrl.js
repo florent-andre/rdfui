@@ -61,6 +61,8 @@
             }
             if(human){
                 res.human = human;
+            }else{
+                res.human = res.short;
             }
             return res;
         };
