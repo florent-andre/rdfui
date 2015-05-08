@@ -50,6 +50,11 @@ describe('Rdfui tree and detail view', function() {
       
   });
   
+  it('should display the narrower elements',function(){
+     expect('do the test on narrower element').not.toBe(null);
+     expect('test').toBe('todo');
+  });
+  
   xit('should allow to edit undefined prefLabel', function(){
       //TODO : extract code from preceding test and use it against the first "undefined" element.
   });

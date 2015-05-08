@@ -32,6 +32,7 @@ module.exports = function(config) {
 
       // tests
       'tests/**/*.spec.js',
+      'build.tests/templates-demo-test.js', //compiled test templates
       
       //tests utils
       'tests/utils/*'
@@ -39,14 +40,15 @@ module.exports = function(config) {
 
     // generate js files from html templates to expose them during testing
     preprocessors: {
-      '**/*.html': 'ng-html2js'
+      'demo/index.html': ['ng-html2js']
     },
 
     // https://github.com/karma-runner/karma-ng-html2js-preprocessor#configuration
-    ngHtml2JsPreprocessor: {
-      // setting this option will create only a single module that contains templates
-      // from all the files, so you can load them all with module('foo')
-    },
+//    ngHtml2JsPreprocessor: {
+//      // setting this option will create only a single module that contains templates
+//      // from all the files, so you can load them all with module('foo')
+//        moduleName: 'foo'
+//    },
 
     // files to exclude
     exclude: [],

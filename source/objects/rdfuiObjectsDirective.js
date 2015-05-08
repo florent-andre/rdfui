@@ -54,10 +54,12 @@
                         scope.graphCtrl = ctrls[1].scope;
                         scope.propertyCtrl = ctrls[2] ? ctrls[2].scope : null;
                         
+                        console.log('avant le wait d init ' + JSON.stringify(scope.objects));
                         scope.graphCtrl.initiated.then(function(){
                             
                             scope.hasType = graphService.guessObjectsType(scope.graphCtrl.graph, scope.propertyCtrl.propertyName, scope.objects);
-                            
+                            console.warn('%%%%%%%%%%%%%%%**********************' + JSON.stringify(scope.objects));
+                            console.log(scope.hasType);
                         });
                         
                         

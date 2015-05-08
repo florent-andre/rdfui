@@ -218,13 +218,6 @@
         $scope.lang.available = ['en','fr','es'];
         $scope.lang.displayed = $scope.lang.available;
         
-        //@deprecated use $scope.lang.* instead of this ones.
-//        $scope.mainLang = "fr"; //main lang used for display
-//        $scope.languages = ["en","fr","es"]; //list of languages available for this graph
-//        $scope.languagesDisplayed = []; //list of languages the user choose to display
-//        $scope.languagesDisplayed = $scope.languages;
-        
-        
         
         $scope.$watch('graphUri',function(nv,ov){
             if(nv){
@@ -235,14 +228,17 @@
         $scope.$watch('graphData',function(nv,ov){
             if(nv){
                 $scope.initialisation = $q.defer();
+                $scope.initiated = $scope.initialisation.promise;
                 $scope.graph = nv;
                 $scope.initialisation.resolve();
             }
         });
         
         $scope.loadGraph = function(){
+//            
+//            $scope.initialisation = $q.defer();
+//            $scope.initiated = $scope.initialisation.promise;
             
-            $scope.initialisation = $q.defer();
             //options for lazy loading
               if($scope.lazyLoading){
                   console.log('#######');
@@ -267,6 +263,8 @@
                       $scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
                       
                       $scope.initialisation.resolve();
+                      console.info('*** status initialisation');
+                      console.log($scope.initialisation);
                   });
               }else{ //a drfType is filled, so we go local (only option for now)
                   
@@ -275,6 +273,8 @@
                   $scope.graph['@context'] = angular.copy($scope.$parentGraphCtrl.graph['@context']);
                   $scope.graph['@graph'] = [graphService.findNode($scope.$parentGraphCtrl.graph,$scope.graphUri)];
                   $scope.initialisation.resolve();
+                  console.info('*** status initialisation');
+                  console.log($scope.initialisation);
               }
           };
         
@@ -2287,10 +2287,12 @@
                         scope.graphCtrl = ctrls[1].scope;
                         scope.propertyCtrl = ctrls[2] ? ctrls[2].scope : null;
                         
+                        console.log('avant le wait d init ' + JSON.stringify(scope.objects));
                         scope.graphCtrl.initiated.then(function(){
                             
                             scope.hasType = graphService.guessObjectsType(scope.graphCtrl.graph, scope.propertyCtrl.propertyName, scope.objects);
-                            
+                            console.warn('%%%%%%%%%%%%%%%**********************' + JSON.stringify(scope.objects));
+                            console.log(scope.hasType);
                         });
                         
                         

@@ -17,6 +17,7 @@ module.exports = function(grunt) {
             tempDir : 'build', //TODO : renomer tempDir en build et buildDir en distDir
             buildDir: 'dist',
             demoDir: 'demo',
+            buildTestsDir: 'build.tests',
             mockDataDirTest: 'tests/utils',
             mockDataDirDemo: 'demo/mockData',
     };
@@ -92,15 +93,24 @@ module.exports = function(grunt) {
 	    },
     
 		html2js: {
-		dist: {
-		    options: {
-			module: 'rdf.ui.tpl', 
-			    base: 'source'
-			},
-			src: ['source/**/*.html'],
-			dest: '<%= cfg.tempDir %>/templates-app.js',
-			
-			}
+    		dist: {
+    		    options: {
+    		        module: 'rdf.ui.tpl', 
+    			    base: 'source'
+    			},
+    			src: ['source/**/*.html'],
+    			dest: '<%= cfg.tempDir %>/templates-app.js',
+    			
+    		},
+//    		test: {
+//                options: {
+//                    module: 'rdf.ui.tests.directives', 
+//                    base: ''
+//                },
+//                src: ['demo/*.html','demo/tpl/*.html'],
+//                dest: '<%= cfg.buildTestsDir %>/templates-demo-test.js',
+//                
+//            },
 	    },
 
 		jshint: {
@@ -125,7 +135,7 @@ module.exports = function(grunt) {
 
 		// concat
 		concat: {
-		build: {
+		    build: {
 			        src: [
 					  '<%= cfg.srcDir %>/*.js', //TODO : remplacer par juste le main.js ??
 			          '<%= cfg.srcDir %>/**/*.js',
@@ -270,9 +280,9 @@ module.exports = function(grunt) {
 
     // default
     grunt.registerTask('default', ['tasks_list:project']);
-    grunt.registerTask('build', ['jshint:source', 'clean:build', 'karma:single', 'html2js', 'concat:build', 'cssmin', 'uglify:build', 'copy']);
-    grunt.registerTask('serve', ['clean','build', 'karma:single', 'open', 'connect:demo', 'watch']);
-    grunt.registerTask('test', ['karma:single']);
+    grunt.registerTask('build', ['jshint:source', 'clean:build', 'html2js', 'karma:single', 'concat:build', 'cssmin', 'uglify:build', 'copy']);
+    grunt.registerTask('serve', [ 'clean','build', 'karma:single', 'open', 'connect:demo', 'watch']);
+    grunt.registerTask('test', ['html2js','karma:single']);
     grunt.registerTask('test:continuous', ['karma:continuous']);
     
     //e2e protactor related
