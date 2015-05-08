@@ -31,7 +31,8 @@
 <!--           <li><a href="tree.html">Unlimited nesting</a></li> -->
 <!--           <li><a href="tree-horizontal.html">Above with horizontal sorting</a></li> -->
 <!--           <li><a href="trees.html">Connected trees</a></li> -->
-          <li><a href="groups.html">Groups &amp; Categories</a></li>
+          <li><a href="groups.html">Display for skos XL</a></li>
+          <li><a href="narrower.html">Specific demo on narrower display</a></li>
           <li><a href="referenceSearch.html">Searching for object references implementation</a></li>
           <li><a href="referenceSearchOnline.html">Demo with online data</a></li>
           <li><a href="graphList.html">Demo for graphList related functions</a></li>
@@ -41,18 +42,9 @@
     </div>
 
     <div class="row">
-<!--         <h1>new row for tests</h1> -->
         <rdfui-graph graph-uri="http://test.com/oneLangGraph">
-            
-            
-<!--             <h3>{{dir.name}}</h3> -->
-<!--             <p>{{languages}}</p> -->
-<!--             <i>{{dir.graphUri}}</i> -->
-<!--             <p>{{dir.list}}<p> -->
-<!--             <p>{{dir.test.val}}</p> -->
-        
          
-            <div class="col-md-5">
+            <div id="treeView" class="col-md-5">
                     <h3>Tree view
                       <a href="" class="btn btn-default pull-right" ng-click="collapseAll()">Collapse all</a>
                       <a href="" class="btn btn-default pull-right" ng-click="expandAll()">Expand all</a>
@@ -66,7 +58,7 @@
             </div>
             
             
-            <div class="col-md-5">
+            <div id="contentView" class="col-md-5">
                     <rdfui-mainlang></rdfui-mainlang>
                     <rdfui-langdisplayed></rdfui-langdisplayed>
                     

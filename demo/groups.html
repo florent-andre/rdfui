@@ -33,6 +33,9 @@
                     filter="treeFilter" 
                     template-name="tree">
 	             </rdfui-subjects>
+	             
+	             <br>
+	             <pre>{{graph | json}}</pre>
             </div>
             
             <div class="col-md-5">
@@ -117,10 +120,11 @@
 											                                                      template-name="full"
 											                                                      maxdfdlevel="2"
 											                                                      >
-											                                           <div><b>{{propertyCtrl.propertyLabel}} : </b>
-												                                           <div ng-if="objectsCtrl.hasType.resource">
+											                                           <div>
+											                                           		<b>{{propertyCtrl.propertyLabel}} : </b>
+												                                           	<div ng-if="objectsCtrl.hasType.resource">
 												                                             this is a ressource :: TODO : manage the dereferencing or not, have a look to rdfui-resource-view directive
-												                                           </div>
+												                                           	</div>
 												                                           <div ng-if="objectsCtrl.hasType.literal">
 	<!-- 											                                             <p>this is a literal</p> -->
 												                                                 <div ng-if="objectsCtrl.hasType.literalType.plain">
@@ -173,7 +177,9 @@
                         property-label="broader"
                         langs="lang.available"
                         selectedLang="lang.main"
-                        ></rdfui-property>
+                        >
+                        	<p>note : check the narrower case</p>
+                        </rdfui-property>
                         
                      <rdfui-property ng-model="currentNode" 
                             subject="currentNode"
@@ -181,7 +187,45 @@
                             property-label="narrower"
                             langs="lang.available"
                             selectedLang="lang.main"
-                            ></rdfui-property>
+                            >
+                            
+                            <p>{{objects}}</p>
+                            <rdfui-objects ng-model="objects"
+                                             objects="objects"
+                                             template-name="blank">
+                                             
+                                 <rdfui-object ng-repeat="obj in objects"
+					                           object="obj"
+					                           template-name="full"
+					                           maxdfdlevel="2"
+					                           >
+                					<div>
+                						<p>type de l'object : {{objectsCtrl.hasType}} : </p>
+                						<b>{{propertyCtrl.propertyLabel}} : </b>
+                 	<div ng-if="objectsCtrl.hasType.resource">
+                   this is a ressource :: TODO : manage the dereferencing or not, have a look to rdfui-resource-view directive
+                 	</div>
+                 <div ng-if="objectsCtrl.hasType.literal">
+<!-- 											                                             <p>this is a literal</p> -->
+                       <div ng-if="objectsCtrl.hasType.literalType.plain">
+<!-- 											                                                     <p>this is a plain literal</p> -->
+                           {{object['@value']}} <button class="btn btn-scent" >{{object['@language']}}</button>
+                       </div>
+                       <div ng-if="objectsCtrl.hasType.literalType.typed">
+<!-- 											                                                     <p>this is a typed literal</p> -->
+                           {{object}}
+                                                        </div>
+                 </div>
+                </div>
+            </rdfui-object>
+<!-- 	                                                                           </li> -->
+<!-- 	                                                                       </ol> -->
+                              
+                              </rdfui-objects>
+                            
+                            
+                            
+                            </rdfui-property>
             
             
              </div>   
