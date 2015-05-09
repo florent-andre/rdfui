@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 
 		// watch
 		watch: {
-			
+		    
 			livereload: {
 				files: [
 				    '<%= cfg.demoDir %>/**/*.js',
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
 				    '!<%= cfg.buildDir %>/*.js',
 				    '<%= cfg.srcDir %>/**/*.tpl.html',
 			    ],
-			    tasks: ['jshint:source', 'clean:build', 'concat:build', 'uglify:build', 'cssmin', 'copy']
+			    tasks: ['build']
 			},
 		    
 			cssmin: {
@@ -58,10 +58,10 @@ module.exports = function(grunt) {
 			    tasks: ['cssmin', 'copy']
 			},
 			
-			protractor: {
-			    files: ['<%= cfg.buildDir %>/*.js', 'tests/e2e/*.js'],
-			    tasks: ['protractor:continuous']
-			}
+//			protractor: {
+//			    files: ['<%= cfg.buildDir %>/*.js', 'tests/e2e/*.js'],
+//			    tasks: ['protractor:continuous']
+//			}
 	    },
 
 		// clean up files as part of other tasks
@@ -102,15 +102,6 @@ module.exports = function(grunt) {
     			dest: '<%= cfg.tempDir %>/templates-app.js',
     			
     		},
-//    		test: {
-//                options: {
-//                    module: 'rdf.ui.tests.directives', 
-//                    base: ''
-//                },
-//                src: ['demo/*.html','demo/tpl/*.html'],
-//                dest: '<%= cfg.buildTestsDir %>/templates-demo-test.js',
-//                
-//            },
 	    },
 
 		jshint: {
@@ -281,7 +272,7 @@ module.exports = function(grunt) {
     // default
     grunt.registerTask('default', ['tasks_list:project']);
     grunt.registerTask('build', ['jshint:source', 'clean:build', 'html2js', 'karma:single', 'concat:build', 'cssmin', 'uglify:build', 'copy']);
-    grunt.registerTask('serve', [ 'clean','build', 'karma:single', 'open', 'connect:demo', 'watch']);
+    grunt.registerTask('serve', [ 'clean','build', 'open', 'connect:demo', 'watch']);
     grunt.registerTask('test', ['html2js','karma:single']);
     grunt.registerTask('test:continuous', ['karma:continuous']);
     
