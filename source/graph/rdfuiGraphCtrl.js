@@ -105,6 +105,11 @@
             return dfd.promise;
         };
         
+        $scope.isEdit = false;
+        $scope.switchEdit = function(){
+            $scope.isEdit = !$scope.isEdit;
+        };
+        
         $scope.remove = function(node){
             console.log('TODO : implement this');
             console.warn(node);

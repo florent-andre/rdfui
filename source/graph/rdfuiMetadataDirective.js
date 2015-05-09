@@ -49,7 +49,7 @@
                         var scheme = 'urn:x-metadata:';
                         var parameters = {
                                 scheme : scheme, //the default one 
-                                endpointFn : function(/*string*/ uri){
+                                queryFn : function(/*string*/ uri){
                                     return rdfuiConfig.server+'graphs?scheme='+scheme+'&uri='+uri;
                                 }
                         };

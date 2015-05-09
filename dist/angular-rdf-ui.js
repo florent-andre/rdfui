@@ -301,6 +301,11 @@
             return dfd.promise;
         };
         
+        $scope.isEdit = false;
+        $scope.switchEdit = function(){
+            $scope.isEdit = !$scope.isEdit;
+        };
+        
         $scope.remove = function(node){
             console.log('TODO : implement this');
             console.warn(node);
@@ -1156,7 +1161,7 @@
                         var scheme = 'urn:x-metadata:';
                         var parameters = {
                                 scheme : scheme, //the default one 
-                                endpointFn : function(/*string*/ uri){
+                                queryFn : function(/*string*/ uri){
                                     return rdfuiConfig.server+'graphs?scheme='+scheme+'&uri='+uri;
                                 }
                         };
@@ -2396,8 +2401,6 @@
         };
         
         var updateProperties = function(nv){
-            console.warn('%%%%%%%%%%%%%%%%%%%%%%%%%');
-            console.log(nv);
             var prop = []; //Object.keys(nv).filter(compile($scope.propertiesFilter));
             
             var filterFn = compile($scope.propertiesFilter);
@@ -2424,14 +2427,7 @@
                         }
                         prop.push(v);
                     }
-                    console.log('do something here !!');
-                }else{
-                    console.log('do something else');
                 }
-                
-                
-                console.log('resultssszzsssss');
-                console.log(prop);
                 
             });
             
@@ -2441,41 +2437,41 @@
             });
             
             $scope.$properties = prop;
-            console.log($scope.$properties);
-            console.log('test');
         };
         
         var displayConfig = [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
                                buildPropertyObject('definition',5,null,'Definition'),
-                               buildPropertyObject('exactMatch', 20,null,'exactMatch'),
-                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#prefLabel', 20,null,null),
+                               buildPropertyObject('exactMatch', 3,null,'exactMatch'),
+                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#prefLabel', 8,null,null),
                               ];
+        var filters = {
+                minimalDisplay : {
+                        type : 'accept',
+                        properties : [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
+                                       buildPropertyObject('definition',5,null,'Definition'),
+                                       //buildPropertyObject('exactMatch', 20,null,'exactMatch'),
+                                       buildPropertyObject('http://www.w3.org/2008/05/skos-xl#prefLabel', 8,null,null)
+                                      ]
+                },
         
-        var minimalDisplay = {
-                type : 'accept',
-                properties : [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
-                               buildPropertyObject('definition',5,null,'Definition'),
-                               //buildPropertyObject('exactMatch', 20,null,'exactMatch'),
-                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#prefLabel', 20,null,null)
-                              ]
-            };
+                fullDisplay : {
+                    type : 'reject',
+                    properties : [buildPropertyObject('@id',null,null,null),
+                                  buildPropertyObject('@type',null,null,null),
+                                  buildPropertyObject('$_children',null,null,null),
+                                  buildPropertyObject('$$hashKey',null,null,null),
+                                  ]
+                },
         
-        var fullDisplay = {
-                type : 'reject',
-                properties : [buildPropertyObject('@id',null,null,null),
-                              buildPropertyObject('@type',null,null,null),
-                              buildPropertyObject('$_children',null,null,null),
-                              ]
-            };
+                lightDisplay : {
+                    type : 'accept',
+                    properties : [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
+                                   buildPropertyObject('http://www.w3.org/2008/05/skos-xl#literalForm',5,null,'XL Literal Form'),
+                                  ]
+                },
+        };
         
-        var lightDisplay = {
-                type : 'accept',
-                properties : [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
-                               buildPropertyObject('http://www.w3.org/2008/05/skos-xl#literalForm',5,null,'XL Literal Form'),
-                              ]
-            };
-        
-        $scope.propertiesFilter = minimalDisplay;
+        $scope.propertiesFilter = filters.minimalDisplay;
         
         
         //TODO : use a watch collection to react on change for the differents attributes
@@ -2503,8 +2499,11 @@
         
         $scope.$watch('filtername',function(nv,ov){
            if(nv){
-               if(nv == 'lightDisplay'){
-                   $scope.propertiesFilter = lightDisplay;
+               if(filters[nv]){
+                   $scope.propertiesFilter = filters[nv];
+                   updateProperties($scope.entity);
+               }else{//default value
+                   $scope.propertiesFilter = filters.fullDisplay;
                    updateProperties($scope.entity);
                }
            }
@@ -2517,7 +2516,7 @@
         
         $scope.toggle = function(){
             $scope.toggleText = $scope.toggleText == expandText ? colapseText : expandText;
-            $scope.propertiesFilter = $scope.propertiesFilter == fullDisplay ? minimalDisplay : fullDisplay;
+            $scope.propertiesFilter = $scope.propertiesFilter == filters.fullDisplay ? filters.minimalDisplay : filters.fullDisplay;
         };
         
         return $scope;
@@ -2572,7 +2571,7 @@
                         scope.graphCtrl = ctrls[0].scope;
                         //Expose the user controler before the use of graph directive
                         scope.$parentScope = scope.graphCtrl.$parentScope;
-                        
+                            
 //                        console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss');
 //                        console.log(scope.$parentScope);
 //                        console.log(scope.graphCtrl.$parentScope == null);
@@ -3378,7 +3377,8 @@ angular.module("objects/rdfuiObjects.default.tpl.html", []).run(["$templateCache
 angular.module("properties/rdfuiProperties.default.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("properties/rdfuiProperties.default.tpl.html",
     "<!-- this is the default, empty template when you don't want to use subject's templates -->\n" +
-    "<ng-transclude></ng-transclude>");
+    "<ng-transclude></ng-transclude>\n" +
+    "");
 }]);
 
 angular.module("property/rdfuiProperty.baseObject.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -3512,16 +3512,10 @@ angular.module("resource/rdfuiResourceView.full.tpl.html", []).run(["$templateCa
 
 angular.module("resource/rdfuiResourceView.light.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("resource/rdfuiResourceView.light.tpl.html",
-    "<!-- <p>this is the light display : {{uri}}</p> -->\n" +
     "<rdfui-graph graph-uri=\"{{uri}}\" drf-type=\"local\">\n" +
-    "<!-- 	<p>the graph content :: {{graph}}</p> -->\n" +
     "	<rdfui-subjects graph-data=\"graph\" template-name=\"blank\">\n" +
-    "<!-- 		<p>subjectss : {{$subjects}}</p> -->\n" +
-    "<!-- 		<p>subject :: {{$subjects[0]}}</p> -->\n" +
     "		<rdfui-subject entity=\"$subjects[0]\">\n" +
-    "<!-- 			<p>entity :: {{entity}}</p> -->\n" +
     "			<rdfui-properties entity=\"entity\" filtername=\"lightDisplay\">\n" +
-    "<!-- 				<p>properties :: {{$properties}} -- {{filtername}}</p> -->\n" +
     "   				<div ng-repeat=\"prop in $properties\">\n" +
     "   					<rdfui-property ng-model=\"entity\" \n" +
     "                                    subject=\"entity\"\n" +
@@ -3534,7 +3528,6 @@ angular.module("resource/rdfuiResourceView.light.tpl.html", []).run(["$templateC
     "                    	<rdfui-objects ng-model=\"objects\"\n" +
     "                                       objects=\"objects\"\n" +
     "                                       template-name=\"blank\">\n" +
-    "                                       <p>uri : {{graphCtrl.graphUri}}</p>\n" +
     "                       			<rdfui-object ng-repeat=\"obj in objects\"\n" +
     "	                                            object=\"obj\"\n" +
     "	                                            template-name=\"full\"\n" +
