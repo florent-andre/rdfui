@@ -67,13 +67,7 @@
                     //TODO : remove that to use directly ng-model
                     scope.$watch('subject',function(nv,ov){
                         if(nv != null){
-                            var objs = nv[scope.propertyName];
-                            if(!objs) {objs = [];}
-                            if (!Array.isArray(objs)){ objs = [objs];}
-                            scope.objects = objs;
-//                            if(scope.objects && typeof scope.objects[0] == 'string') {
-//                                scope.isResource = true;
-//                            }
+                            scope.objects = nv[scope.propertyName];
                         }
                         
                     });

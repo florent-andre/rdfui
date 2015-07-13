@@ -16,7 +16,7 @@
 	  
 	  //let all the requests to change endpoint pass
 	  //TODO : create a mock response
-	  $httpBackend.when('POST', /\/history\/data\/*/).passThrough();
+	  $httpBackend.when('POST', /\/history\/data\/*/).respond('mok response have to be improved');//.passThrough();
 	  
 	});
   

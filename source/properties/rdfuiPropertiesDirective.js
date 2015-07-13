@@ -43,10 +43,6 @@
                         scope.graphCtrl = ctrls[0].scope;
                         //Expose the user controler before the use of graph directive
                         scope.$parentScope = scope.graphCtrl.$parentScope;
-                            
-//                        console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss');
-//                        console.log(scope.$parentScope);
-//                        console.log(scope.graphCtrl.$parentScope == null);
                     }
                     
                 };

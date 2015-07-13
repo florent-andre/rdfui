@@ -566,6 +566,20 @@
                 //we finally build the @graph property :
                 data['@graph'] = [graphObject];
             }
+            
+            //make all the objects values as array to be able to add and remove directly in the model
+            data['@graph'].forEach(function(node){
+                Object.keys(node).forEach(function(k){
+                    console.warn(node);
+                    if(k != '@id'){
+                        if (!Array.isArray(node[k])){ node[k] = [node[k]];}
+                    }
+                    
+                });
+            });
+            
+            
+            
             //add the information about the graphUri
             data.$graphUri = graphUri;
         };
@@ -634,12 +648,7 @@
 
 
         graphService.getGraphData = function(/**String*/graphUri, /*graphQueryParameter*/ parameters){
-            console.log('c quoi ce truc');
-            console.log('bizarre');
-            console.warn('@Deprecated :: use graphService.getLazyGraph instead');
-            console.log('????');
-            console.log(parameters);
-            console.log(uri);
+
             if(!parameters){
                 parameters = {
                         scheme : '', //the default one
@@ -787,9 +796,6 @@
                                         //then add it
                                         b.$_children.push(current);
                                     }//else do nothing.
-
-
-
                                 }else{
                                     //the parent don't have children array so we create it
                                     b.$_children = [current];
@@ -855,7 +861,7 @@
 
 
 
-        //TODO : mettre ces éléments d'history dans un graph service
+        //TODO : put this build change into an history service ?
         graphService.buildChanges = function(graph, s,p,o){
 
             var $dfd = $q.defer();//$.Deferred();
@@ -2261,6 +2267,27 @@
 //            $scope.$displayType.value = 'light';
 //        };
         
+        $scope.addObject = function(){
+            
+            if($scope.hasType.resource){
+                console.log('TODO : implent this add a ressource type');
+            }
+            
+            if($scope.hasType.literal){
+                if($scope.hasType.literalType.plain){
+                    console.log($scope.objects);
+                    $scope.objects.push({ '@language' : null, '@value' : null });
+                    
+                }
+                if($scope.hasType.literalType.typed){
+                    console.log('TODO : implent this add a typed literal');
+                }
+            }
+            
+            console.log($scope.hasType);
+            console.log('ajout d\'un nouvel object');
+            
+        };
         
         return $scope;
         
@@ -2579,10 +2606,6 @@
                         scope.graphCtrl = ctrls[0].scope;
                         //Expose the user controler before the use of graph directive
                         scope.$parentScope = scope.graphCtrl.$parentScope;
-                            
-//                        console.log('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSssss');
-//                        console.log(scope.$parentScope);
-//                        console.log(scope.graphCtrl.$parentScope == null);
                     }
                     
                 };
@@ -2703,13 +2726,7 @@
                     //TODO : remove that to use directly ng-model
                     scope.$watch('subject',function(nv,ov){
                         if(nv != null){
-                            var objs = nv[scope.propertyName];
-                            if(!objs) {objs = [];}
-                            if (!Array.isArray(objs)){ objs = [objs];}
-                            scope.objects = objs;
-//                            if(scope.objects && typeof scope.objects[0] == 'string') {
-//                                scope.isResource = true;
-//                            }
+                            scope.objects = nv[scope.propertyName];
                         }
                         
                     });
