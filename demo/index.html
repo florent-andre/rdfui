@@ -61,57 +61,59 @@
             <div id="contentView" class="col-md-5">
                     <rdfui-mainlang></rdfui-mainlang>
                     <rdfui-langdisplayed></rdfui-langdisplayed>
-                    
+                    <div>
+                    	<button class="btn btn-scent" ng-click="switchEdit()" >Edit</button>
+                    </div>
                     <p>{{currentNode['@id']}}</p>
         			
 	        			<rdfui-subject entity="currentNode">
 	        				
-	        				<rdfui-property subject="entity"
-					                        property-name="prefLabel"
-					                        property-label="prefLabels"
-					                        langs="graphCtrl.lang.available"
-					                        selectedLang="graphCtrl.lang.main"
-					                        ></rdfui-property>
+<!-- 	        				<rdfui-property subject="entity" -->
+<!-- 					                        property-name="prefLabel" -->
+<!-- 					                        property-label="prefLabels" -->
+<!-- 					                        langs="graphCtrl.lang.available" -->
+<!-- 					                        selectedLang="graphCtrl.lang.main" -->
+<!-- 					                        ></rdfui-property> -->
 	        				
-		        			 <rdfui-property subject="entity"
-					                        property-name="altLabel"
-					                        property-label="altLabels"
-					                        langs="graphCtrl.lang.available"
-					                        selectedLang="graphCtrl.lang.main"
-					                        ></rdfui-property>
+<!-- 		        			 <rdfui-property subject="entity" -->
+<!-- 					                        property-name="altLabel" -->
+<!-- 					                        property-label="altLabels" -->
+<!-- 					                        langs="graphCtrl.lang.available" -->
+<!-- 					                        selectedLang="graphCtrl.lang.main" -->
+<!-- 					                        ></rdfui-property> -->
                     
-		                    <rdfui-property subject="entity"
-		                        property-name="hiddenLabel"
-		                        property-label="hidden Labels"
-		                        langs="graphCtrl.lang.available"
-		                        selectedLang="graphCtrl.lang.main"
-		                        ></rdfui-property>
+<!-- 		                    <rdfui-property subject="entity" -->
+<!-- 		                        property-name="hiddenLabel" -->
+<!-- 		                        property-label="hidden Labels" -->
+<!-- 		                        langs="graphCtrl.lang.available" -->
+<!-- 		                        selectedLang="graphCtrl.lang.main" -->
+<!-- 		                        ></rdfui-property> -->
 		                    
-		                    <rdfui-property subject="entity"
-		                        property-name="scopeNote"
-		                        property-label="Scope Note"
-		                        langs="graphCtrl.lang.available"
-		                        selectedLang="graphCtrl.lang.main"
-		                        ></rdfui-property>    
+<!-- 		                    <rdfui-property subject="entity" -->
+<!-- 		                        property-name="scopeNote" -->
+<!-- 		                        property-label="Scope Note" -->
+<!-- 		                        langs="graphCtrl.lang.available" -->
+<!-- 		                        selectedLang="graphCtrl.lang.main" -->
+<!-- 		                        ></rdfui-property>     -->
 		                    
 		                    
-		                    <rdfui-property subject="entity"
-		                        property-name="broader"
-		                        property-label="broader"
-		                        langs="graphCtrl.lang.available"
-		                        selectedLang="graphCtrl.lang.main"
-		                        ></rdfui-property>
+<!-- 		                    <rdfui-property subject="entity" -->
+<!-- 		                        property-name="broader" -->
+<!-- 		                        property-label="broader" -->
+<!-- 		                        langs="graphCtrl.lang.available" -->
+<!-- 		                        selectedLang="graphCtrl.lang.main" -->
+<!-- 		                        ></rdfui-property> -->
 		                        
-		                     <rdfui-property subject="entity"
-						            property-name="narrower"
-						            property-label="narrower"
-						            langs="graphCtrl.lang.available"
-						            selectedLang="graphCtrl.lang.main"
-						            ></rdfui-property>
+<!-- 		                     <rdfui-property subject="entity" -->
+<!-- 						            property-name="narrower" -->
+<!-- 						            property-label="narrower" -->
+<!-- 						            langs="graphCtrl.lang.available" -->
+<!-- 						            selectedLang="graphCtrl.lang.main" -->
+<!-- 						            ></rdfui-property> -->
 		            
-	               			<p>==============</p>
-	               			<h1>test pour l'utilisation du properties</h1>
-	               			<p>==============</p>
+<!-- 	               			<p>==============</p> -->
+<!-- 	               			<h1>test pour l'utilisation du properties</h1> -->
+<!-- 	               			<p>==============</p> -->
 	               			<rdfui-properties entity="entity" filtername="fullDisplay">
    				<div ng-repeat="prop in $properties">
    					<rdfui-property ng-model="entity" 
@@ -126,39 +128,36 @@
                                        objects="objects"
                                        template-name="blank">
                         	<div>
-                        		<h2>{{propertyCtrl.propertyLabel}} : </h2>
+                        		<h2>{{propertyCtrl.propertyLabel}} :
+                        			<div ng-if="hasType.resource" class="btn-group">
+								        <label class="btn btn-primary" ng-model="$displayType.value" btn-radio="'simpleUri'">URI</label>
+								        <label class="btn btn-primary" ng-model="$displayType.value" btn-radio="'light'">Label</label>
+								        <label class="btn btn-primary" ng-model="$displayType.value" btn-radio="'full'">Full</label>
+								    </div>
+                        		</h2>
+                        		
+                        		
                        			<rdfui-object ng-repeat="obj in objects"
 	                                            object="obj"
 	                                            template-name="full"
 	                                            maxdfdlevel="2"
 	                                            >
-                                	DD : {{$displayType}} : DD : {{name}}
-                                	
-                                	<button class="btn btn-scent" ng-click="switchDisplay()" >Edit</button>
-                                	
-                                	<h4>Radio &amp; Uncheckable Radio</h4>
-								    <pre>{{radioModel || 'null'}}</pre>
-								    <div class="btn-group">
-								        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Left'">Left</label>
-								        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Middle'">Middle</label>
-								        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Right'">Right</label>
-								    </div>
-    
+	                                            
                                  	<div ng-if="objectsCtrl.hasType.resource">
-                                 		<div ng-if="!graphCtrl.isEdit" class="bg-warning">
-	                                 		<p> case 0 : switching display </p>
-	                                 		<rdfui-resource-view ng-if="$displayType == 'simpleUri'" uri="{{object}}" template-name="simpleUri"></rdfui-resource-view>
-	                                 		<rdfui-resource-view ng-if="$displayType == 'light'" uri="{{object}}" template-name="light"></rdfui-resource-view>
-	                                 		<rdfui-resource-view ng-if="$displayType == 'full'" uri="{{object}}" template-name="full"></rdfui-resource-view>
+                                 		<div ng-if="!graphCtrl.isEdit" class="bg-warning col-md-offset-1">
+<!-- 	                                 		<p> case 0 : switching display - {{objectsCtrl.$displayType}}</p> -->
+	                                 		<rdfui-resource-view ng-if="objectsCtrl.$displayType.value == 'simpleUri'" uri="{{object}}" template-name="simpleUri"></rdfui-resource-view>
+	                                 		<rdfui-resource-view ng-if="objectsCtrl.$displayType.value == 'light'" uri="{{object}}" template-name="light"></rdfui-resource-view>
+	                                 		<rdfui-resource-view ng-if="objectsCtrl.$displayType.value == 'full'" uri="{{object}}" template-name="full"></rdfui-resource-view>
 	                                 		
 	                                 		<!-- TODO : put all the logic for defining the template name in the objectCtrl -->
 	                                 		<!-- pour les uri non deréférencables -->
-	                                 		<p> case 1 </p>
-	                                 		<rdfui-resource-view uri="{{object}}" template-name="simpleUri"></rdfui-resource-view>
-	                                 		<p> case 2 </p>
-	                                 		<rdfui-resource-view uri="{{object}}" template-name="light"></rdfui-resource-view>
-	                                 		<p> case 3 </p>
-	                                 		<rdfui-resource-view uri="{{object}}" template-name="full"></rdfui-resource-view>
+<!-- 	                                 		<p> case 1 </p> -->
+<!-- 	                                 		<rdfui-resource-view uri="{{object}}" template-name="simpleUri"></rdfui-resource-view> -->
+<!-- 	                                 		<p> case 2 </p> -->
+<!-- 	                                 		<rdfui-resource-view uri="{{object}}" template-name="light"></rdfui-resource-view> -->
+<!-- 	                                 		<p> case 3 </p> -->
+<!-- 	                                 		<rdfui-resource-view uri="{{object}}" template-name="full"></rdfui-resource-view> -->
 	                                 	</div>
 	                                 	<div ng-if="graphCtrl.isEdit">
 	                                 		//TODO : reprendre ce qui avait été fait dans le rdfuiProperty default template et directive
@@ -186,7 +185,7 @@
    				</div>
    			</rdfui-properties>
    			
-   				<h1>Fin test pour l'affichage via properties</h1>
+<!--    				<h1>Fin test pour l'affichage via properties</h1> -->
 	               			
 	               			
 	        			</rdfui-subject>
@@ -213,6 +212,7 @@
   <script src="bower_components/angular-ui-select/dist/select.js"></script>
   <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="dist/angular-rdf-ui.js"></script>
   <script src="mockData/00.test.values.moduleInitialization.js"></script>
   <script src="mockData/graphValues.js"></script>

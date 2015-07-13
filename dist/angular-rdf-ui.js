@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   //
-  angular.module('rdf.ui', ['rdf.ui.tpl','ui.select'])
+  angular.module('rdf.ui', ['rdf.ui.tpl','ui.select','ui.bootstrap'])
       //TODO : update this constants definitions
     .constant('treeConfig', {
       treeClass: 'angular-ui-tree',
@@ -301,9 +301,13 @@
             return dfd.promise;
         };
         
+        //TODO : use an objet for the text to be updated
         $scope.isEdit = false;
+        $scope.isEditText = 'Edit';
+        
         $scope.switchEdit = function(){
             $scope.isEdit = !$scope.isEdit;
+            $scope.isEditText = $scope.isEdit ? 'View' : 'Edit';
         };
         
         $scope.remove = function(node){
@@ -2192,21 +2196,8 @@
 
         $scope.name = 'objectCtrl';
         
-        $scope.$displayType = 'simpleUri';
         
         
-        $scope.switchDisplay = function(){
-            $scope.$displayType = 'light';
-        };
-        
-        
-        $scope.radioModel = 'Middle';
-
-        $scope.checkModel = {
-          left: false,
-          middle: true,
-          right: false
-        };
         
         
         return $scope;
@@ -2269,6 +2260,12 @@
         this.scope = $scope;
 
         $scope.name = 'objectsCtrl';
+        
+        //management of the display type
+        $scope.$displayType = {value : 'light'};
+//        $scope.switchDisplay = function(){
+//            $scope.$displayType.value = 'light';
+//        };
         
         
         return $scope;
@@ -3476,6 +3473,7 @@ angular.module("resource/rdfuiResourceView.full.tpl.html", []).run(["$templateCa
     "<rdfui-graph graph-uri=\"{{uri}}\" drf-type=\"local\">\n" +
     "	<rdfui-subjects graph-data=\"graph\" template-name=\"blank\">\n" +
     "		<rdfui-subject entity=\"$subjects[0]\">\n" +
+    "			<div ng-if=\"!entity\">Data for this entity can't be retrieved - look at the URI type display</div>\n" +
     "			<rdfui-properties entity=\"entity\">\n" +
     "   				<div ng-repeat=\"prop in $properties\">\n" +
     "   					<rdfui-property ng-model=\"entity\" \n" +
@@ -3516,8 +3514,6 @@ angular.module("resource/rdfuiResourceView.full.tpl.html", []).run(["$templateCa
     "                          </rdfui-objects>\n" +
     "                      </rdfui-property>												               \n" +
     "   				</div>\n" +
-    "   \n" +
-    "   				<button class=\"btn btn-scent\" ng-click=\"toggle()\">{{toggleText}}</button>\n" +
     "   			</rdfui-properties>\n" +
     "		</rdfui-subject>\n" +
     "                                       \n" +
@@ -3532,6 +3528,7 @@ angular.module("resource/rdfuiResourceView.light.tpl.html", []).run(["$templateC
     "<rdfui-graph graph-uri=\"{{uri}}\" drf-type=\"local\">\n" +
     "	<rdfui-subjects graph-data=\"graph\" template-name=\"blank\">\n" +
     "		<rdfui-subject entity=\"$subjects[0]\">\n" +
+    "			<div ng-if=\"!entity\">Data for this entity can't be retrieved - look at the URI type display</div>\n" +
     "			<rdfui-properties entity=\"entity\" filtername=\"lightDisplay\">\n" +
     "   				<div ng-repeat=\"prop in $properties\">\n" +
     "   					<rdfui-property ng-model=\"entity\" \n" +

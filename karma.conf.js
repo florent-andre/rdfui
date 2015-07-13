@@ -17,6 +17,7 @@ module.exports = function(config) {
       cfg.bowerComponents + '/angular/angular.js',
       cfg.bowerComponents + '/angular-mocks/angular-mocks.js',
       cfg.bowerComponents + '/angular-ui-select/dist/select.js',
+      cfg.bowerComponents + '/angular-bootstrap/ui-bootstrap.min.js',
       
       //jsonld related dependencies
       //TODO : remove this dependencies from the source code

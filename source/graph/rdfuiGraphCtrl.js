@@ -105,9 +105,13 @@
             return dfd.promise;
         };
         
+        //TODO : use an objet for the text to be updated
         $scope.isEdit = false;
+        $scope.isEditText = 'Edit';
+        
         $scope.switchEdit = function(){
             $scope.isEdit = !$scope.isEdit;
+            $scope.isEditText = $scope.isEdit ? 'View' : 'Edit';
         };
         
         $scope.remove = function(node){

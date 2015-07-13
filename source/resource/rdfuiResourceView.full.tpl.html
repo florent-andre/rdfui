@@ -2,6 +2,7 @@
 <rdfui-graph graph-uri="{{uri}}" drf-type="local">
 	<rdfui-subjects graph-data="graph" template-name="blank">
 		<rdfui-subject entity="$subjects[0]">
+			<div ng-if="!entity">Data for this entity can't be retrieved - look at the URI type display</div>
 			<rdfui-properties entity="entity">
    				<div ng-repeat="prop in $properties">
    					<rdfui-property ng-model="entity" 
@@ -42,8 +43,6 @@
                           </rdfui-objects>
                       </rdfui-property>												               
    				</div>
-   
-   				<button class="btn btn-scent" ng-click="toggle()">{{toggleText}}</button>
    			</rdfui-properties>
 		</rdfui-subject>
                                        

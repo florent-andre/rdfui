@@ -43,7 +43,7 @@
                     <rdfui-mainlang></rdfui-mainlang>
                     <rdfui-langdisplayed></rdfui-langdisplayed>
                     <div>
-                    	<button class="btn btn-scent" ng-click="switchEdit()" >Edit</button>
+                    	<button class="btn btn-scent" ng-click="switchEdit()" >{{isEditText}}</button>
                     </div>
                     <!-- TODO : when rdfui-subject element defined, create a rdfui-subject-id element for displaying the id (with a link or not, an absolute or relative,...) -->
                     <p>{{currentNode['@id']}}</p>
@@ -130,6 +130,7 @@
   <script src="bower_components/angular-ui-select/dist/select.js"></script>
   <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="dist/angular-rdf-ui.js"></script>
   <script src="mockData/00.test.values.moduleInitialization.js"></script>
   <script src="mockData/graphValues.js"></script>
