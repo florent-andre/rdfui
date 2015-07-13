@@ -67,37 +67,41 @@
             var prop = []; //Object.keys(nv).filter(compile($scope.propertiesFilter));
             
             var filterFn = compile($scope.propertiesFilter);
-            //step1 filter
-            Object.keys(nv).forEach(function(d){
-                
-                var index = arrayService.lazyIndexOf($scope.propertiesFilter.properties,
-                        function(a,b){ return a.short == b;},
-                        d
-                );
-                
-                var filterResult = -1 != index;
-                    
-                
-                filterResult = $scope.propertiesFilter.type == 'accept' ? filterResult : !filterResult;
-                
-                if(filterResult){
-                    if(index != -1) {
-                        prop.push($scope.propertiesFilter.properties[index]);
-                    }else{
-                        var v = getFromDisplayConfig(d);
-                        if ( v == null){
-                            v = buildPropertyObject(d,null,null,null);
-                        }
-                        prop.push(v);
-                    }
-                }
-                
-            });
             
-            //step2 sort
-            prop = prop.sort(function(a,b){
-                return b.weight - a.weight;
-            });
+            if(nv){
+              //step1 filter
+                Object.keys(nv).forEach(function(d){
+                    
+                    var index = arrayService.lazyIndexOf($scope.propertiesFilter.properties,
+                            function(a,b){ return a.short == b;},
+                            d
+                    );
+                    
+                    var filterResult = -1 != index;
+                        
+                    
+                    filterResult = $scope.propertiesFilter.type == 'accept' ? filterResult : !filterResult;
+                    
+                    if(filterResult){
+                        if(index != -1) {
+                            prop.push($scope.propertiesFilter.properties[index]);
+                        }else{
+                            var v = getFromDisplayConfig(d);
+                            if ( v == null){
+                                v = buildPropertyObject(d,null,null,null);
+                            }
+                            prop.push(v);
+                        }
+                    }
+                    
+                });
+                
+                //step2 sort
+                prop = prop.sort(function(a,b){
+                    return b.weight - a.weight;
+                });
+            }
+            
             
             $scope.$properties = prop;
         };

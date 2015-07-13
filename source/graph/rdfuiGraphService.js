@@ -209,7 +209,6 @@
 
         //TODO : remove getGraphData and then rename getLazyGraph into getGraphData
         graphService.getLazyGraph = function(/**String*/graphUri, /*graphQueryParameter*/ parameters, /*boolean*/ lazy){
-            console.log('graphService.getLazyGraph');
             if(!parameters && !lazy){
                 parameters = {
                         scheme : '', //the default one
@@ -221,7 +220,7 @@
                         }
                 };
             }
-            console.log(parameters);
+            
             var $dfd = $q.defer();
             graphInit.push($dfd);
             var uri = graphUri.replace(/ /g,'%20');
@@ -374,7 +373,10 @@
 
             var data = graph['@graph'];
                 return data.reduce(function(previous,current,index,array){
-
+                    
+                    //manage case were the only item in the @graph array is a null element
+                    if(!current){return previous;}
+                    
                     if(!filter.call(null,current)) {return previous;}
                     //0) we add a $_children array to all elements in order to allow drag children for all
                     if(!current.$_children) { current.$_children = []; }

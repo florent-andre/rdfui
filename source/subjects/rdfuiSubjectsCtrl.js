@@ -33,11 +33,8 @@
         });
         
         $scope.$watch('filter',function(nv,ov){
-            console.log('dans le watch filter');
-            console.log(arguments);
            if(nv){
                if($scope.graphCtrl.lazyLoading){
-                   console.log('************** Start lazy loading *********');
                    $scope.graphCtrl.parameters = {
                            scheme : '', //the default one 
                            queryFn : function(/*string*/ uri){

@@ -45,19 +45,15 @@
             
             //options for lazy loading
               if($scope.lazyLoading){
-                  console.log('#######');
-                  console.log($scope.parameters);
                   graphService.getLazyGraph($scope.graphUri, $scope.parameters, true).then(function(data){
-                      console.log('lazy graph data');
                       $scope.graph = data;
                       //TODO : ?? remove the graphTree building here as it's now done in a specific controller, right ??
                       //$scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
-                      
                       $scope.initialisation.resolve();
                   });
                   return;
               }
-              console.log('??? ca continue ??');
+              
               //option for 'normal fetching' and local graph extraction
               if(!$scope.drfType){
                   graphService.getLazyGraph($scope.graphUri, $scope.parameters, false).then(function(data){
@@ -67,8 +63,6 @@
                       $scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
                       
                       $scope.initialisation.resolve();
-                      console.info('*** status initialisation');
-                      console.log($scope.initialisation);
                   });
               }else{ //a drfType is filled, so we go local (only option for now)
                   
@@ -77,8 +71,6 @@
                   $scope.graph['@context'] = angular.copy($scope.$parentGraphCtrl.graph['@context']);
                   $scope.graph['@graph'] = [graphService.findNode($scope.$parentGraphCtrl.graph,$scope.graphUri)];
                   $scope.initialisation.resolve();
-                  console.info('*** status initialisation');
-                  console.log($scope.initialisation);
               }
           };
         

@@ -241,19 +241,15 @@
             
             //options for lazy loading
               if($scope.lazyLoading){
-                  console.log('#######');
-                  console.log($scope.parameters);
                   graphService.getLazyGraph($scope.graphUri, $scope.parameters, true).then(function(data){
-                      console.log('lazy graph data');
                       $scope.graph = data;
                       //TODO : ?? remove the graphTree building here as it's now done in a specific controller, right ??
                       //$scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
-                      
                       $scope.initialisation.resolve();
                   });
                   return;
               }
-              console.log('??? ca continue ??');
+              
               //option for 'normal fetching' and local graph extraction
               if(!$scope.drfType){
                   graphService.getLazyGraph($scope.graphUri, $scope.parameters, false).then(function(data){
@@ -263,8 +259,6 @@
                       $scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
                       
                       $scope.initialisation.resolve();
-                      console.info('*** status initialisation');
-                      console.log($scope.initialisation);
                   });
               }else{ //a drfType is filled, so we go local (only option for now)
                   
@@ -273,8 +267,6 @@
                   $scope.graph['@context'] = angular.copy($scope.$parentGraphCtrl.graph['@context']);
                   $scope.graph['@graph'] = [graphService.findNode($scope.$parentGraphCtrl.graph,$scope.graphUri)];
                   $scope.initialisation.resolve();
-                  console.info('*** status initialisation');
-                  console.log($scope.initialisation);
               }
           };
         
@@ -606,7 +598,6 @@
 
         //TODO : remove getGraphData and then rename getLazyGraph into getGraphData
         graphService.getLazyGraph = function(/**String*/graphUri, /*graphQueryParameter*/ parameters, /*boolean*/ lazy){
-            console.log('graphService.getLazyGraph');
             if(!parameters && !lazy){
                 parameters = {
                         scheme : '', //the default one
@@ -618,7 +609,7 @@
                         }
                 };
             }
-            console.log(parameters);
+            
             var $dfd = $q.defer();
             graphInit.push($dfd);
             var uri = graphUri.replace(/ /g,'%20');
@@ -771,7 +762,10 @@
 
             var data = graph['@graph'];
                 return data.reduce(function(previous,current,index,array){
-
+                    
+                    //manage case were the only item in the @graph array is a null element
+                    if(!current){return previous;}
+                    
                     if(!filter.call(null,current)) {return previous;}
                     //0) we add a $_children array to all elements in order to allow drag children for all
                     if(!current.$_children) { current.$_children = []; }
@@ -2331,12 +2325,8 @@
                         scope.graphCtrl = ctrls[1].scope;
                         scope.propertyCtrl = ctrls[2] ? ctrls[2].scope : null;
                         
-                        console.log('avant le wait d init ' + JSON.stringify(scope.objects));
                         scope.graphCtrl.initiated.then(function(){
-                            
                             scope.hasType = graphService.guessObjectsType(scope.graphCtrl.graph, scope.propertyCtrl.propertyName, scope.objects);
-                            console.warn('%%%%%%%%%%%%%%%**********************' + JSON.stringify(scope.objects));
-                            console.log(scope.hasType);
                         });
                         
                         
@@ -2418,37 +2408,41 @@
             var prop = []; //Object.keys(nv).filter(compile($scope.propertiesFilter));
             
             var filterFn = compile($scope.propertiesFilter);
-            //step1 filter
-            Object.keys(nv).forEach(function(d){
-                
-                var index = arrayService.lazyIndexOf($scope.propertiesFilter.properties,
-                        function(a,b){ return a.short == b;},
-                        d
-                );
-                
-                var filterResult = -1 != index;
-                    
-                
-                filterResult = $scope.propertiesFilter.type == 'accept' ? filterResult : !filterResult;
-                
-                if(filterResult){
-                    if(index != -1) {
-                        prop.push($scope.propertiesFilter.properties[index]);
-                    }else{
-                        var v = getFromDisplayConfig(d);
-                        if ( v == null){
-                            v = buildPropertyObject(d,null,null,null);
-                        }
-                        prop.push(v);
-                    }
-                }
-                
-            });
             
-            //step2 sort
-            prop = prop.sort(function(a,b){
-                return b.weight - a.weight;
-            });
+            if(nv){
+              //step1 filter
+                Object.keys(nv).forEach(function(d){
+                    
+                    var index = arrayService.lazyIndexOf($scope.propertiesFilter.properties,
+                            function(a,b){ return a.short == b;},
+                            d
+                    );
+                    
+                    var filterResult = -1 != index;
+                        
+                    
+                    filterResult = $scope.propertiesFilter.type == 'accept' ? filterResult : !filterResult;
+                    
+                    if(filterResult){
+                        if(index != -1) {
+                            prop.push($scope.propertiesFilter.properties[index]);
+                        }else{
+                            var v = getFromDisplayConfig(d);
+                            if ( v == null){
+                                v = buildPropertyObject(d,null,null,null);
+                            }
+                            prop.push(v);
+                        }
+                    }
+                    
+                });
+                
+                //step2 sort
+                prop = prop.sort(function(a,b){
+                    return b.weight - a.weight;
+                });
+            }
+            
             
             $scope.$properties = prop;
         };
@@ -3187,11 +3181,8 @@
         });
         
         $scope.$watch('filter',function(nv,ov){
-            console.log('dans le watch filter');
-            console.log(arguments);
            if(nv){
                if($scope.graphCtrl.lazyLoading){
-                   console.log('************** Start lazy loading *********');
                    $scope.graphCtrl.parameters = {
                            scheme : '', //the default one 
                            queryFn : function(/*string*/ uri){
@@ -3279,10 +3270,6 @@
                         scope.graphCtrl = ctrls[0].scope;
                         //Expose the user controler before the use of graph directive
                         scope.$parentScope = scope.graphCtrl.$parentScope;
-                        scope.toto = scope.graphCtrl;
-                        console.log('*******************');
-                        console.log(scope.$parentScope);
-                        console.log(scope.graphCtrl.$parentScope == null);
                     }
                     
                 };
