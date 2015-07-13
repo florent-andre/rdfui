@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   //
-  angular.module('rdf.ui', ['rdf.ui.tpl','ui.select'])
+  angular.module('rdf.ui', ['rdf.ui.tpl','ui.select','ui.bootstrap'])
       //TODO : update this constants definitions
     .constant('treeConfig', {
       treeClass: 'angular-ui-tree',
