@@ -13,57 +13,47 @@
 	  
 	  $httpBackend.when('GET', /\/skosifier\?uri=.*/).respond(graphOneLang.value);
 	  $httpBackend.when('GET', /\/tpl\/*/).passThrough();
-	  //$httpBackend.when('GET', /.*\/\.tpl\.html/).passThrough();
 	  
-//	  phones = [{name: 'phone1'}, {name: 'phone2'}];
-//
-//	  // returns the current list of phones
-//	  $httpBackend.whenGET('/phones').respond(phones);
-//
-//	  // adds a new phone to the phones array
-//	  $httpBackend.whenPOST('/phones').respond(function(method, url, data) {
-//	    var phone = angular.fromJson(data);
-//	    phones.push(phone);
-//	    return [200, phone, {}];
-//	  });
-//	  $httpBackend.whenGET(/^\/templates\//).passThrough();
-	  //...
+	  //let all the requests to change endpoint pass
+	  //TODO : create a mock response
+	  $httpBackend.when('POST', /\/history\/data\/*/).passThrough();
+	  
 	});
   
   demoApp.controller('MainCtrl', function($scope) {
-    $scope.list = [{
-      "id": 1,
-      "title": "1. dragon-breath",
-      "items": []
-    }, {
-      "id": 2,
-      "title": "2. moiré-vision",
-      "items": [{
-        "id": 21,
-        "title": "2.1. tofu-animation",
-        "items": [{
-          "id": 211,
-          "title": "2.1.1. spooky-giraffe",
-          "items": []
-        }, {
-          "id": 212,
-          "title": "2.1.2. bubble-burst",
-          "items": []
-        }],
-      }, {
-        "id": 22,
-        "title": "2.2. barehand-atomsplitting",
-        "items": []
-      }],
-    }, {
-      "id": 3,
-      "title": "3. unicorn-zapper",
-      "items": []
-    }, {
-      "id": 4,
-      "title": "4. romantic-transclusion",
-      "items": []
-    }];
+//    $scope.list = [{
+//      "id": 1,
+//      "title": "1. dragon-breath",
+//      "items": []
+//    }, {
+//      "id": 2,
+//      "title": "2. moiré-vision",
+//      "items": [{
+//        "id": 21,
+//        "title": "2.1. tofu-animation",
+//        "items": [{
+//          "id": 211,
+//          "title": "2.1.1. spooky-giraffe",
+//          "items": []
+//        }, {
+//          "id": 212,
+//          "title": "2.1.2. bubble-burst",
+//          "items": []
+//        }],
+//      }, {
+//        "id": 22,
+//        "title": "2.2. barehand-atomsplitting",
+//        "items": []
+//      }],
+//    }, {
+//      "id": 3,
+//      "title": "3. unicorn-zapper",
+//      "items": []
+//    }, {
+//      "id": 4,
+//      "title": "4. romantic-transclusion",
+//      "items": []
+//    }];
 
     $scope.selectedItem = {};
 

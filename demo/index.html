@@ -109,6 +109,84 @@
 						            selectedLang="graphCtrl.lang.main"
 						            ></rdfui-property>
 		            
+	               			<p>==============</p>
+	               			<h1>test pour l'utilisation du properties</h1>
+	               			<p>==============</p>
+	               			<rdfui-properties entity="entity" filtername="fullDisplay">
+   				<div ng-repeat="prop in $properties">
+   					<rdfui-property ng-model="entity" 
+                                    subject="entity"
+                                    property-name="{{prop.short}}"
+                                    property-label="{{prop.human}}"
+                                    langs="graphCtrl.lang.available"
+                                    selectedLang="graphCtrl.lang.main"
+                                    template-name="blank"
+                                    >
+                    	<rdfui-objects ng-model="objects"
+                                       objects="objects"
+                                       template-name="blank">
+                        	<div>
+                        		<h2>{{propertyCtrl.propertyLabel}} : </h2>
+                       			<rdfui-object ng-repeat="obj in objects"
+	                                            object="obj"
+	                                            template-name="full"
+	                                            maxdfdlevel="2"
+	                                            >
+                                	DD : {{$displayType}} : DD : {{name}}
+                                	
+                                	<button class="btn btn-scent" ng-click="switchDisplay()" >Edit</button>
+                                	
+                                	<h4>Radio &amp; Uncheckable Radio</h4>
+								    <pre>{{radioModel || 'null'}}</pre>
+								    <div class="btn-group">
+								        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Left'">Left</label>
+								        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Middle'">Middle</label>
+								        <label class="btn btn-primary" ng-model="radioModel" btn-radio="'Right'">Right</label>
+								    </div>
+    
+                                 	<div ng-if="objectsCtrl.hasType.resource">
+                                 		<div ng-if="!graphCtrl.isEdit" class="bg-warning">
+	                                 		<p> case 0 : switching display </p>
+	                                 		<rdfui-resource-view ng-if="$displayType == 'simpleUri'" uri="{{object}}" template-name="simpleUri"></rdfui-resource-view>
+	                                 		<rdfui-resource-view ng-if="$displayType == 'light'" uri="{{object}}" template-name="light"></rdfui-resource-view>
+	                                 		<rdfui-resource-view ng-if="$displayType == 'full'" uri="{{object}}" template-name="full"></rdfui-resource-view>
+	                                 		
+	                                 		<!-- TODO : put all the logic for defining the template name in the objectCtrl -->
+	                                 		<!-- pour les uri non deréférencables -->
+	                                 		<p> case 1 </p>
+	                                 		<rdfui-resource-view uri="{{object}}" template-name="simpleUri"></rdfui-resource-view>
+	                                 		<p> case 2 </p>
+	                                 		<rdfui-resource-view uri="{{object}}" template-name="light"></rdfui-resource-view>
+	                                 		<p> case 3 </p>
+	                                 		<rdfui-resource-view uri="{{object}}" template-name="full"></rdfui-resource-view>
+	                                 	</div>
+	                                 	<div ng-if="graphCtrl.isEdit">
+	                                 		//TODO : reprendre ce qui avait été fait dans le rdfuiProperty default template et directive
+	                                 	</div>
+                                 	</div>
+                                  	<div ng-if="objectsCtrl.hasType.literal">
+										<div ng-if="objectsCtrl.hasType.literalType.plain">
+											<div ng-if="!graphCtrl.isEdit">
+    										{{object['@value']}} <button class="btn btn-scent" >{{object['@language']}}</button>
+    										</div>
+    										<rdfui-literal-edit ng-if="graphCtrl.isEdit"
+											     property="propertyCtrl.propertyName"
+											     ng-model="object" 
+											     langs="graphCtrl.lang.available" 
+											></rdfui-literal-edit>
+										</div>
+										<div ng-if="objectsCtrl.hasType.literalType.typed">
+                                            {{object}}
+                                    	</div>
+                                  </div>
+                             	</rdfui-object>
+                            </div>
+                          </rdfui-objects>
+                      </rdfui-property>												               
+   				</div>
+   			</rdfui-properties>
+   			
+   				<h1>Fin test pour l'affichage via properties</h1>
 	               			
 	               			
 	        			</rdfui-subject>
