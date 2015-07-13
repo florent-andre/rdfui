@@ -218,6 +218,8 @@
         $scope.lang.available = ['en','fr','es'];
         $scope.lang.displayed = $scope.lang.available;
         
+        $scope.availableProperties = [];
+        
         
         $scope.$watch('graphUri',function(nv,ov){
             if(nv){
@@ -230,6 +232,8 @@
                 $scope.initialisation = $q.defer();
                 $scope.initiated = $scope.initialisation.promise;
                 $scope.graph = nv;
+                
+                $scope._postLoad();
                 $scope.initialisation.resolve();
             }
         });
@@ -245,6 +249,7 @@
                       $scope.graph = data;
                       //TODO : ?? remove the graphTree building here as it's now done in a specific controller, right ??
                       //$scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
+                      $scope._postLoad();
                       $scope.initialisation.resolve();
                   });
                   return;
@@ -258,6 +263,7 @@
                       //TODO : ?? remove the graphTree building here as it's now done in a specific controller, right ??
                       $scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
                       
+                      $scope._postLoad();
                       $scope.initialisation.resolve();
                   });
               }else{ //a drfType is filled, so we go local (only option for now)
@@ -266,9 +272,15 @@
                   $scope.graph = {};
                   $scope.graph['@context'] = angular.copy($scope.$parentGraphCtrl.graph['@context']);
                   $scope.graph['@graph'] = [graphService.findNode($scope.$parentGraphCtrl.graph,$scope.graphUri)];
+                  
+                  $scope._postLoad();
                   $scope.initialisation.resolve();
               }
           };
+          
+        $scope._postLoad = function(){
+            $scope.availableProperties = graphService.getProperties($scope.graph);
+        };
         
         $scope.getLiteralValues = function(/**String*/ uri){
             var labels = graphService.getLabelFromUri($scope.graph['@graph'],uri,$scope.lang.main);
@@ -281,7 +293,9 @@
                 return a['@id'] == b;
             },nodeUri);
             $scope.currentNode = g[index];
+            
         };
+        
         
         $scope.getLinkableConcepts = function(){
             
@@ -294,8 +308,8 @@
         };
         
         //TODO : use an objet for the text to be updated
-        $scope.isEdit = false;
-        $scope.isEditText = 'Edit';
+        $scope.isEdit = true;
+        $scope.isEditText = 'View';
         
         $scope.switchEdit = function(){
             $scope.isEdit = !$scope.isEdit;
@@ -570,15 +584,12 @@
             //make all the objects values as array to be able to add and remove directly in the model
             data['@graph'].forEach(function(node){
                 Object.keys(node).forEach(function(k){
-                    console.warn(node);
                     if(k != '@id'){
                         if (!Array.isArray(node[k])){ node[k] = [node[k]];}
                     }
                     
                 });
             });
-            
-            
             
             //add the information about the graphUri
             data.$graphUri = graphUri;
@@ -734,9 +745,17 @@
             if(hasType.literal){
                 //try now to guess if it's a plain or a typed literal
                 hasType.literalType = {};
-                //we take the first object
-                var obj = objects[0];
-                hasType.literalType.plain = obj['@language'] ? true : false;
+                if(!objects[0]){ //if there is no object (during creation of a new property)
+                    //we automatically define it as plain
+                    //TODO : do a better selection based on model
+                    hasType.literalType.plain = true;
+                    
+                }else{
+                  //we take the first object
+                    var obj = objects[0];
+                    hasType.literalType.plain = obj['@language'] ? true : false;
+                }
+                
                 hasType.literalType.typed = !hasType.literalType.plain;
             }
             return hasType;
@@ -858,7 +877,26 @@
 
             return results;
         };
-
+        
+        //## properties management to put in a model service
+        
+        graphService.getProperties = function(graph){
+            return Object.keys(graph['@context']);
+        };
+        
+        //get the current used properties
+        graphService.getEntityProperties = function(entity){
+            var properties = [];
+            Object.keys(entity).forEach(function(d){
+                //@id, @type and properties starting with $_ or $$ are not RDF properties
+                if( !( d == '@id' || d == '@type' || d.indexOf('$_') === 0 || d.indexOf('$$') === 0)){
+                    properties.push(d);
+                }
+            });
+            return properties;
+        };
+        
+        //## END properties management to put in a model service
 
 
         //TODO : put this build change into an history service ?
@@ -2371,9 +2409,29 @@
 
   angular.module('rdf.ui')
 
-    .controller('rdfuiPropertiesCtrl', ['$scope', '$element', '$transclude', '$compile', '$attrs', '$http', '$q', 'graphService', 'filtersService', 'arrayService',
-      function ($scope, $element, $transclude, $compile, $attrs, $http, $q, graphService,filtersService,arrayService) {
+    .controller('rdfuiPropertiesCtrl', ['$scope', '$element', '$transclude', '$compile', '$attrs', '$http', '$q', '$timeout', 'graphService', 'filtersService', 'arrayService',
+      function ($scope, $element, $transclude, $compile, $attrs, $http, $q, $timeout, graphService,filtersService,arrayService) {
         this.scope = $scope;
+        
+        
+        //part related to adding a new property
+        $scope.nodeProperties = [];
+        $scope.possibleProperties = [];
+        $scope.propertyToAdd = {value : null};
+        
+        $scope.addProperty = function(item,model){
+            $scope.entity[item] = [];
+            model = null; //in order to init the dropdown list to blank
+            item = null;
+            $timeout(function(){
+                $scope.propertyToAdd.value = undefined;
+            }, 5);
+           
+            updateProperties($scope.entity);
+            
+        };
+        
+        //end part related to adding a new property
         
         //TODO :: see if we can move this functions into the rdfuiFilterService as a properties filter
         var propertyFilter = function(entityProp,properties){
@@ -2468,10 +2526,20 @@
                 prop = prop.sort(function(a,b){
                     return b.weight - a.weight;
                 });
+                
+                
+                //another part of the update property : update the list of available properties for adding
+                //TODO : clean this part with the elements on top
+                $scope.nodeProperties = graphService.getEntityProperties(nv);
+                $scope.possibleProperties = arrayService.lazyMinus($scope.graphCtrl.availableProperties,
+                                                                   $scope.nodeProperties,
+                                                                   function(a,b){return a == b;});
             }
             
             
             $scope.$properties = prop;
+            
+            
         };
         
         var displayConfig = [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
@@ -2513,14 +2581,8 @@
         $scope.$watch('entity',function(nv,ov){
             if(nv){
                 
-                //TODO :: remove that when okay.
-                $scope.$properties = [];
-                //TODO : use the filter definition here instead where we add $_* and @id
-                Object.keys(nv).forEach(function(d){
-                    if( !((d == '@id') || d == '@type' || d.indexOf('$_') === 0)){
-                        $scope.$properties.push(d);
-                    }
-                });
+                $scope.$properties = graphService.getEntityProperties(nv);
+                
                 
                 updateProperties(nv);
             }
@@ -2969,30 +3031,19 @@
 //          return this;
 //      };
   //
-//      // ## Array.prototype.lazyMinus
-//      // Array.prototype.lazyMinus = function(f /* variable number of arrays */)
-//      // lazy minus, substract content of all array in param from the caller
-//      // **Parameters**:
-//      // *{function}* **f** The array caller param
-//      // *{array}* **searchElement** the others array 
-//      // **Returns**:
-//      // *{array}* : return a new array
-//      // **Example**:
-//      //     tab.lazyMinus(function(a,b){return a == b;}, tab2, tab3);    
-  //    
-//      Array.prototype.lazyMinus = function(f /* variable number of arrays */){
-//          var result = [];
-//          for(var i = 1; i < arguments.length; i++){
-//              var array = arguments[i];
-//              for(var j = 0; j < this.length; j++){
-//                  var po = array.lazyIndexOf(f,this[j]);
-//                  if(po === -1) {
-//                      result.push(this[j]);
-//                  }
-//              }
-//          }
-//          return result;
-//      };
+      
+      // do the substraction beetween 2 arrays with a configurable matcher
+      arrayService.lazyMinus = function(sourceArray, minusArray, f){
+          var result = [];
+          
+          for(var j = 0; j < sourceArray.length; j++){
+              var po = arrayService.lazyIndexOf(minusArray, f,sourceArray[j]);
+              if(po === -1) {
+                  result.push(sourceArray[j]);
+              }
+          }
+          return result;
+      };
   //    
 //      // ## Array.prototype.lazyUnion
 //      // Array.prototype.lazyUnion = function(f /* variable number of arrays */)
@@ -3309,10 +3360,11 @@ angular.module("langs/rdfuiLangdisplayed.tpl.html", []).run(["$templateCache", f
     "    <p>Displayed language selection : </p>\n" +
     "    <ui-select multiple \n" +
     "               ng-model=\"graphCtrl.lang.displayed\" \n" +
+    "               reset-search-input=\"true\"\n" +
     "               class=\"col-md-5\" \n" +
     "               >\n" +
     "        <ui-select-match placeholder=\"Select langs to display\">{{$item}}</ui-select-match>\n" +
-    "            <ui-select-choices repeat=\"lang in graphCtrl.lang.available\">\n" +
+    "            <ui-select-choices repeat=\"lang in graphCtrl.lang.available | filter: $select.search\">\n" +
     "                <div ng-bind-html=\"lang | highlight: $select.search\"></div>\n" +
     "        </ui-select-choices>\n" +
     "    </ui-select>\n" +

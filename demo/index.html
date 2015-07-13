@@ -65,13 +65,24 @@
                     	<button class="btn btn-scent" ng-click="switchEdit()" >{{isEditText}}</button>
                     </div>
                     <p>{{currentNode['@id']}}</p>
-                    <pre>{{currentNode | json}}</pre>
-        			<div ng-if="graphCtrl.isEdit">
-        				TODO : put here the add of properties
-        			</div>
+        			
 	        			<rdfui-subject entity="currentNode">
 	        				
 	               			<rdfui-properties entity="entity" filtername="fullDisplay">
+	               			
+	               				<!-- TODO : ?? create a special directive for that ?? -->
+	               				<div ng-if="graphCtrl.isEdit && entity != null">
+			        				<ui-select ng-model="propertyToAdd.value" 
+			        						   on-select="addProperty($item,$model)"
+			               					   >
+								        <ui-select-match placeholder="Add a property">{{$select.selected}}</ui-select-match>
+							            <ui-select-choices repeat="prop in possibleProperties | filter: $select.search">
+							                <div ng-bind-html="prop | highlight: $select.search"></div>
+								        </ui-select-choices>
+								    </ui-select>
+			        			</div>
+	               				<!-- END TODO : ?? create a special directive for that ?? -->
+	               				
 				   				<div ng-repeat="prop in $properties">
 				   					<rdfui-property ng-model="entity" 
 				                                    subject="entity"
@@ -107,7 +118,7 @@
 					                                 		<rdfui-resource-view ng-if="objectsCtrl.$displayType.value == 'full'" uri="{{object}}" template-name="full"></rdfui-resource-view>
 					                                 	</div>
 					                                 	<div ng-if="graphCtrl.isEdit">
-					                                 		//TODO : reprendre ce qui avait été fait dans le rdfuiProperty default template et directive
+					                                 		//TODO : reprendre ce qui avait été fait dans le rdfuiProperty "default template" et le controlleur (addObject function)
 					                                 	</div>
 				                                 	</div>
 				                                  	<div ng-if="objectsCtrl.hasType.literal">

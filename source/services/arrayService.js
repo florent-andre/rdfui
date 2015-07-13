@@ -140,30 +140,19 @@
 //          return this;
 //      };
   //
-//      // ## Array.prototype.lazyMinus
-//      // Array.prototype.lazyMinus = function(f /* variable number of arrays */)
-//      // lazy minus, substract content of all array in param from the caller
-//      // **Parameters**:
-//      // *{function}* **f** The array caller param
-//      // *{array}* **searchElement** the others array 
-//      // **Returns**:
-//      // *{array}* : return a new array
-//      // **Example**:
-//      //     tab.lazyMinus(function(a,b){return a == b;}, tab2, tab3);    
-  //    
-//      Array.prototype.lazyMinus = function(f /* variable number of arrays */){
-//          var result = [];
-//          for(var i = 1; i < arguments.length; i++){
-//              var array = arguments[i];
-//              for(var j = 0; j < this.length; j++){
-//                  var po = array.lazyIndexOf(f,this[j]);
-//                  if(po === -1) {
-//                      result.push(this[j]);
-//                  }
-//              }
-//          }
-//          return result;
-//      };
+      
+      // do the substraction beetween 2 arrays with a configurable matcher
+      arrayService.lazyMinus = function(sourceArray, minusArray, f){
+          var result = [];
+          
+          for(var j = 0; j < sourceArray.length; j++){
+              var po = arrayService.lazyIndexOf(minusArray, f,sourceArray[j]);
+              if(po === -1) {
+                  result.push(sourceArray[j]);
+              }
+          }
+          return result;
+      };
   //    
 //      // ## Array.prototype.lazyUnion
 //      // Array.prototype.lazyUnion = function(f /* variable number of arrays */)

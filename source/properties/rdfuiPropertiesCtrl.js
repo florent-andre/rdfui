@@ -3,9 +3,29 @@
 
   angular.module('rdf.ui')
 
-    .controller('rdfuiPropertiesCtrl', ['$scope', '$element', '$transclude', '$compile', '$attrs', '$http', '$q', 'graphService', 'filtersService', 'arrayService',
-      function ($scope, $element, $transclude, $compile, $attrs, $http, $q, graphService,filtersService,arrayService) {
+    .controller('rdfuiPropertiesCtrl', ['$scope', '$element', '$transclude', '$compile', '$attrs', '$http', '$q', '$timeout', 'graphService', 'filtersService', 'arrayService',
+      function ($scope, $element, $transclude, $compile, $attrs, $http, $q, $timeout, graphService,filtersService,arrayService) {
         this.scope = $scope;
+        
+        
+        //part related to adding a new property
+        $scope.nodeProperties = [];
+        $scope.possibleProperties = [];
+        $scope.propertyToAdd = {value : null};
+        
+        $scope.addProperty = function(item,model){
+            $scope.entity[item] = [];
+            model = null; //in order to init the dropdown list to blank
+            item = null;
+            $timeout(function(){
+                $scope.propertyToAdd.value = undefined;
+            }, 5);
+           
+            updateProperties($scope.entity);
+            
+        };
+        
+        //end part related to adding a new property
         
         //TODO :: see if we can move this functions into the rdfuiFilterService as a properties filter
         var propertyFilter = function(entityProp,properties){
@@ -100,10 +120,20 @@
                 prop = prop.sort(function(a,b){
                     return b.weight - a.weight;
                 });
+                
+                
+                //another part of the update property : update the list of available properties for adding
+                //TODO : clean this part with the elements on top
+                $scope.nodeProperties = graphService.getEntityProperties(nv);
+                $scope.possibleProperties = arrayService.lazyMinus($scope.graphCtrl.availableProperties,
+                                                                   $scope.nodeProperties,
+                                                                   function(a,b){return a == b;});
             }
             
             
             $scope.$properties = prop;
+            
+            
         };
         
         var displayConfig = [ buildPropertyObject('prefLabel',10,null,'Prefered Label'),
@@ -145,14 +175,8 @@
         $scope.$watch('entity',function(nv,ov){
             if(nv){
                 
-                //TODO :: remove that when okay.
-                $scope.$properties = [];
-                //TODO : use the filter definition here instead where we add $_* and @id
-                Object.keys(nv).forEach(function(d){
-                    if( !((d == '@id') || d == '@type' || d.indexOf('$_') === 0)){
-                        $scope.$properties.push(d);
-                    }
-                });
+                $scope.$properties = graphService.getEntityProperties(nv);
+                
                 
                 updateProperties(nv);
             }

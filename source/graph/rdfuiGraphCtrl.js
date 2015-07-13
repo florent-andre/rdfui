@@ -22,6 +22,8 @@
         $scope.lang.available = ['en','fr','es'];
         $scope.lang.displayed = $scope.lang.available;
         
+        $scope.availableProperties = [];
+        
         
         $scope.$watch('graphUri',function(nv,ov){
             if(nv){
@@ -34,6 +36,8 @@
                 $scope.initialisation = $q.defer();
                 $scope.initiated = $scope.initialisation.promise;
                 $scope.graph = nv;
+                
+                $scope._postLoad();
                 $scope.initialisation.resolve();
             }
         });
@@ -49,6 +53,7 @@
                       $scope.graph = data;
                       //TODO : ?? remove the graphTree building here as it's now done in a specific controller, right ??
                       //$scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
+                      $scope._postLoad();
                       $scope.initialisation.resolve();
                   });
                   return;
@@ -62,6 +67,7 @@
                       //TODO : ?? remove the graphTree building here as it's now done in a specific controller, right ??
                       $scope.graphTree = graphService.getTreeRepresentation(data);//['@graph'];
                       
+                      $scope._postLoad();
                       $scope.initialisation.resolve();
                   });
               }else{ //a drfType is filled, so we go local (only option for now)
@@ -70,9 +76,15 @@
                   $scope.graph = {};
                   $scope.graph['@context'] = angular.copy($scope.$parentGraphCtrl.graph['@context']);
                   $scope.graph['@graph'] = [graphService.findNode($scope.$parentGraphCtrl.graph,$scope.graphUri)];
+                  
+                  $scope._postLoad();
                   $scope.initialisation.resolve();
               }
           };
+          
+        $scope._postLoad = function(){
+            $scope.availableProperties = graphService.getProperties($scope.graph);
+        };
         
         $scope.getLiteralValues = function(/**String*/ uri){
             var labels = graphService.getLabelFromUri($scope.graph['@graph'],uri,$scope.lang.main);
@@ -85,7 +97,9 @@
                 return a['@id'] == b;
             },nodeUri);
             $scope.currentNode = g[index];
+            
         };
+        
         
         $scope.getLinkableConcepts = function(){
             
@@ -98,8 +112,8 @@
         };
         
         //TODO : use an objet for the text to be updated
-        $scope.isEdit = false;
-        $scope.isEditText = 'Edit';
+        $scope.isEdit = true;
+        $scope.isEditText = 'View';
         
         $scope.switchEdit = function(){
             $scope.isEdit = !$scope.isEdit;

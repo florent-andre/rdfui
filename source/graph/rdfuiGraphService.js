@@ -181,15 +181,12 @@
             //make all the objects values as array to be able to add and remove directly in the model
             data['@graph'].forEach(function(node){
                 Object.keys(node).forEach(function(k){
-                    console.warn(node);
                     if(k != '@id'){
                         if (!Array.isArray(node[k])){ node[k] = [node[k]];}
                     }
                     
                 });
             });
-            
-            
             
             //add the information about the graphUri
             data.$graphUri = graphUri;
@@ -345,9 +342,17 @@
             if(hasType.literal){
                 //try now to guess if it's a plain or a typed literal
                 hasType.literalType = {};
-                //we take the first object
-                var obj = objects[0];
-                hasType.literalType.plain = obj['@language'] ? true : false;
+                if(!objects[0]){ //if there is no object (during creation of a new property)
+                    //we automatically define it as plain
+                    //TODO : do a better selection based on model
+                    hasType.literalType.plain = true;
+                    
+                }else{
+                  //we take the first object
+                    var obj = objects[0];
+                    hasType.literalType.plain = obj['@language'] ? true : false;
+                }
+                
                 hasType.literalType.typed = !hasType.literalType.plain;
             }
             return hasType;
@@ -469,7 +474,26 @@
 
             return results;
         };
-
+        
+        //## properties management to put in a model service
+        
+        graphService.getProperties = function(graph){
+            return Object.keys(graph['@context']);
+        };
+        
+        //get the current used properties
+        graphService.getEntityProperties = function(entity){
+            var properties = [];
+            Object.keys(entity).forEach(function(d){
+                //@id, @type and properties starting with $_ or $$ are not RDF properties
+                if( !( d == '@id' || d == '@type' || d.indexOf('$_') === 0 || d.indexOf('$$') === 0)){
+                    properties.push(d);
+                }
+            });
+            return properties;
+        };
+        
+        //## END properties management to put in a model service
 
 
         //TODO : put this build change into an history service ?
