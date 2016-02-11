@@ -175,8 +175,8 @@ $scope.treeFilter = {
 * rdfui-* webcomponents are all isolated scope.
 * A binding to the parent controller is available throw the $parentScope object
               
-## Migrate From v1.x to v2.0
-[Migrate From v1.x to v2.0](https://github.com/JimLiu/angular-ui-tree/wiki/Migrate-From-v1.x-to-v2.0)
+
+# @TODO : this part of the document has to be updated.
 
 ## API
 
