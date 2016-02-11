@@ -40,6 +40,8 @@ grunt build
 
 ## demo
 
+In order to run the demos type this command, and a firefox browser will launch : 
+
 ```
 grunt serve
 ```
