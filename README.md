@@ -1,43 +1,47 @@
-Angular UI Tree
+Angular RDF-UI
 ======================
 
-[![Build Status](https://travis-ci.org/JimLiu/angular-ui-tree.png?branch=master)](https://travis-ci.org/JimLiu/angular-ui-tree)
-
-Angular UI Tree is an AngularJS UI component that can sort nested lists, provides drag & drop support and doesn't depend on jQuery. If you are a user who uses `angular-nestedSortable`, this is [How to migrate From v1.x to v2.0](https://github.com/JimLiu/angular-ui-tree/wiki/Migrate-From-v1.x-to-v2.0).
-
+Angular RDF-UI is a set of angular directive to make the creation of full rdf compliant user interface, simple to code, simple to use, clean and configurable.
 
 ## Features
 
-- Uses the native AngularJS scope for data binding
-- Sorted and move items through the entire tree
-- Prevent elements from accepting child nodes
+- Semantically expressives html nodes with directives
+- Default templates and configurations to display your graphs
+- Full JsonLD compliant
+- View and Edit mode with just an html attibute
+- Management of graph metadata, history, suggestion and models
+- and more to come...
 
 ## Supported browsers
 
-The Angular UI Tree is tested with the following browsers:
-
-- Chrome (stable)
-- Firefox
-- IE 8, 9 and 10
-
-For IE8 support, make sure you do the following:
-
-- include an [ES5 shim](https://github.com/es-shims/es5-shim)
-- make your [AngularJS application compatible with Internet Explorer](http://docs.angularjs.org/guide/ie)
-- use [jQuery 1.x](http://jquery.com/browser-support/)
+@TODO.
 
 ## Demo
+
+As of today, you need to compile the code and start one more command line to view it in action.
+
+@TODO : a demo page base on github hosting.
+
 Watch the Tree component in action on the [demo page](http://jimliu.github.io/angular-ui-tree/).
 
 ## Requirements
 
 - Angularjs
 
+## Compilation 
+
+```bash
+git clone git@github.com:florent-andre/rdfui.git
+cd rdfui
+npm install
+bower update
+grunt build
+```
 ## Usage
 
 ### Download
-- Using [bower](http://bower.io/) to install it. `bower install angular-ui-tree`
-- [Download](https://github.com/JimLiu/angular-ui-tree/archive/master.zip) from github.
+- Using [bower](http://bower.io/) to install it. @TODO : a publication on bower for direct usage
+- [Download](https://github.com/florent-andre/rdfui/archive/master.zip) from github.
 
 ### Load CSS
 Load the css file: `angular-ui-tree.min.css` in your application:
@@ -84,33 +88,7 @@ Injecting `ui.tree`, `ui-tree-nodes`, `ui-tree-node`, `ui-tree-handle` to your h
   </ol>
 </div>
 ```
-**Developing Notes:**
-- Adding `ui-tree` to your root element of the tree.
-- Adding `ui-tree-nodes` to the elements which contain the nodes. `ng-model` is required, and it should be an array, so that the directive knows which model to bind and update.
-- Adding `ui-tree-node` to your node element, it always follows the `ng-repeat` attribute.
-- Adding `ui-tree-handle` to the element used to drag the object.
-- All `ui-tree`, `ui-tree-nodes`, `ng-model`, `ui-tree-node` are necessary. And they can be nested.
-- If you don't add a `ui-tree-handle` for a node, the entire node can be dragged.
 
-#### Unlimited nesting HTML View or Templates Example
-
-```html
-<!-- Nested node template -->
-<script type="text/ng-template" id="nodes_renderer.html">
-  <div ui-tree-handle>
-    {{node.title}}
-  </div>
-  <ol ui-tree-nodes="" ng-model="node.nodes">
-    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
-    </li>
-  </ol>
-</script>
-<div ui-tree>
-  <ol ui-tree-nodes="" ng-model="data" id="tree-root">
-    <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-  </ol>
-</div>
-```
 
 ## Structure of angular-rdf-ui
 

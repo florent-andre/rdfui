@@ -7,7 +7,7 @@ module.exports = function(config) {
 
   config.set({
     basePath: '',
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine','phantomjs-shim'],
 
     // files to load in the browser
     files: [
@@ -39,6 +39,8 @@ module.exports = function(config) {
       'tests/utils/*'
     ],
 
+    plugins: ['karma-phantomjs-shim','karma-phantomjs-launcher','karma-jasmine','karma-ng-html2js-preprocessor'],
+    
     // generate js files from html templates to expose them during testing
     preprocessors: {
       'demo/index.html': ['ng-html2js']

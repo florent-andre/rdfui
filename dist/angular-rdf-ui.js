@@ -1238,7 +1238,7 @@
     }]);
 })();
 
-
+/* jshint -W100 */
 (function () {
   'use strict';
   angular.module('rdf.ui')
@@ -1283,7 +1283,7 @@
          * ATTENTION : a property was added for right to left language. Keep this somewhere
          * 
          */
-        /* jshint -W100 */
+        
             var isoLangs = {
                 ab : {
                     name : 'Abkhaz',

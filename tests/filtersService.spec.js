@@ -51,25 +51,11 @@ describe('filtersService', function () {
           };
     
     beforeEach(module('rdf.ui'));
-//    beforeEach(module('rdf.ui.tests.value'));
-//
+    
     beforeEach(inject(function ($rootScope, _$compile_, $injector, _filtersService_, _graphService_) {
         scope = $rootScope;
-//        $compile = _$compile_;
-        filtersService = _filtersService_;
-//        graphService = _graphService_;
-//        
-//        $httpBackend  = $injector.get('$httpBackend');
-//        
-//        $httpBackend.when('GET', /\/skosifier\?uri=.*\.graphOneLang/).respond(graphOneLang.value);
-//        $httpBackend.when('GET', /\/skosifier\?uri=.*\.graphDereference/).respond(graphDereference.value);
-        
+        filtersService = _filtersService_;    
     }));
-//    
-//    afterEach(function() {
-//        $httpBackend.verifyNoOutstandingExpectation();
-//        $httpBackend.verifyNoOutstandingRequest();
-//      });
     
     it('should print the jasmine version',function(){
         if (jasmine.version) { //the case for version 2.0.0
