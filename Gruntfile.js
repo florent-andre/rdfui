@@ -5,10 +5,10 @@ module.exports = function(grunt) {
     
     // load all grunt tasks automatically
     require('load-grunt-tasks')(grunt);
-  
-    //grunt.loadNpmTasks('grunt-html2js');    
+    
+    var serveStatic = require('serve-static');
     var mountFolder = function(connect, dir) {
-        return connect.static(require('path').resolve(dir));
+        return serveStatic(require('path').resolve(dir));
     };
 
     var cfg = {
