@@ -92,29 +92,18 @@
 //      }
       
       
-      
-      // ## Array.prototype.merge
-      // Array.prototype.merge = function(/* variable number of arrays */)
-      //    Put many arrays in one, with unique element (remove duplicates)
-      // **Parameters**:
-      // *{function}* **f** The array caller param
-      // *{array}* **searchElement** the others array 
-      // **Returns**:
-      // *{array}* : return the first array merge with others array
-      // **Example**:
-      //     tab.merge(function(a,b){return a == b;}, tab2, tab3);    
-
-//      Array.prototype.merge = function(/* variable number of arrays */){
-//          for(var i = 0; i < arguments.length; i++){
-//              var array = arguments[i];
-//              for(var j = 0; j < array.length; j++){
-//                  if(this.indexOf(array[j]) === -1) {
-//                      this.push(array[j]);
-//                  }
-//              }
-//          }
-//          return this;
-//      };
+      //add to the first array parameter the contents of others arrays with no duplicates
+      arrayService.merge = function(source /*, variable number of arrays */){
+          for(var i = 1; i < arguments.length; i++){
+              var array = arguments[i];
+              for(var j = 0; j < array.length; j++){
+                  if(source.indexOf(array[j]) === -1) {
+                      source.push(array[j]);
+                  }
+              }
+          }
+          //return this;
+      };
   //    
 //      // ## Array.prototype.lazyMerge
 //      // Array.prototype.lazyMerge = function(f /* variable number of arrays */)

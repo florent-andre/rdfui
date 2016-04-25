@@ -1167,21 +1167,12 @@
     'use strict';
     
     angular.module('rdf.ui')
-    .directive('rdfuiMetadata', ['$compile', 'rdfuiConfig', 'graphService', 'langService',
-                                 function($compile,rdfuiConfig,graphService,langService) {
+    .directive('rdfuiMetadata', ['$compile', 'rdfuiConfig', 'graphService', 'langService','arrayService',
+                                 function($compile,rdfuiConfig,graphService,langService,arrayService) {
         return {
             restrict: 'A',
             require: ['?^rdfuiGraph'], //start searching the optionnal rdfuiGraph controller on the parent DOM node
-//            scope : {
-////              graphUri : '@',
-////              drfType : '@' //dereference type can be 'local' for using the parent graphData or NULL to make a request.
-//            },
-//            controller : 'rdfuiGraphCtrl',
-//            transclude : true,
-//            templateUrl : function(elem,attrs){
-//                var tName = attrs.templateName ? attrs.templateName : 'default';
-//                return 'graph/rdfuiGraph.'+tName+'.tpl.html';
-//            },
+            
             compile: function(tElement, tAttr, transclude) {
                 var contents = tElement.contents().remove();
                 var compiledContents;
@@ -1196,8 +1187,6 @@
                     if(ctrls[0]){
                         scope.$graphCtrl = ctrls[0].scope;
                         
-                        console.warn('£££££££££££££££££££££££££££££');
-                        console.log(scope);
                         //1° TODO : a call to the graphService with an object definition of the retrive config
                         //{ scheme : 'urn:x-metadata', endpoint : 'function(uri){ ... }'}
                         var scheme = 'urn:x-metadata:';
@@ -1209,11 +1198,8 @@
                         };
                         
                         graphService.getGraphData(scope.$graphCtrl.graphUri,parameters).then(function(data){
-                            console.log('COOOLLLLL');
-                            console.log(data);
                             //graph language definition from metadatas
-                            scope.$graphCtrl.lang.available = langService.getLanguagesFromMetadata(data);
-                            //console.log(scope.$graphCtrl.languages);
+                            arrayService.merge(scope.$graphCtrl.lang.available, langService.getLanguagesFromMetadata(data));
                             //for now, by default, choose the first language of the list as mainlang
                             scope.$graphCtrl.lang.main = scope.$graphCtrl.lang.available[0];
                             //for now, by default, display all the languages
@@ -1222,6 +1208,10 @@
                             //if no language list defined in the metadata
                             if(!scope.$graphCtrl.lang.available){
                                 console.warn('there is no languages defined in the metadata of this graph !');
+                                console.warn('fallback to some default values');
+                                scope.$graphCtrl.lang.main = 'fr';
+                                scope.$graphCtrl.lang.available = ['en','fr','es'];
+                                scope.$graphCtrl.lang.displayed = scope.$graphCtrl.lang.available;
                             }
                             
                         });
@@ -2252,12 +2242,7 @@
     return {
         restrict: 'E',
         require: ['?^rdfuiGraph','^rdfuiProperty','^rdfuiObjects'],
-//        templateUrl : 'object/rdfuiObject.tpl.html',
         scope : {
-//            langs : '=', //les langues doivent être générés au niveau du rui-subject
-//            selectedLang : '=',
-//            subject : '=',
-//            uri : '@',
             object : '='
         },
         controller : 'rdfuiObjectCtrl',
@@ -2301,9 +2286,6 @@
         
         //management of the display type
         $scope.$displayType = {value : 'light'};
-//        $scope.switchDisplay = function(){
-//            $scope.$displayType.value = 'light';
-//        };
         
         $scope.addObject = function(){
             
@@ -2983,29 +2965,18 @@
 //      }
       
       
-      
-      // ## Array.prototype.merge
-      // Array.prototype.merge = function(/* variable number of arrays */)
-      //    Put many arrays in one, with unique element (remove duplicates)
-      // **Parameters**:
-      // *{function}* **f** The array caller param
-      // *{array}* **searchElement** the others array 
-      // **Returns**:
-      // *{array}* : return the first array merge with others array
-      // **Example**:
-      //     tab.merge(function(a,b){return a == b;}, tab2, tab3);    
-
-//      Array.prototype.merge = function(/* variable number of arrays */){
-//          for(var i = 0; i < arguments.length; i++){
-//              var array = arguments[i];
-//              for(var j = 0; j < array.length; j++){
-//                  if(this.indexOf(array[j]) === -1) {
-//                      this.push(array[j]);
-//                  }
-//              }
-//          }
-//          return this;
-//      };
+      //add to the first array parameter the contents of others arrays with no duplicates
+      arrayService.merge = function(source /*, variable number of arrays */){
+          for(var i = 1; i < arguments.length; i++){
+              var array = arguments[i];
+              for(var j = 0; j < array.length; j++){
+                  if(source.indexOf(array[j]) === -1) {
+                      source.push(array[j]);
+                  }
+              }
+          }
+          //return this;
+      };
   //    
 //      // ## Array.prototype.lazyMerge
 //      // Array.prototype.lazyMerge = function(f /* variable number of arrays */)
@@ -3356,34 +3327,38 @@ angular.module("graph/rdfuiGraph.default.tpl.html", []).run(["$templateCache", f
 
 angular.module("langs/rdfuiLangdisplayed.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("langs/rdfuiLangdisplayed.tpl.html",
-    "<div>\n" +
-    "    <p>Displayed language selection : </p>\n" +
-    "    <ui-select multiple \n" +
+    "<div class=\"row\">\n" +
+    "	<div class=\"col-md-4\">\n" +
+    "		<p>Displayed language selection : </p>\n" +
+    "	</div>\n" +
+    "    <div class=\"col-md-8\">\n" +
+    "    	<ui-select multiple \n" +
     "               ng-model=\"graphCtrl.lang.displayed\" \n" +
-    "               reset-search-input=\"true\"\n" +
-    "               class=\"col-md-5\" \n" +
+    "               reset-search-input=\"true\" \n" +
     "               >\n" +
-    "        <ui-select-match placeholder=\"Select langs to display\">{{$item}}</ui-select-match>\n" +
-    "            <ui-select-choices repeat=\"lang in graphCtrl.lang.available | filter: $select.search\">\n" +
-    "                <div ng-bind-html=\"lang | highlight: $select.search\"></div>\n" +
-    "        </ui-select-choices>\n" +
-    "    </ui-select>\n" +
+    "        	<ui-select-match placeholder=\"Select langs to display\">{{$item}}</ui-select-match>\n" +
+    "            	<ui-select-choices repeat=\"lang in graphCtrl.lang.available | filter: $select.search\">\n" +
+    "                	<div ng-bind-html=\"lang | highlight: $select.search\"></div>\n" +
+    "        	</ui-select-choices>\n" +
+    "    	</ui-select>\n" +
+    "    </div>\n" +
     "</div>");
 }]);
 
 angular.module("langs/rdfuiMainlang.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("langs/rdfuiMainlang.tpl.html",
-    "<div>\n" +
-    "    <p>Main language selection : </p>\n" +
-    "    <ui-select ng-model=\"graphCtrl.lang.main\" \n" +
-    "               class=\"col-md-5\" \n" +
-    "               \n" +
-    "               >\n" +
-    "        <ui-select-match placeholder=\"Select a lang in the list or search for...\">{{graphCtrl.lang.main}}</ui-select-match>\n" +
+    "<div class=\"row\">\n" +
+    "	<div class=\"col-md-4\">\n" +
+    "		<p>Main language selection : </p>\n" +
+    "	</div>\n" +
+    "    <div class=\"col-md-8\">\n" +
+    "    	<ui-select ng-model=\"graphCtrl.lang.main\">\n" +
+    "        	<ui-select-match placeholder=\"Select a lang in the list or search for...\">{{graphCtrl.lang.main}}</ui-select-match>\n" +
     "            <ui-select-choices repeat=\"lang in graphCtrl.lang.available\">\n" +
     "                <div ng-bind-html=\"lang | highlight: $select.search\"></div>\n" +
     "        </ui-select-choices>\n" +
     "    </ui-select>\n" +
+    "    </div>\n" +
     "</div>");
 }]);
 

@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>RDFui demo</title>
+  <title>RDFui demo : filter and dereference</title>
 
   <!-- Stylesheets -->
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -12,59 +13,41 @@
   <link rel="stylesheet" href="css/demo.css">
   
 </head>
-<body ng-app="demoApp">
+<body ng-app="demoApp" ng-controller="MainCtrl">
 
-  <!-- Note : europeana demo is actually the most up to date integration page. -->
-  
   <div class="container">
+    <h1 class="page-header">RDFui demo : Europeana photography</h1>
+    <a href="index.html"><i class="glyphicon glyphicon-chevron-left"></i> Back to overview page</a>
 
-    <div class="jumbotron">
-      <h1>RdfUi component</h1>
-      <p class="lead">Make rdf easy for user.</p>
-      <p><a class="btn btn-lg btn-success" href="https://github.com/JimLiu/angular-ui-tree" role="button">Code on GitHub</a></p>
-    </div>
+    <div class="row" ng-controller="globalCtrl">
     
-    <div class="row">
-      <div class="col-md-4">
-        <h2>Examples</h2>
-        <ol>
-          <li><a href="europeana.html">Europeana Photography thesaurus example</a></li>
-          <li><a href="skosxl.html">Display for skos XL</a></li>
-          <li><a href="narrower2.html">Specific demo on narrower display</a></li>
-          <li><a href="referenceSearch.html">Searching for object references implementation</a></li>
-          <li><a href="referenceSearchOnline.html">Demo with online data</a></li>
-          <li><a href="graphList.html">Demo for graphList related functions</a></li>
-<!--           <li><a href="filter.html">Filter</a></li> -->
-        </ol>
-      </div>
-    </div>
-
-    <div class="row">
-        <rdfui-graph graph-uri="http://test.com/oneLangGraph">
-         
-            <div id="treeView" class="col-md-5">
-                    <h3>Tree view
-                      <a href="" class="btn btn-default pull-right" ng-click="collapseAll()">Collapse all</a>
-                      <a href="" class="btn btn-default pull-right" ng-click="expandAll()">Expand all</a>
-                    </h3>
-                    
-                    <div ui-tree id="tree-root">
-                        <ol ui-tree-nodes="" ng-model="graphTree">
-                            <li ng-repeat="node in graphTree" ui-tree-node ng-include="'./tpl/nodes_renderer.html'"></li>
-                        </ol>
-                    </div>
+        <rdfui-graph graph-uri="http://test.com/graphDereference"
+                     rdfui-metadata
+                     >
+            
+            <!-- TODO :: rename this copy controller into "filterController" or something like that -->
+            <div class="col-md-5" ng-controller="MainCtrl">
+            
+                <rdfui-subjects 
+                    graph-data="graph"
+                    filter="treeFilter" 
+                    template-name="tree">
+	             </rdfui-subjects>
             </div>
             
-            
-            <div id="contentView" class="col-md-5">
+            <div class="col-md-7">
+                
                     <rdfui-mainlang></rdfui-mainlang>
+                    <br/>
                     <rdfui-langdisplayed></rdfui-langdisplayed>
                     <div>
                     	<button class="btn btn-scent" ng-click="switchEdit()" >{{isEditText}}</button>
                     </div>
+                    <!-- TODO : when rdfui-subject element defined, create a rdfui-subject-id element for displaying the id (with a link or not, an absolute or relative,...) -->
                     <p>{{currentNode['@id']}}</p>
-        			
-	        			<rdfui-subject entity="currentNode">
+                    
+                    <rdfui-subjects graph-data="graph" template-name="blank">
+						<rdfui-subject entity="graphCtrl.currentNode">
 	        				
 	               			<rdfui-properties entity="entity" filtername="fullDisplay">
 	               			
@@ -86,7 +69,7 @@
 				                                    subject="entity"
 				                                    property-name="{{prop.short}}"
 				                                    property-label="{{prop.human}}"
-				                                    langs="graphCtrl.lang.available"
+				                                    langs="graphCtrl.lang.displayed"
 				                                    selectedLang="graphCtrl.lang.main"
 				                                    template-name="blank"
 				                                    >
@@ -143,25 +126,22 @@
 				   				</div>
 				   			</rdfui-properties>
 	        			</rdfui-subject>
-                    
-                    
-                   
+                                       
+   				</rdfui-subjects>
             
              </div>   
         </rdfui-graph>
-		
-	</div>
-
-      
-   
+        
     </div>
-    
+
+  </div>
+
   <!-- JavaScript -->
   <!--[if IE 8]>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.min.js"></script>
   <![endif]-->
-  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-mocks/angular-mocks.js"></script>
   <script src="bower_components/angular-ui-select/dist/select.js"></script>
   <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
@@ -169,7 +149,7 @@
   <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="dist/angular-rdf-ui.js"></script>
   <script src="mockData/00.test.values.moduleInitialization.js"></script>
-  <script src="mockData/graphValues.js"></script>
-  <script src="js/index.js"></script>
+  <script src="mockData/europeanaValues.js"></script>
+  <script src="js/europeana.js"></script>
 </body>
 </html>

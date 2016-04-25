@@ -1,0 +1,36 @@
+@ngdoc overview
+@name Development add a new demo setup
+@description
+
+# how to add a new demo to this library (and make your hands dirty)
+
+## 1) Import and configure your mockData
+
+* Sources for mockData have to be placed in rdfui/tests/utils/
+* During the build, the files here are copied to rdfui/demo/mockData and are usable for your demo page
+
+* The classical structure of a mockData file is :
+``` 
+(function () {
+  'use strict';
+  // The source file for this constants values is in rdfui/tests/utils/graphValues.js
+  angular.module('rdf.ui.tests.value')
+    .constant('YOURDEMONAME', {
+      metadata : {
+      	//your metadata as jsonld here
+      },
+      value : {
+      	//your graph data as jsonld here
+      }
+    })
+})();
+```
+
+* Be carefull to change the identifier "YOURDEMONAME" in order to not break existing tests.
+
+* Remarks : this structure will be completed with "history", "models",... datas    
+
+## 2) Create you new demo page
+
+
+* 

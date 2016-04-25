@@ -11,9 +11,6 @@
         
         //management of the display type
         $scope.$displayType = {value : 'light'};
-//        $scope.switchDisplay = function(){
-//            $scope.$displayType.value = 'light';
-//        };
         
         $scope.addObject = function(){
             

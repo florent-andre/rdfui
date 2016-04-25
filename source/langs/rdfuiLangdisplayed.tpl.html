@@ -1,14 +1,17 @@
 
-<div>
-    <p>Displayed language selection : </p>
-    <ui-select multiple 
+<div class="row">
+	<div class="col-md-4">
+		<p>Displayed language selection : </p>
+	</div>
+    <div class="col-md-8">
+    	<ui-select multiple 
                ng-model="graphCtrl.lang.displayed" 
-               reset-search-input="true"
-               class="col-md-5" 
+               reset-search-input="true" 
                >
-        <ui-select-match placeholder="Select langs to display">{{$item}}</ui-select-match>
-            <ui-select-choices repeat="lang in graphCtrl.lang.available | filter: $select.search">
-                <div ng-bind-html="lang | highlight: $select.search"></div>
-        </ui-select-choices>
-    </ui-select>
+        	<ui-select-match placeholder="Select langs to display">{{$item}}</ui-select-match>
+            	<ui-select-choices repeat="lang in graphCtrl.lang.available | filter: $select.search">
+                	<div ng-bind-html="lang | highlight: $select.search"></div>
+        	</ui-select-choices>
+    	</ui-select>
+    </div>
 </div>

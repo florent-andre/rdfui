@@ -7,12 +7,7 @@
     return {
         restrict: 'E',
         require: ['?^rdfuiGraph','^rdfuiProperty','^rdfuiObjects'],
-//        templateUrl : 'object/rdfuiObject.tpl.html',
         scope : {
-//            langs : '=', //les langues doivent être générés au niveau du rui-subject
-//            selectedLang : '=',
-//            subject : '=',
-//            uri : '@',
             object : '='
         },
         controller : 'rdfuiObjectCtrl',
